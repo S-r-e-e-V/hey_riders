@@ -1,0 +1,81 @@
+.main-section {
+  display: flex;
+  height: 600px;
+  background-color: var(--yellow);
+  align-items: center;
+  padding: 20px 80px;
+}
+/* section 1 */
+.main-section .section-1 {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.main-section .section-1 > * {
+  margin: 20px 0;
+}
+.main-section .section-1 .title {
+  font-size: 50px;
+}
+
+.main-section .section-1 .signup-button {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  width: 75px;
+  height: 30px;
+  border-radius: 13px;
+  background: var(--yellow);
+  color: var(--white);
+  transition: all 0.3s;
+  z-index: 1;
+  box-sizing: border-box;
+  font-weight: 700;
+}
+
+.main-section .section-1 .signup-button:after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--gray);
+  border-radius: 10rem;
+  z-index: -2;
+}
+
+.main-section .section-1 .signup-button:before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: var(--black);
+  transition: all 0.3s;
+  border-radius: 10rem;
+  z-index: -1;
+}
+.main-section .section-1 .signup-button:hover {
+  color: var(--white);
+}
+.main-section .section-1 .signup-button:hover:before {
+  width: 100%;
+}
+
+/* .main-section .section-1 .signup-button:hover {
+  background: var(--yellow);
+  color: var(--white);
+} */
+
+/* section 2 */
+.main-section .image-section {
+  flex: 2;
+}
+.main-section .image-section img {
+  width: 100%;
+}

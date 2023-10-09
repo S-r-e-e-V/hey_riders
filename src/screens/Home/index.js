@@ -1,6 +1,11 @@
 import React from "react";
 import "./Home.css";
+import MainSection from "./MainSection";
 
 export default function Home() {
-  return <div>Work in progress</div>;
+  return (
+    <div className="home-page">
+      <MainSection />
+    </div>
+  );
 }
