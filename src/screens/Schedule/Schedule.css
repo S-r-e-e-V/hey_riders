@@ -1,0 +1,46 @@
+.schedule-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.schedule-page .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 600px;
+
+  margin-top: 70px;
+  border: 1px solid var(--yellow);
+  border-radius: 6px;
+  padding: 10px;
+}
+.schedule-page .container > * {
+  padding: 10px 0;
+}
+.schedule-page .container .title {
+  font-size: 25px;
+  font-weight: 700;
+}
+.schedule-page .container button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  padding: 0 20px;
+
+  background: linear-gradient(89.1deg, var(--yellow), var(--yellow));
+  box-shadow: 5px 5px 10px -2px var(--black);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: var(--black);
+}
+
+.schedule-page .container button:hover {
+  background: var(--white);
+}

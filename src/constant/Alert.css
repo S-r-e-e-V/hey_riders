@@ -1,0 +1,56 @@
+.react-confirm-alert-overlay {
+  background: linear-gradient(
+    72.44deg,
+    rgba(37, 0, 0, 0.938),
+    rgba(3, 0, 32, 0.938)
+  );
+}
+.react-confirm-alert {
+  width: 450px;
+  border-radius: 6px;
+  padding: 14px;
+  box-sizing: border-box;
+  background: rgba(225, 255, 255, 0.685);
+}
+.react-confirm-alert .custom-ui {
+  display: flex;
+  flex-direction: column;
+}
+.react-confirm-alert .custom-ui .heading {
+  font-size: 26px;
+  padding-bottom: 10px;
+}
+.react-confirm-alert .custom-ui .message {
+  font-size: 18px;
+}
+.react-confirm-alert .custom-ui .buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+.react-confirm-alert .custom-ui .buttons :first-child {
+  margin-right: 10px;
+}
+.react-confirm-alert .custom-ui .buttons button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  padding: 0 20px;
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 18px;
+  color: var(--black);
+
+  background: linear-gradient(
+    89.1deg,
+    rgba(69, 46, 210, 0.1) 0%,
+    rgba(199, 95, 95, 0.1) 100%
+  );
+  box-shadow: 5px 5px 10px -2px #0000000f;
+  border-radius: 45px;
+  transition: all 0.2s ease-in-out;
+}
+.react-confirm-alert .custom-ui .buttons button:hover {
+  background: #ffffff4d;
+}

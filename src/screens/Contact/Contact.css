@@ -1,0 +1,29 @@
+.contact-page .boxes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-top: 5%;
+}
+.contact-page .phone,
+.contact-page .email {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  padding: 20px;
+
+  -webkit-box-shadow: 0px 10px 13px -7px #000000,
+    5px 5px 15px -2px rgba(0, 0, 0, 0);
+  box-shadow: 0px 10px 13px -7px #000000, 5px 5px 15px -2px rgba(0, 0, 0, 0);
+}
+.contact-page .phone > a,
+.contact-page .email > a {
+  text-decoration: none;
+  color: var(--black);
+}
+.contact-page .title {
+  font-size: 18px;
+  font-weight: 700;
+}
