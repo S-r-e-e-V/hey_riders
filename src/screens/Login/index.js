@@ -63,7 +63,7 @@ export default function Login() {
   };
   return (
     <div className="login-page">
-      <span className="title">Login for Riders</span>
+      <span className="title">Login</span>
       <form className="login-container">
         <div className="input-container">
           <input
@@ -105,12 +105,17 @@ export default function Login() {
           </span>
           <span className="error">{error.password}</span>
         </div>
-        <span
-          className="forgot-password-text"
-          onClick={() => navigate("/forget-password")}
-        >
-          Forget password?
-        </span>
+        <div className="info-text">
+          <span className="signup-text" onClick={() => navigate("/signup")}>
+            Signup?
+          </span>
+          <span
+            className="forgot-password-text"
+            onClick={() => navigate("/forget-password")}
+          >
+            Forget password?
+          </span>
+        </div>
         <button onClick={() => handleSubmit()} type="button">
           Login
         </button>

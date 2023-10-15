@@ -11,6 +11,11 @@
   justify-content: space-between;
   width: 75%;
 }
+.header .titles .logo {
+  cursor: pointer;
+  width: 141px;
+  height: 68px;
+}
 .header .titles .title {
   display: flex;
   align-items: center;

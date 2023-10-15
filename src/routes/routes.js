@@ -11,6 +11,7 @@ import Signup from "../screens/Signup";
 import Header from "../components/Header";
 import Contact from "../screens/Contact";
 import Schedule from "../screens/Schedule";
+import ScheduleDetails from "../screens/ScheduleDetails";
 
 export default function Router() {
   const { isAuthenticated, setisAuthenticated } = useContext(AuthContext);
@@ -21,6 +22,7 @@ export default function Router() {
         <Routes>
           <Route exact path="/schedule" element={<Schedule />} />
           <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/schedule-details" element={<ScheduleDetails />} />
         </Routes>
       ) : (
         <Routes>

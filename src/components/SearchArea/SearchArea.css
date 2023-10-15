@@ -1,0 +1,51 @@
+.search-area {
+  display: flex;
+  border-radius: 10px;
+  padding: 10px;
+  background: linear-gradient(89.1deg, var(--white), var(--white));
+  box-shadow: 5px 5px 10px -2px var(--black);
+  gap: 10px;
+}
+.search-area .location {
+  display: flex;
+  gap: 10px;
+}
+
+/* date */
+.search-area .date {
+  position: relative;
+}
+.search-area .date .title {
+  position: absolute;
+  font-size: 12px;
+  color: var(--yellow);
+  z-index: 1;
+  left: 11px;
+  top: 10px;
+}
+.search-area .date input {
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  padding: 10px 10px 0px 10px;
+  width: 190px;
+  height: 57px;
+  font-size: 18px;
+  border: 1px solid var(--yellow);
+  border-radius: 7px;
+  /* background: linear-gradient(89.1deg, var(--lightYellow), var(--yellow));
+  box-shadow: 5px 5px 10px -2px var(--black); */
+}
+
+/* passengers */
+.search-area .passengers {
+  border: 1px solid var(--yellow);
+  border-radius: 7px;
+  padding: 10px;
+  font-size: 18px;
+}
+
+.search-area .passengers .title {
+  font-size: 12px;
+  color: var(--yellow);
+}

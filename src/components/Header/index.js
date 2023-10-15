@@ -13,6 +13,9 @@ import { AiOutlineSchedule } from "react-icons/ai";
 
 import { useNavigate } from "react-router-dom";
 
+// images
+import Logo from "../../assets/heyrides_logo.jpg";
+
 // context
 import { AuthContext } from "../../context/AuthContext";
 
@@ -25,7 +28,9 @@ export default function Header() {
   return (
     <div className="header">
       <div className="titles">
-        <span>Hey Riders</span>
+        {/* <div className="logo-section"> */}
+        <img onClick={() => navigate("/")} src={Logo} className="logo" />
+        {/* </div> */}
 
         {isAuthenticated && (
           <>

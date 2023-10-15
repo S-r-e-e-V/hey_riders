@@ -4,7 +4,7 @@ import CarImage from "../../../assets/car.png";
 
 export default function MainSection() {
   return (
-    <div className="main-section">
+    <div className="car-section">
       <div className="section-1">
         <span className="title">Reach your destination safely </span>
         <span className="content">
