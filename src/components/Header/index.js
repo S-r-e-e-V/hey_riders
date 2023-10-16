@@ -49,19 +49,19 @@ export default function Header() {
             </div>
           </>
         )}
-        <div className="title">
+        <div className="title" onClick={() => navigate("/about")}>
           <span>
             <BsExclamationCircle size={13} />
           </span>
           <span>ABOUT</span>
         </div>
-        <div className="title">
+        <div className="title" onClick={() => navigate("/ourservices")}>
           <span>
             <BsGear size={13} />
           </span>
           <span>OUR SERVICES</span>
         </div>
-        <div className="title">
+        <div className="title" onClick={() => navigate("/ourvehicles")}>
           <span>
             <BsCarFront size={13} />
           </span>

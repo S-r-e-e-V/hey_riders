@@ -10,8 +10,10 @@ import Login from "../screens/Login";
 import Signup from "../screens/Signup";
 import Header from "../components/Header";
 import Contact from "../screens/Contact";
+import About from "../screens/About";
 import Schedule from "../screens/Schedule";
 import ScheduleDetails from "../screens/ScheduleDetails";
+import OurServices from "../screens/Ourservices";
 
 export default function Router() {
   const { isAuthenticated, setisAuthenticated } = useContext(AuthContext);
@@ -22,7 +24,9 @@ export default function Router() {
         <Routes>
           <Route exact path="/schedule" element={<Schedule />} />
           <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/about" element={<About />} />
           <Route exact path="/schedule-details" element={<ScheduleDetails />} />
+          <Route exact path="/ourservices" element={<OurServices />} />
         </Routes>
       ) : (
         <Routes>
@@ -33,6 +37,8 @@ export default function Router() {
             path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
             element={<Schedule />}
           />
+          <Route exact path="/ourservices" element={<OurServices />} />
+          <Route exact path="/about" element={<About />} />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/" element={<Home />} />
           <Route path="*" element={<Home />} />

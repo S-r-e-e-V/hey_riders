@@ -15,7 +15,17 @@
   margin: 20px 0;
 }
 .car-section .section-1 .title {
-  font-size: 50px;
+  font-size: 70px;
+  font-family: 'monaco';
+  color: #000;
+  animation: fadeIn 3s forwards;
+}
+
+.car-section .section-1 .content {
+  font-size: 20px;
+  font-family: 'monaco';
+  color: #3b3b3b;
+  animation: fadeIn 4s forwards;
 }
 
 .car-section .section-1 .signup-button {
@@ -78,4 +88,8 @@
 }
 .car-section .image-section img {
   width: 100%;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }

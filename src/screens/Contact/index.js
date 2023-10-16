@@ -1,27 +1,69 @@
-import React from "react";
-import "./Contact.css";
+import React from 'react';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import './Contact.css';
 
-import { FaPhoneAlt } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+const ContactForm = () => {
+  
+  const initialValues = {
+    name: '',
+    email: '',
+    message: '',
+  };
 
-export default function Contact() {
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required('Name is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    message: Yup.string().required('Message is required'),
+  });
+
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    // Add your form submission logic here
+    console.log(values);
+    setSubmitting(false);
+    resetForm();
+  };
+
   return (
-    <div className="contact-page">
-      <div className="boxes">
-        <div className="phone">
-          <FaPhoneAlt size={30} />
-          <span className="title">Phone Number</span>
-          <a href="tel:+12269617380">Phone : +1 (226)961 - 7380</a>
-        </div>
+    <div className='pattern-background'>
+    <div className="form-container">
+      <h2 className='title'>Contact Us</h2>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({ isSubmitting }) => (
+          <Form>
+            <div className="form-group">
+              <Field type="text" name="name" placeholder="Your Name" />
+              <ErrorMessage name="name" component="div" className="error" />
+            </div>
 
-        <div className="email">
-          <MdEmail size={30} />
-          <span className="title">Email</span>
-          <a href="mailto:contact@myrideshare.ca">
-            Email : contact@myrideshare.ca
-          </a>
-        </div>
-      </div>
+            <div className="form-group">
+              <Field type="email" name="email" placeholder="Your Email" />
+              <ErrorMessage name="email" component="div" className="error" />
+            </div>
+
+            <div className="form-group">
+              <Field
+                as="textarea"
+                name="message"
+                placeholder="Your Message"
+                rows="5"
+              />
+              <ErrorMessage name="message" component="div" className="error" />
+            </div>
+
+            <button type="submit" disabled={isSubmitting}>
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
+    </div>
     </div>
   );
-}
+};
+
+export default ContactForm;
