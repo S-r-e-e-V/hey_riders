@@ -1,4 +1,4 @@
-.form-container {
+.contact-page .form-container {
   max-width: 400px;
   margin: 100px;
   padding: 50px;
@@ -6,24 +6,24 @@
   border-radius: 5px;
   background-color:#f5cb5c ;
 }
-.pattern-background {
+.contact-page {
   background-image: url('https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80');
   background-size: cover;
   padding: 10px;
 }
-.title{
+.contact-page .title{
   color: #747474;
 }
-.form-group {
+.contact-page .form-group {
   margin-bottom: 20px;
 }
 
-.error {
+.contact-page .error {
   color: red;
 }
 
-input,
-textarea {
+.contact-page input,
+.contact-page textarea {
   width: 100%;
   padding: 10px;
   border-radius: 5px;
@@ -31,7 +31,7 @@ textarea {
   margin-top: 5px;
 }
 
-button {
+.contact-page button {
   background-color: #4caf50;
   color: white;
   padding: 10px 20px;

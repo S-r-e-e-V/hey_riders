@@ -25,7 +25,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className='pattern-background'>
+    <div className='contact-page'>
     <div className="form-container">
       <h2 className='title'>Contact Us</h2>
       <Formik

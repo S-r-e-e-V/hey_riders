@@ -1,6 +1,6 @@
 import React from 'react';
 import './About.css';
-import CarImage from '../../assets/car2.jpg';
+import CarImage from '../../assets/taxi.png';
 
 const AboutPage = () => {
   return (
