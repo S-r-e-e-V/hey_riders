@@ -3,7 +3,14 @@ import "./Selector.css";
 
 import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
 
-function Selector({ mainTitle, title, items = [], ismultiselect = false }) {
+function Selector({
+  mainTitle,
+  title,
+  items = [],
+  selectedItem,
+  ismultiselect = false,
+  isError,
+}) {
   const [open, setopen] = useState(false);
   const [selection, setselection] = useState([]);
   const toggle = () => setopen(!open);
@@ -29,9 +36,11 @@ function Selector({ mainTitle, title, items = [], ismultiselect = false }) {
     ) {
       if (!ismultiselect) {
         setselection([item]);
+        selectedItem([item.id]);
         setopen(false);
       } else if (ismultiselect) {
         setselection([...selection, item]);
+        selectedItem([...selection, item.id]);
       }
     } else {
       let selectionAfterRemovel = selection;
@@ -55,7 +64,10 @@ function Selector({ mainTitle, title, items = [], ismultiselect = false }) {
 
   return (
     <div className="selector" ref={ref}>
-      <div className="selector-header" onClick={() => setopen(!open)}>
+      <div
+        className={`selector-header ${isError ? "error" : ""}`}
+        onClick={() => setopen(!open)}
+      >
         <div className="header-title">
           <div className="title">{mainTitle}</div>
           {selection.length > 0 ? selection[0].item : title}

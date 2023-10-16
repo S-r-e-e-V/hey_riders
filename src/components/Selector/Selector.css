@@ -21,6 +21,9 @@
   box-shadow: 5px 5px 10px -2px var(--black); */
   border-radius: 4px;
 }
+.selector .selector-header.error {
+  border: 1px solid var(--red);
+}
 .selector .selector-header .title {
   color: var(--yellow);
   font-size: 12px;

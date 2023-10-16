@@ -39,13 +39,54 @@
 
 /* passengers */
 .search-area .passengers {
+  position: relative;
   border: 1px solid var(--yellow);
   border-radius: 7px;
   padding: 10px;
   font-size: 18px;
+  width: 190px;
 }
-
+.search-area .passengers.error {
+  border: 1px solid var(--red);
+}
+.search-area .passengers .passengers-header {
+  cursor: pointer;
+}
 .search-area .passengers .title {
   font-size: 12px;
   color: var(--yellow);
+}
+
+.search-area .passengers .popup-contents {
+  position: absolute;
+  display: flex;
+  top: 64px;
+  left: 0;
+  font-weight: 500;
+  gap: 10px;
+  width: 190px;
+  flex-direction: column;
+  font-size: 14px;
+  border: 1px solid var(--yellow);
+  border-radius: 4px;
+  padding: 10px;
+  background: linear-gradient(89.1deg, var(--white), var(--white));
+  box-shadow: 5px 5px 10px -2px var(--black);
+}
+
+.search-area .passengers .popup-contents .popup-content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-area .passengers .popup-contents .popup-content .controller {
+  display: flex;
+  gap: 10px;
+}
+
+.search-area .passengers .popup-contents .popup-content .controller span {
+  width: 10px;
+}
+.search-area .passengers .popup-contents .popup-content .controller svg {
+  cursor: pointer;
 }

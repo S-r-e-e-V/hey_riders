@@ -28,6 +28,11 @@ export default function Router() {
         <Routes>
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
+          <Route
+            exact
+            path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
+            element={<Schedule />}
+          />
           <Route exact path="/contact" element={<Contact />} />
           <Route exact path="/" element={<Home />} />
           <Route path="*" element={<Home />} />

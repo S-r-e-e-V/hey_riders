@@ -64,7 +64,7 @@
   height: 30px;
   padding: 0 20px;
 
-  background: linear-gradient(89.1deg, var(--yellow), var(--yellow));
+  background: linear-gradient(89.1deg, var(--lightYellow), var(--lightYellow));
   box-shadow: 5px 5px 10px -2px var(--black);
   border-radius: 4px;
 
@@ -81,4 +81,10 @@
 
 .search-section .search-container .date .react-datepicker__day--selected {
   background-color: var(--yellow);
+}
+
+.search-section .search-container .date .react-datepicker__month-container {
+  float: left;
+  background: linear-gradient(89.1deg, var(--white), var(--white));
+  box-shadow: 5px 5px 10px -2px var(--black);
 }
