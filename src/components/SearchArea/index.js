@@ -8,7 +8,15 @@ import { AiOutlineMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
 import Selector from "../Selector";
 
+const Locations = [
+  { id: 1, item: "Windsor" },
+  { id: 2, item: "Toronto" },
+  { id: 3, item: "London" },
+];
+
 export default function SearchArea({
+  locationsFrom = [],
+  locationsTo = [],
   locations,
   scheduleInfo,
   setscheduleInfo,
@@ -17,10 +25,15 @@ export default function SearchArea({
   const [open, setopen] = useState(false);
   const ref = useRef(null);
   const [locationList, setlocationList] = useState({
-    from: locations,
-    to: locations,
+    from:
+      locationsFrom.length > 0
+        ? locations.filter((item) => item.id !== locationsFrom[0].id)
+        : locations,
+    to:
+      locationsTo.length > 0
+        ? locations.filter((item) => item.id !== locationsTo[0].id)
+        : locations,
   });
-  const [locationId, setlocationId] = useState({ from: "", to: "" });
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
@@ -49,10 +62,10 @@ export default function SearchArea({
           from: locations.filter((item) => item.id !== locationId),
         });
         break;
-      case "default":
+      default:
         setlocationList({
-          from: locations,
-          to: locations,
+          from: locations.filter((item) => item.id != scheduleInfo.to),
+          to: locations.filter((item) => item.id != scheduleInfo.from),
         });
     }
   };
@@ -65,6 +78,7 @@ export default function SearchArea({
             mainTitle={"Origin"}
             title={"Leaving from"}
             items={locationList.from}
+            initialSelection={locationsFrom}
             selectedItem={(e) => {
               setscheduleInfo({
                 ...scheduleInfo,
@@ -80,6 +94,7 @@ export default function SearchArea({
           <Selector
             mainTitle={"Destination"}
             title={"Going to"}
+            initialSelection={locationsTo}
             items={locationList.to}
             selectedItem={(e) => {
               setscheduleInfo({

@@ -5,12 +5,13 @@ function Selector({
   mainTitle,
   title,
   items = [],
+  initialSelection = [],
   selectedItem,
   ismultiselect = false,
   isError,
 }) {
   const [open, setopen] = useState(false);
-  const [selection, setselection] = useState([]);
+  const [selection, setselection] = useState(initialSelection);
   const toggle = () => setopen(!open);
   const ref = useRef(null);
 

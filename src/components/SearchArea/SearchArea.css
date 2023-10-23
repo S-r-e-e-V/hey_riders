@@ -58,6 +58,7 @@
 }
 
 .search-area .passengers .popup-contents {
+  z-index: 1;
   position: absolute;
   display: flex;
   top: 64px;
