@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./Selector.css";
 
-import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
-
 function Selector({
   mainTitle,
   title,
@@ -36,11 +34,11 @@ function Selector({
     ) {
       if (!ismultiselect) {
         setselection([item]);
-        selectedItem([item.id]);
+        selectedItem([item]);
         setopen(false);
       } else if (ismultiselect) {
         setselection([...selection, item]);
-        selectedItem([...selection, item.id]);
+        selectedItem([...selection, item]);
       }
     } else {
       let selectionAfterRemovel = selection;
@@ -48,6 +46,7 @@ function Selector({
         (current) => current.id != item.id
       );
       setselection([...selectionAfterRemovel]);
+      selectedItem([...selectionAfterRemovel]);
     }
   };
 

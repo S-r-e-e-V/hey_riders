@@ -16,6 +16,11 @@ export default function SearchArea({
 }) {
   const [open, setopen] = useState(false);
   const ref = useRef(null);
+  const [locationList, setlocationList] = useState({
+    from: locations,
+    to: locations,
+  });
+  const [locationId, setlocationId] = useState({ from: "", to: "" });
 
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
@@ -30,6 +35,28 @@ export default function SearchArea({
     };
   }, []);
 
+  const locationHandler = (type, locationId) => {
+    switch (type) {
+      case "from":
+        setlocationList({
+          ...locationList,
+          to: locations.filter((item) => item.id !== locationId),
+        });
+        break;
+      case "to":
+        setlocationList({
+          ...locationList,
+          from: locations.filter((item) => item.id !== locationId),
+        });
+        break;
+      case "default":
+        setlocationList({
+          from: locations,
+          to: locations,
+        });
+    }
+  };
+
   return (
     <div className="search-area">
       <div className="location">
@@ -37,10 +64,15 @@ export default function SearchArea({
           <Selector
             mainTitle={"Origin"}
             title={"Leaving from"}
-            items={locations}
-            selectedItem={(e) =>
-              setscheduleInfo({ ...scheduleInfo, from: e[0] })
-            }
+            items={locationList.from}
+            selectedItem={(e) => {
+              setscheduleInfo({
+                ...scheduleInfo,
+                from: e.length > 0 ? e[0].id : "",
+              });
+              locationHandler("from", e.length > 0 ? e[0].id : "");
+              console.log(e);
+            }}
             isError={error.from}
           />
         </div>
@@ -48,8 +80,14 @@ export default function SearchArea({
           <Selector
             mainTitle={"Destination"}
             title={"Going to"}
-            items={locations}
-            selectedItem={(e) => setscheduleInfo({ ...scheduleInfo, to: e[0] })}
+            items={locationList.to}
+            selectedItem={(e) => {
+              setscheduleInfo({
+                ...scheduleInfo,
+                to: e.length > 0 ? e[0].id : "",
+              });
+              locationHandler("to", e.length > 0 ? e[0].id : "");
+            }}
             isError={error.to}
           />
         </div>

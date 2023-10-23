@@ -3,6 +3,10 @@ import "./SearchSection.css";
 
 import { useNavigate } from "react-router-dom";
 
+// image
+import { BiSolidCar } from "react-icons/bi";
+import { AiFillGift } from "react-icons/ai";
+
 import TaxiImage from "../../../assets/taxi.png";
 
 import SearchArea from "../../../components/SearchArea";
@@ -10,6 +14,7 @@ import SearchArea from "../../../components/SearchArea";
 const Locations = [
   { id: 1, item: "Windsor" },
   { id: 2, item: "Toronto" },
+  { id: 3, item: "London" },
 ];
 
 export default function SearchSection() {
@@ -52,16 +57,18 @@ export default function SearchSection() {
       <div className="search-container">
         <div className="search-header">
           <div
-            className={`ride ${rideSelected ? "selected" : ""}`}
+            className={`ride-parcel ${rideSelected ? "selected" : ""}`}
             onClick={() => setrideSelected(true)}
           >
-            Ride
+            <BiSolidCar />
+            <span>Ride</span>
           </div>
           <div
-            className={`parcel ${!rideSelected ? "selected" : ""}`}
+            className={`ride-parcel ${!rideSelected ? "selected" : ""}`}
             onClick={() => setrideSelected(false)}
           >
-            Parcel
+            <AiFillGift />
+            <span>Parcel</span>
           </div>
         </div>
 
