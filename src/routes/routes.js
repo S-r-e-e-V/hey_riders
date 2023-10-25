@@ -14,12 +14,22 @@ import About from "../screens/About";
 import Schedule from "../screens/Schedule";
 import ScheduleDetails from "../screens/ScheduleDetails";
 import OurServices from "../screens/Ourservices";
+import AdminLogin from "../screens/Admin/Login/AdminLogin";
+import AdminHeader from "../components/AdminHeader/AdminHeader";
+import AdminBookings from "../screens/Admin/Bookings/AdminBookings";
+import AdminCities from "../screens/Admin/Cities/AdminCities";
+import AdminLocations from "../screens/Admin/Locations/AdminLocations";
+import AdminPrice from "../screens/Admin/Price/AdminPrice";
 
 export default function Router() {
   const { isAuthenticated, setisAuthenticated } = useContext(AuthContext);
   return (
     <BrowserRouter>
-      <Header />
+      {location.pathname.split("/")[1] === "admin" ? (
+        <AdminHeader />
+      ) : (
+        <Header />
+      )}
       {isAuthenticated ? (
         <Routes>
           <Route exact path="/schedule" element={<Schedule />} />
@@ -30,6 +40,14 @@ export default function Router() {
         </Routes>
       ) : (
         <Routes>
+          {/* admin */}
+          <Route exact path="/admin/heyrides" element={<AdminLogin />} />
+          <Route exact path="/admin/bookings" element={<AdminBookings />} />
+          <Route exact path="/admin/cities" element={<AdminCities />} />
+          <Route exact path="/admin/locations" element={<AdminLocations />} />
+          <Route exact path="/admin/price" element={<AdminPrice />} />
+
+          {/* user */}
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />
           <Route

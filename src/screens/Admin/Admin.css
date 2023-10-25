@@ -1,0 +1,13 @@
+.admin {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+}
+.admin .list {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  border-radius: 6px;
+  background: linear-gradient(89.1deg, var(--lightYellow), var(--yellow));
+  box-shadow: 5px 5px 10px -2px var(--black);
+}
