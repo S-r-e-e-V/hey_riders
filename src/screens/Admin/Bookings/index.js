@@ -33,7 +33,7 @@ const AdminBookings = () => {
               <div className="from">{booking.from.location_id.location}</div>
               <div className="from">{booking.to.location_id.location}</div>
               <div className="date">
-                {moment(booking.scheduledToTime).format("DD/MM/YYYY  hh:mm A")}
+                {moment(booking.ScheduledToTime).format("DD/MM/YYYY  hh:mm A")}
               </div>
               {/* <div className="cancel">Cancel</div> */}
             </div>
