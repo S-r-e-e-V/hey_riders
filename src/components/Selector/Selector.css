@@ -10,8 +10,8 @@
   flex-direction: row;
   align-items: center;
   /* background-color: var(--yellow); */
-  border: 1px solid var(--lightYellow);
-  border-radius: 5px;
+  border: 1px solid var(--yellow);
+  border-radius: 7px;
   justify-content: space-between;
   padding: 10px;
 
@@ -19,7 +19,6 @@
 
   /* background: linear-gradient(89.1deg, var(--lightYellow), var(--yellow));
   box-shadow: 5px 5px 10px -2px var(--black); */
-  border-radius: 4px;
 }
 .selector .selector-header.error {
   border: 1px solid var(--red);

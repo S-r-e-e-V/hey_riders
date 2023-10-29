@@ -17,15 +17,16 @@ import Logo from "../../assets/heyrides_logo.png";
 
 // context
 import { AuthContext } from "../../context/AuthContext";
+import { logout } from "../../api";
 
 export default function AdminHeader() {
   const navigate = useNavigate();
-  const { isAuthenticated, setisAuthenticated } = useContext(AuthContext);
+  const { authDetails, setauthDetails } = useContext(AuthContext);
   return (
     <div className="header">
       <div className="titles">
         {/* <div className="logo-section"> */}
-        <img onClick={() => navigate("/")} src={Logo} className="logo" />
+        <img src={Logo} className="logo" />
         {/* </div> */}
 
         <div className="title" onClick={() => navigate("/admin/bookings")}>
@@ -53,12 +54,22 @@ export default function AdminHeader() {
           <span>Price</span>
         </div>
       </div>
-      {isAuthenticated && (
+      {authDetails.isAuthenticated ? (
+        <button
+          className="auth-button logout"
+          onClick={
+            () => logout()
+            // setauthDetails({ type: "user", isAuthenticated: false, name: "" })
+          }
+        >
+          <span>{authDetails.name.split(" ")[0].trim()}</span>
+        </button>
+      ) : (
         <button
           className="auth-button"
-          onClick={() => setisAuthenticated(false)}
+          onClick={() => navigate("/admin/login")}
         >
-          Logout
+          Login
         </button>
       )}
     </div>

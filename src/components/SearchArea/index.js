@@ -27,14 +27,19 @@ export default function SearchArea({
   const [locationList, setlocationList] = useState({
     from:
       locationsFrom.length > 0
-        ? locations.filter((item) => item.id !== locationsFrom[0].id)
+        ? locations.filter(
+            (item) =>
+              item.id !== locationsFrom[0].id && item.id !== locationsTo[0].id
+          )
         : locations,
     to:
       locationsTo.length > 0
-        ? locations.filter((item) => item.id !== locationsTo[0].id)
+        ? locations.filter(
+            (item) =>
+              item.id !== locationsTo[0].id && item.id !== locationsFrom[0].id
+          )
         : locations,
   });
-
   const handleClickOutside = (event) => {
     if (ref.current && !ref.current.contains(event.target)) {
       setopen(false);

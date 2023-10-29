@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // context
@@ -14,15 +14,32 @@ import About from "../screens/About";
 import Schedule from "../screens/Schedule";
 import ScheduleDetails from "../screens/ScheduleDetails";
 import OurServices from "../screens/Ourservices";
-import AdminLogin from "../screens/Admin/Login/AdminLogin";
-import AdminHeader from "../components/AdminHeader/AdminHeader";
-import AdminBookings from "../screens/Admin/Bookings/AdminBookings";
-import AdminCities from "../screens/Admin/Cities/AdminCities";
-import AdminLocations from "../screens/Admin/Locations/AdminLocations";
-import AdminPrice from "../screens/Admin/Price/AdminPrice";
+import AdminHeader from "../components/AdminHeader";
+import AdminBookings from "../screens/Admin/Bookings";
+import AdminCities from "../screens/Admin/Cities";
+import AdminLocations from "../screens/Admin/Locations";
+import AdminPrice from "../screens/Admin/Price";
+import AddCity from "../screens/Admin/AddCity";
+import AddLocation from "../screens/Admin/AddLocation";
+import AddPrice from "../screens/Admin/AddPrice";
 
-export default function Router() {
-  const { isAuthenticated, setisAuthenticated } = useContext(AuthContext);
+function Router() {
+  const { authDetails, setauthDetails } = useContext(AuthContext);
+
+  useEffect(() => {
+    let heyRidesAuth = localStorage.getItem("hey_rides_auth")
+      ? JSON.parse(localStorage.getItem("hey_rides_auth"))
+      : null;
+
+    heyRidesAuth
+      ? setauthDetails({
+          type: heyRidesAuth.userType,
+          isAuthenticated: true,
+          name: heyRidesAuth.name,
+        })
+      : setauthDetails({ type: "user", isAuthenticated: false, name: "" });
+  }, []);
+
   return (
     <BrowserRouter>
       {location.pathname.split("/")[1] === "admin" ? (
@@ -30,22 +47,45 @@ export default function Router() {
       ) : (
         <Header />
       )}
-      {isAuthenticated ? (
+      {authDetails.isAuthenticated ? (
         <Routes>
-          <Route exact path="/schedule" element={<Schedule />} />
-          <Route exact path="/contact" element={<Contact />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/schedule-details" element={<ScheduleDetails />} />
+          {/* admin */}
+          {authDetails.type === "admin" && (
+            <>
+              <Route exact path="/admin/bookings" element={<AdminBookings />} />
+              <Route exact path="/admin/cities" element={<AdminCities />} />
+              <Route exact path="/admin/cities/add" element={<AddCity />} />
+              <Route
+                exact
+                path="/admin/locations"
+                element={<AdminLocations />}
+              />
+              <Route
+                exact
+                path="/admin/locations/add"
+                element={<AddLocation />}
+              />
+              <Route exact path="/admin/price" element={<AdminPrice />} />
+              <Route exact path="/admin/price/add" element={<AddPrice />} />
+            </>
+          )}
+
+          <Route
+            exact
+            path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
+            element={<Schedule />}
+          />
           <Route exact path="/ourservices" element={<OurServices />} />
+          <Route exact path="/ourservices" element={<OurServices />} />
+          <Route exact path="/about" element={<About />} />
+          <Route exact path="/contact" element={<Contact />} />
+          <Route exact path="/" element={<Home />} />
+          <Route path="*" element={<Home />} />
         </Routes>
       ) : (
         <Routes>
           {/* admin */}
-          <Route exact path="/admin/heyrides" element={<AdminLogin />} />
-          <Route exact path="/admin/bookings" element={<AdminBookings />} />
-          <Route exact path="/admin/cities" element={<AdminCities />} />
-          <Route exact path="/admin/locations" element={<AdminLocations />} />
-          <Route exact path="/admin/price" element={<AdminPrice />} />
+          <Route exact path="/admin/login" element={<Login />} />
 
           {/* user */}
           <Route exact path="/login" element={<Login />} />
@@ -65,3 +105,4 @@ export default function Router() {
     </BrowserRouter>
   );
 }
+export default Router;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./SearchSection.css";
 
 import { useNavigate } from "react-router-dom";
@@ -10,12 +10,8 @@ import { AiFillGift } from "react-icons/ai";
 import TaxiImage from "../../../assets/taxi.png";
 
 import SearchArea from "../../../components/SearchArea";
-
-const Locations = [
-  { id: 1, item: "Windsor" },
-  { id: 2, item: "Toronto" },
-  { id: 3, item: "London" },
-];
+import { getData } from "../../../api";
+import Spinner from "../../../components/Spinner";
 
 export default function SearchSection() {
   const navigate = useNavigate();
@@ -27,6 +23,8 @@ export default function SearchSection() {
     adults: 0,
     luggage: 0,
   });
+  const [loading, setloading] = useState(false);
+  const [locations, setlocations] = useState([]);
 
   const [error, seterror] = useState({
     from: false,
@@ -51,43 +49,63 @@ export default function SearchSection() {
         }/luggage/${scheduleInfo.luggage}`
       );
   };
-  console.log(scheduleInfo, error);
+
+  const getCities = async () => {
+    setloading(true);
+    const response = await getData("/city/cities", false);
+    let cities = response.map((city) => ({
+      id: city._id,
+      item: city.city,
+    }));
+    setloading(false);
+    setlocations(cities);
+  };
+  useEffect(() => {
+    getCities();
+  }, []);
+  console.log(locations);
   return (
-    <div className="search-section">
-      <div className="search-container">
-        <div className="search-header">
-          <div
-            className={`ride-parcel ${rideSelected ? "selected" : ""}`}
-            onClick={() => setrideSelected(true)}
-          >
-            <BiSolidCar />
-            <span>Ride</span>
+    <>
+      {loading ? (
+        <Spinner />
+      ) : (
+        <div className="search-section">
+          <div className="search-container">
+            <div className="search-header">
+              <div
+                className={`ride-parcel ${rideSelected ? "selected" : ""}`}
+                onClick={() => setrideSelected(true)}
+              >
+                <BiSolidCar />
+                <span>Ride</span>
+              </div>
+              <div
+                className={`ride-parcel ${!rideSelected ? "selected" : ""}`}
+                onClick={() => setrideSelected(false)}
+              >
+                <AiFillGift />
+                <span>Parcel</span>
+              </div>
+            </div>
+
+            {rideSelected ? (
+              <SearchArea
+                locations={locations}
+                scheduleInfo={scheduleInfo}
+                setscheduleInfo={setscheduleInfo}
+                error={error}
+              />
+            ) : (
+              <span className="search-area-parcel">Work in progress</span>
+            )}
+
+            <button className="search-button" onClick={onSearch}>
+              Search
+            </button>
           </div>
-          <div
-            className={`ride-parcel ${!rideSelected ? "selected" : ""}`}
-            onClick={() => setrideSelected(false)}
-          >
-            <AiFillGift />
-            <span>Parcel</span>
-          </div>
+          <img className="background-image" src={TaxiImage} />
         </div>
-
-        {rideSelected ? (
-          <SearchArea
-            locations={Locations}
-            scheduleInfo={scheduleInfo}
-            setscheduleInfo={setscheduleInfo}
-            error={error}
-          />
-        ) : (
-          <span className="search-area-parcel">Work in progress</span>
-        )}
-
-        <button className="search-button" onClick={onSearch}>
-          Search
-        </button>
-      </div>
-      <img className="background-image" src={TaxiImage} />
-    </div>
+      )}
+    </>
   );
 }

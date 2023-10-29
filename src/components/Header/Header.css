@@ -68,3 +68,9 @@
 .header .auth-button:active {
   top: 2px;
 }
+.header .auth-button.logout:hover span {
+  display: none;
+}
+.header .auth-button.logout:hover:before {
+  content: "Logout";
+}
