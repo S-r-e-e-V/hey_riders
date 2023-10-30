@@ -8,13 +8,11 @@ import { AuthContext } from "../context/AuthContext";
 import Home from "../screens/Home";
 import Login from "../screens/Login";
 import Signup from "../screens/Signup";
-import Header from "../components/Header";
 import Contact from "../screens/Contact";
 import About from "../screens/About";
 import Schedule from "../screens/Schedule";
 import ScheduleDetails from "../screens/ScheduleDetails";
 import OurServices from "../screens/Ourservices";
-import AdminHeader from "../components/AdminHeader";
 import AdminBookings from "../screens/Admin/Bookings";
 import AdminCities from "../screens/Admin/Cities";
 import AdminLocations from "../screens/Admin/Locations";
@@ -22,6 +20,7 @@ import AdminPrice from "../screens/Admin/Price";
 import AddCity from "../screens/Admin/AddCity";
 import AddLocation from "../screens/Admin/AddLocation";
 import AddPrice from "../screens/Admin/AddPrice";
+import Header from "../components/Header";
 
 function Router() {
   const { authDetails, setauthDetails } = useContext(AuthContext);
@@ -42,11 +41,7 @@ function Router() {
 
   return (
     <BrowserRouter>
-      {/* {location.pathname.split("/")[1] === "admin" ? (
-        <AdminHeader />
-      ) : ( */}
       <Header />
-      {/* )} */}
       {authDetails.isAuthenticated ? (
         <Routes>
           {/* admin */}

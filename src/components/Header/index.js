@@ -1,98 +1,17 @@
-import React, { useContext } from "react";
-import "./Header.css";
+import React from "react";
 
-// icons
-import {
-  BsExclamationCircle,
-  BsGear,
-  BsCarFront,
-  BsTelephone,
-  BsFileBarGraph,
-} from "react-icons/bs";
-import { AiOutlineSchedule } from "react-icons/ai";
+import { useLocation } from "react-router-dom";
+import AdminHeader from "./AdminHeader";
+import UserHeader from "./UserHeader";
 
-import { useNavigate } from "react-router-dom";
-
-// images
-import Logo from "../../assets/heyrides_logo.png";
-
-// context
-import { AuthContext } from "../../context/AuthContext";
-import { logout } from "../../api";
-
-export default function Header() {
-  const navigate = useNavigate();
-
-  const { authDetails, setauthDetails } = useContext(AuthContext);
-  console.log(authDetails);
-  return (
-    <div className="header">
-      <div className="titles">
-        {/* <div className="logo-section"> */}
-        <img onClick={() => navigate("/")} src={Logo} className="logo" />
-        {/* </div> */}
-
-        {authDetails.isAuthenticated && authDetails.userType === "user" && (
-          <>
-            <div className="title" onClick={() => navigate("/schedule")}>
-              <span>
-                <AiOutlineSchedule size={13} />
-              </span>
-              <span>SCHEDULE</span>
-            </div>
-
-            <div className="title">
-              <span>
-                <BsFileBarGraph size={13} />
-              </span>
-              <span>TIMELINE</span>
-            </div>
-          </>
-        )}
-        <div className="title" onClick={() => navigate("/about")}>
-          <span>
-            <BsExclamationCircle size={13} />
-          </span>
-          <span>ABOUT</span>
-        </div>
-        <div className="title" onClick={() => navigate("/ourservices")}>
-          <span>
-            <BsGear size={13} />
-          </span>
-          <span>OUR SERVICES</span>
-        </div>
-        <div className="title" onClick={() => navigate("/ourvehicles")}>
-          <span>
-            <BsCarFront size={13} />
-          </span>
-          <span>OUR VEHICLES</span>
-        </div>
-        <div className="title">
-          <span>
-            <BsTelephone size={13} />
-          </span>
-          <span onClick={() => navigate("/contact")}>CONTACT</span>
-        </div>
-      </div>
-      {authDetails.isAuthenticated ? (
-        <button
-          className="auth-button logout"
-          onClick={
-            () => logout()
-            // setauthDetails({
-            //   userType: "user",
-            //   isAuthenticated: false,
-            //   name: "",
-            // })
-          }
-        >
-          <span>{authDetails.name.split(" ")[0].trim()}</span>
-        </button>
-      ) : (
-        <button className="auth-button" onClick={() => navigate("/login")}>
-          Login
-        </button>
-      )}
-    </div>
+const Header = () => {
+  const location = useLocation();
+  console.log(location);
+  return location.pathname.split("/")[1] === "admin" ? (
+    <AdminHeader />
+  ) : (
+    <UserHeader />
   );
-}
+};
+
+export default Header;
