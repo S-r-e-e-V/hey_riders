@@ -15,6 +15,7 @@ import { ValidatePassword, ValidateEmail } from "../../utils/validation";
 // api
 import { postData } from "../../api";
 import Spinner from "../../components/Spinner";
+import Alert from "../../utils/Alert";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function Login() {
   const [error, seterror] = useState({ email: "", password: "" });
   const [passwordVisible, setpasswordVisible] = useState(false);
   const [loading, setloading] = useState(false);
-
+  console.log(location);
   // submit
   const handleSubmit = async () => {
     let error = validation();
@@ -40,7 +41,6 @@ export default function Login() {
       };
       const response = await postData(`/login`, payload, false);
       if (response) {
-        console.log(response);
         localStorage.setItem(
           "hey_rides_auth",
           JSON.stringify({
@@ -57,6 +57,41 @@ export default function Login() {
         if (response.userType == "admin") {
           navigate("/admin/bookings");
         } else {
+          if (location.state) {
+            if (response.userType === "user") {
+              const response = await postData(
+                "/booking/create",
+                location.state
+              );
+              if (response) {
+                Alert(
+                  "Booking Confirmed",
+                  "Booking confirmed. We will reachout to you",
+                  () => {
+                    navigate("/");
+                  },
+                  false,
+                  () => {},
+                  () => {},
+                  true,
+                  "Ok"
+                );
+              }
+            } else {
+              Alert(
+                "Error",
+                "Please login as user to book ride",
+                () => {
+                  navigate("/login");
+                },
+                false,
+                () => {},
+                () => {},
+                true,
+                "Ok"
+              );
+            }
+          }
           navigate("/");
         }
       }

@@ -40,7 +40,7 @@ const AddLocation = () => {
   // submit
   const handleSubmit = async () => {
     let error = validation();
-    console.log(error);
+
     if (error.city_id === "" && error.location === "") {
       setloading({ ...loading, button: true });
 
@@ -89,7 +89,6 @@ const AddLocation = () => {
                 items={cities}
                 // initialSelection={locationsFrom}
                 selectedItem={(e) => {
-                  console.log(e);
                   setlocationDetails({
                     ...locationDetails,
                     city_id: e.length > 0 ? e[0].id : "",

@@ -18,7 +18,7 @@ const AdminLocations = () => {
     setloading(true);
     const response = await postData("/location/locations", {}, false);
     setloading(false);
-    console.log(response);
+
     if (response) setlocations(response);
   };
   useEffect(() => {

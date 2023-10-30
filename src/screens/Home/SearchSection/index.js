@@ -20,7 +20,7 @@ export default function SearchSection() {
     from: "",
     to: "",
     date: new Date(),
-    adults: 0,
+    adults: 1,
     luggage: 0,
   });
   const [loading, setloading] = useState(false);
@@ -63,7 +63,7 @@ export default function SearchSection() {
   useEffect(() => {
     getCities();
   }, []);
-  console.log(locations);
+
   return (
     <>
       {loading ? (

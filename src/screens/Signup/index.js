@@ -44,7 +44,7 @@ export default function Signup() {
   // submit
   const handleSubmit = async () => {
     let error = validation();
-    console.log(error);
+
     if (
       error.email === "" &&
       error.password === "" &&

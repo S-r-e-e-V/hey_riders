@@ -8,12 +8,6 @@ import { AiOutlineMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
 import Selector from "../Selector";
 
-const Locations = [
-  { id: 1, item: "Windsor" },
-  { id: 2, item: "Toronto" },
-  { id: 3, item: "London" },
-];
-
 export default function SearchArea({
   locationsFrom = [],
   locationsTo = [],
@@ -90,7 +84,6 @@ export default function SearchArea({
                 from: e.length > 0 ? e[0].id : "",
               });
               locationHandler("from", e.length > 0 ? e[0].id : "");
-              console.log(e);
             }}
             isError={error.from}
           />
@@ -140,7 +133,7 @@ export default function SearchArea({
               <div className="controller">
                 <AiOutlineMinusCircle
                   onClick={() =>
-                    scheduleInfo.adults > 0
+                    scheduleInfo.adults > 1
                       ? setscheduleInfo({
                           ...scheduleInfo,
                           adults: scheduleInfo.adults - 1,
@@ -177,10 +170,12 @@ export default function SearchArea({
                 <span>{scheduleInfo.luggage}</span>
                 <AiFillPlusCircle
                   onClick={() =>
-                    setscheduleInfo({
-                      ...scheduleInfo,
-                      luggage: scheduleInfo.luggage + 1,
-                    })
+                    scheduleInfo.luggage > 2
+                      ? 0
+                      : setscheduleInfo({
+                          ...scheduleInfo,
+                          luggage: scheduleInfo.luggage + 1,
+                        })
                   }
                 />
               </div>

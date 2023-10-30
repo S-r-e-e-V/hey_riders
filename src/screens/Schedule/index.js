@@ -112,8 +112,8 @@ export default function Schedule(props) {
 
   // const [locations, setlocations] = useState([]);
   // const [cities, setcities] = useState([]);
+  const [cities, setcities] = useState([]);
   const [locations, setlocations] = useState({
-    cities: [],
     pickup: [],
     dropoff: [],
     prices: [],
@@ -169,8 +169,65 @@ export default function Schedule(props) {
   };
 
   const getPrices = async () => {
-    const response = await getData(`/price/prices`, false);
-    let prices = response.map((price) => ({
+    const prices = await getData(`/price/prices`, false);
+    priceCalculation(prices);
+    return prices;
+  };
+
+  const apiCalls = async () => {
+    setloading(true);
+    const citiesPromise = getCities();
+    const pickupPromise = getPickupLocation();
+    const dropOffPromise = getDropoffLocation();
+    const pricePromise = getPrices();
+
+    const [cities, pickup, dropoff, prices] = await Promise.all([
+      citiesPromise,
+      pickupPromise,
+      dropOffPromise,
+      pricePromise,
+    ]);
+    setlocations({ pickup, dropoff, prices });
+    setcities(cities);
+    setpointLocation({ pickup: pickup[0].id, dropoff: dropoff[0].id });
+    setloading(false);
+  };
+
+  useEffect(() => {
+    apiCalls();
+  }, []);
+
+  // const load locations
+  const loadLocations = async () => {
+    setloading(true);
+    const pickupPromise = getPickupLocation();
+    const dropOffPromise = getDropoffLocation();
+    const pricePromise = getPrices();
+
+    const [pickup, dropoff, prices] = await Promise.all([
+      pickupPromise,
+      dropOffPromise,
+      pricePromise,
+    ]);
+    setlocations({ pickup, dropoff, prices });
+    setpointLocation({ pickup: pickup[0].id, dropoff: dropoff[0].id });
+    setselectedRides(
+      scheduleInfo.from === "653dbfa79c1fb301f4375e13"
+        ? ridesFromWindsor
+        : ridesFromToronto
+    );
+    setloading(false);
+  };
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    loadLocations();
+  }, [scheduleInfo.from, scheduleInfo.to]);
+
+  const priceCalculation = (pricesList) => {
+    let prices = pricesList.map((price) => ({
       locations: [price.from._id, price.to._id],
       price: price.price,
       luggage: price.luggage,
@@ -192,62 +249,11 @@ export default function Schedule(props) {
         });
       }
     });
-    return prices;
   };
-
-  const apiCalls = async () => {
-    setloading(true);
-    const citiesPromise = getCities();
-    const pickupPromise = getPickupLocation();
-    const dropOffPromise = getDropoffLocation();
-    const pricePromise = getPrices();
-
-    const [cities, pickup, dropoff, prices] = await Promise.all([
-      citiesPromise,
-      pickupPromise,
-      dropOffPromise,
-      pricePromise,
-    ]);
-    setlocations({ cities, pickup, dropoff, prices });
-    setpointLocation({ pickup: pickup[0].id, dropoff: dropoff[0].id });
-    setloading(false);
-  };
-
   useEffect(() => {
-    apiCalls();
-  }, []);
-
-  // const load locations
-  const loadLocations = async () => {
-    setloading(true);
-    const citiesPromise = getCities();
-    const pickupPromise = getPickupLocation();
-    const dropOffPromise = getDropoffLocation();
-    const pricePromise = getPrices();
-
-    const [cities, pickup, dropoff, prices] = await Promise.all([
-      citiesPromise,
-      pickupPromise,
-      dropOffPromise,
-      pricePromise,
-    ]);
-    setlocations({ cities, pickup, dropoff });
-    setpointLocation({ pickup: pickup[0].id, dropoff: dropoff[0].id });
-    setselectedRides(
-      scheduleInfo.from === "653dbfa79c1fb301f4375e13"
-        ? ridesFromWindsor
-        : ridesFromToronto
-    );
-    setloading(false);
-  };
-  console.log(locations);
-  useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
-    }
-    loadLocations();
-  }, [scheduleInfo]);
+    console.log(locations.prices);
+    priceCalculation(locations.prices);
+  }, [scheduleInfo.adults, scheduleInfo.luggage]);
 
   const combineDateAndTime = (date, time) => {
     const scheduleDate = new Date(date);
@@ -314,10 +320,10 @@ export default function Schedule(props) {
         }
       } else {
         Alert(
-          "Please login error",
-          "Please login to book a ride",
+          "U are not loggedin",
+          "Please login to confirm booking",
           () => {
-            navigate("/login");
+            navigate("/login", { state: payload });
           },
           false,
           () => {},
@@ -350,13 +356,11 @@ export default function Schedule(props) {
       ) : (
         <div className="schedule-page">
           <SearchArea
-            locationsFrom={locations.cities.filter(
+            locationsFrom={cities.filter(
               (item) => item.id == scheduleInfo.from
             )}
-            locationsTo={locations.cities.filter(
-              (item) => item.id == scheduleInfo.to
-            )}
-            locations={locations.cities}
+            locationsTo={cities.filter((item) => item.id == scheduleInfo.to)}
+            locations={cities}
             scheduleInfo={scheduleInfo}
             setscheduleInfo={setscheduleInfo}
             error={error}
@@ -384,7 +388,6 @@ export default function Schedule(props) {
                   </div>
                   <div className="travel-time">
                     <img src={CarIcon} />
-                    {/* <span>{moment(ride.time).format("LT")}</span> */}
                     <span>
                       {/* {moment(
                         moment(ride.toTime).diff(moment(ride.fromTime))

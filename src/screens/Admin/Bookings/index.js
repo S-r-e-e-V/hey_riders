@@ -19,7 +19,7 @@ const AdminBookings = () => {
   useEffect(() => {
     getBookings();
   }, []);
-  console.log(bookings);
+
   return (
     <>
       {loading ? (
