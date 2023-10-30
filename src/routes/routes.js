@@ -42,11 +42,11 @@ function Router() {
 
   return (
     <BrowserRouter>
-      {location.pathname.split("/")[1] === "admin" ? (
+      {/* {location.pathname.split("/")[1] === "admin" ? (
         <AdminHeader />
-      ) : (
-        <Header />
-      )}
+      ) : ( */}
+      <Header />
+      {/* )} */}
       {authDetails.isAuthenticated ? (
         <Routes>
           {/* admin */}

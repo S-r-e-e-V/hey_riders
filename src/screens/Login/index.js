@@ -29,7 +29,7 @@ export default function Login() {
   const [error, seterror] = useState({ email: "", password: "" });
   const [passwordVisible, setpasswordVisible] = useState(false);
   const [loading, setloading] = useState(false);
-  console.log(location);
+
   // submit
   const handleSubmit = async () => {
     let error = validation();
