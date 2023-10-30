@@ -30,9 +30,9 @@ const AdminPrice = () => {
         <Spinner />
       ) : (
         <div className="admin location">
-          <div className="add" onClick={() => navigate("/admin/price/add")}>
+          {/* <div className="add" onClick={() => navigate("/admin/price/add")}>
             Add+
-          </div>
+          </div> */}
           {price.map((item) => (
             <div className="list-content">
               <div className="from">{item.from.city}</div>

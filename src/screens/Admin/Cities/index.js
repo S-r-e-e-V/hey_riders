@@ -28,9 +28,9 @@ const AdminCities = () => {
         <Spinner />
       ) : (
         <div className="admin cities">
-          <div className="add" onClick={() => navigate("/admin/cities/add")}>
+          {/* <div className="add" onClick={() => navigate("/admin/cities/add")}>
             Add+
-          </div>
+          </div> */}
           {cities.map((city) => (
             <div className="list-content">
               <div className="name">{city.city}</div>

@@ -31,9 +31,9 @@ const AdminLocations = () => {
         <Spinner />
       ) : (
         <div className="admin location">
-          <div className="add" onClick={() => navigate("/admin/locations/add")}>
+          {/* <div className="add" onClick={() => navigate("/admin/locations/add")}>
             Add+
-          </div>
+          </div> */}
           {locations.map((location) => (
             <div className="list-content">
               <div className="name">{location.location}</div>
