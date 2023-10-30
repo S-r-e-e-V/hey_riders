@@ -1,46 +1,110 @@
 .schedule-page {
   display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.schedule-page .container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  width: 600px;
+  margin-top: 10px;
+}
+/* search area */
+.schedule-page .search-area {
+  align-self: center;
+  padding: 20px;
+  gap: 30;
+}
+.schedule-page .search-area .location {
+  gap: 30;
+}
+.schedule-page .search-area .location .selector {
+  width: 250px;
+}
+.schedule-page .search-area .date input {
+  width: 250px;
+}
+.schedule-page .search-area .passengers {
+  width: 250px;
+}
 
-  margin-top: 70px;
-  border: 1px solid var(--yellow);
+/* schedule content */
+.schedule-page .schedule-content {
+  display: flex;
+  gap: 10px;
+  margin: 20px 20px 0 20px;
+}
+
+/* rides */
+.schedule-page .schedule-content .rides {
+  display: flex;
+  flex-direction: column;
+  flex: 4;
+  gap: 10px;
+}
+.schedule-page .schedule-content .rides .ride {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 20px;
   border-radius: 6px;
-  padding: 10px;
+  background: var(--white);
+  box-shadow: 5px 5px 10px -2px var(--black);
+  transition: all 0.3s ease-in-out;
 }
-.schedule-page .container > * {
-  padding: 10px 0;
+.schedule-page .schedule-content .rides .ride.selected {
+  background: linear-gradient(89.1deg, var(--yellow), var(--white));
 }
-.schedule-page .container .title {
-  font-size: 25px;
-  font-weight: 700;
+.schedule-page .schedule-content .rides .ride .from,
+.schedule-page .schedule-content .rides .ride .to {
+  display: flex;
+  flex-direction: column;
 }
-.schedule-page .container button {
+.schedule-page .schedule-content .rides .ride .time {
+  font-size: 26px;
+  color: var(--blue);
+  font-weight: 500;
+}
+.schedule-page .schedule-content .rides .ride .location {
+  font-weight: 500;
+}
+.schedule-page .schedule-content .travel-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 500;
+}
+.schedule-page .schedule-content .travel-time img {
+  width: 50px;
+}
+.schedule-page .schedule-content .price {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--red);
+}
+
+/* ride details */
+
+.schedule-page .ride-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-height: 275px;
+  flex: 1;
+  padding: 20px;
+  border-radius: 6px;
+  background: linear-gradient(89.1deg, var(--white), var(--white));
+  box-shadow: 5px 5px 10px -2px var(--black);
+}
+.schedule-page .ride-details .selector {
+  width: unset;
+}
+.schedule-page .ride-details .confirm-booking {
   outline: none;
   border: none;
   cursor: pointer;
   height: 30px;
   padding: 0 20px;
-
   background: linear-gradient(89.1deg, var(--yellow), var(--yellow));
   box-shadow: 5px 5px 10px -2px var(--black);
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
-
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 18px;
-  color: var(--black);
 }
-
-.schedule-page .container button:hover {
+.schedule-page .ride-details .confirm-booking:hover {
   background: var(--white);
 }

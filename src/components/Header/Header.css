@@ -11,6 +11,11 @@
   justify-content: space-between;
   width: 75%;
 }
+.header .titles .logo {
+  cursor: pointer;
+  width: 141px;
+  height: 68px;
+}
 .header .titles .title {
   display: flex;
   align-items: center;
@@ -62,4 +67,10 @@
 }
 .header .auth-button:active {
   top: 2px;
+}
+.header .auth-button.logout:hover span {
+  display: none;
+}
+.header .auth-button.logout:hover:before {
+  content: "Logout";
 }

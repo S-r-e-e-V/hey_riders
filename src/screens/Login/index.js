@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import "./Login.css";
 
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useHistory } from "react-router-dom";
 
 // icons
 import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
@@ -10,76 +10,126 @@ import { BsEyeFill, BsEyeSlashFill } from "react-icons/bs";
 import { AuthContext } from "../../context/AuthContext";
 
 // validation
-import { ValidatePassword, ValidateUserName } from "../../utils/validation";
+import { ValidatePassword, ValidateEmail } from "../../utils/validation";
+
+// api
+import { postData } from "../../api";
+import Spinner from "../../components/Spinner";
+import Alert from "../../utils/Alert";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setisAuthenticated } = useContext(AuthContext);
+  const location = useLocation();
+  const { setauthDetails } = useContext(AuthContext);
 
   const [credentials, setcredentials] = useState({
-    username: "",
+    email: "",
     password: "",
   });
-  const [error, seterror] = useState({ username: "", password: "" });
+  const [error, seterror] = useState({ email: "", password: "" });
   const [passwordVisible, setpasswordVisible] = useState(false);
   const [loading, setloading] = useState(false);
-
+  console.log(location);
   // submit
   const handleSubmit = async () => {
     let error = validation();
-    console.log(error);
-    if (error.username === "" && error.password === "") {
-      if (
-        credentials.username === "heyriders" &&
-        credentials.password === "Qwerty@123"
-      ) {
-        setisAuthenticated(true);
+    if (error.email === "" && error.password === "") {
+      setloading(true);
+      let payload = {
+        email: credentials.email,
+        password: credentials.password,
+      };
+      const response = await postData(`/login`, payload, false);
+      if (response) {
+        localStorage.setItem(
+          "hey_rides_auth",
+          JSON.stringify({
+            access_token: response.token,
+            userType: response.userType,
+            name: response.name,
+          })
+        );
+        setauthDetails({
+          isAuthenticated: true,
+          type: response.userType,
+          name: response.name,
+        });
+        if (response.userType == "admin") {
+          navigate("/admin/bookings");
+        } else {
+          if (location.state) {
+            if (response.userType === "user") {
+              const response = await postData(
+                "/booking/create",
+                location.state
+              );
+              if (response) {
+                Alert(
+                  "Booking Confirmed",
+                  "Booking confirmed. We will reachout to you",
+                  () => {
+                    navigate("/");
+                  },
+                  false,
+                  () => {},
+                  () => {},
+                  true,
+                  "Ok"
+                );
+              }
+            } else {
+              Alert(
+                "Error",
+                "Please login as user to book ride",
+                () => {
+                  navigate("/login");
+                },
+                false,
+                () => {},
+                () => {},
+                true,
+                "Ok"
+              );
+            }
+          }
+          navigate("/");
+        }
       }
-      // setloading(true);
-      // let payload = {
-      //   username: credentials.username,
-      //   password: credentials.password,
-      // };
-      // const response = await postData(`/login`, payload, false);
-      // if (response) {
-      //   console.log(response);
-      //   localStorage.setItem("access_token", response.token);
-      //   setisAuthenticated(true);
-      // }
-      // setloading(false);
+      setloading(false);
     }
   };
-
   // validation
   const validation = () => {
     let error = {};
     error.password = ValidatePassword(credentials.password);
-    error.username = ValidateUserName(credentials.username);
+    error.email = ValidateEmail(credentials.email);
     seterror({
       password: error.password,
-      username: error.username,
+      email: error.email,
     });
     return error;
   };
   return (
     <div className="login-page">
-      <span className="title">Login for Riders</span>
+      <span className="title">
+        {location.pathname.split("/")[1] === "admin" ? "Admin Login" : "Login"}
+      </span>
       <form className="login-container">
         <div className="input-container">
           <input
-            className={`input ${error.username ? "input-error" : ""}`}
-            placeholder="username"
+            className={`input ${error.email ? "input-error" : ""}`}
+            placeholder="email"
             onChange={(e) =>
               setcredentials({
                 ...credentials,
-                username: e.target.value.trim(),
+                email: e.target.value.trim(),
               })
             }
             onKeyUp={(e) =>
               (e.KeyCode === 13 || e.which === 13) && handleSubmit()
             }
           />
-          <span className="error">{error.username}</span>
+          <span className="error">{error.email}</span>
         </div>
         <div className="input-container">
           <input
@@ -105,14 +155,21 @@ export default function Login() {
           </span>
           <span className="error">{error.password}</span>
         </div>
-        <span
-          className="forgot-password-text"
-          onClick={() => navigate("/forget-password")}
-        >
-          Forget password?
-        </span>
-        <button onClick={() => handleSubmit()} type="button">
-          Login
+        {location.pathname.split("/")[1] !== "admin" && (
+          <div className="info-text">
+            <span className="signup-text" onClick={() => navigate("/signup")}>
+              Signup?
+            </span>
+            <span
+              className="forgot-password-text"
+              onClick={() => navigate("/forget-password")}
+            >
+              Forget password?
+            </span>
+          </div>
+        )}
+        <button onClick={() => handleSubmit()} type="button" disabled={loading}>
+          {loading ? <Spinner type={"button"} /> : "Login"}
         </button>
       </form>
     </div>

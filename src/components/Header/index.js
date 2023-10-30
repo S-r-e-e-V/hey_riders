@@ -13,21 +13,26 @@ import { AiOutlineSchedule } from "react-icons/ai";
 
 import { useNavigate } from "react-router-dom";
 
+// images
+import Logo from "../../assets/heyrides_logo.png";
+
 // context
 import { AuthContext } from "../../context/AuthContext";
+import { logout } from "../../api";
 
 export default function Header() {
   const navigate = useNavigate();
 
-  const { isAuthenticated, setisAuthenticated } = useContext(AuthContext);
-  console.log(isAuthenticated);
-
+  const { authDetails, setauthDetails } = useContext(AuthContext);
+  console.log(authDetails);
   return (
     <div className="header">
       <div className="titles">
-        <span>Hey Riders</span>
+        {/* <div className="logo-section"> */}
+        <img onClick={() => navigate("/")} src={Logo} className="logo" />
+        {/* </div> */}
 
-        {isAuthenticated && (
+        {authDetails.isAuthenticated && authDetails.userType === "user" && (
           <>
             <div className="title" onClick={() => navigate("/schedule")}>
               <span>
@@ -44,19 +49,19 @@ export default function Header() {
             </div>
           </>
         )}
-        <div className="title">
+        <div className="title" onClick={() => navigate("/about")}>
           <span>
             <BsExclamationCircle size={13} />
           </span>
           <span>ABOUT</span>
         </div>
-        <div className="title">
+        <div className="title" onClick={() => navigate("/ourservices")}>
           <span>
             <BsGear size={13} />
           </span>
           <span>OUR SERVICES</span>
         </div>
-        <div className="title">
+        <div className="title" onClick={() => navigate("/ourvehicles")}>
           <span>
             <BsCarFront size={13} />
           </span>
@@ -69,12 +74,19 @@ export default function Header() {
           <span onClick={() => navigate("/contact")}>CONTACT</span>
         </div>
       </div>
-      {isAuthenticated ? (
+      {authDetails.isAuthenticated ? (
         <button
-          className="auth-button"
-          onClick={() => setisAuthenticated(false)}
+          className="auth-button logout"
+          onClick={
+            () => logout()
+            // setauthDetails({
+            //   userType: "user",
+            //   isAuthenticated: false,
+            //   name: "",
+            // })
+          }
         >
-          Logout
+          <span>{authDetails.name.split(" ")[0].trim()}</span>
         </button>
       ) : (
         <button className="auth-button" onClick={() => navigate("/login")}>

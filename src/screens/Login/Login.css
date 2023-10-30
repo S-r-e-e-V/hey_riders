@@ -52,11 +52,16 @@
   top: 18px;
   right: 10px;
 }
-.login-page .login-container .forgot-password-text {
-  cursor: pointer;
-  align-self: flex-end;
+.login-page .login-container .info-text {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
   font-size: 12px;
   color: var(--black);
+}
+.login-page .login-container .signup-text,
+.login-page .login-container .forgot-password-text {
+  cursor: pointer;
 }
 .login-page .login-container button {
   outline: none;

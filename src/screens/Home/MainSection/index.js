@@ -4,13 +4,11 @@ import CarImage from "../../../assets/car.png";
 
 export default function MainSection() {
   return (
-    <div className="main-section">
+    <div className="car-section">
       <div className="section-1">
-        <span className="title">Reach your destination safely </span>
+        <span className="title">Hey Rides </span>
         <span className="content">
-          Sample Content to place here. Sample Content to place here. Sample
-          Content to place here. Sample Content to place here. Sample Content to
-          place here
+         "Your Journey our priority"
         </span>
         <div className="signup-button">Signup</div>
       </div>

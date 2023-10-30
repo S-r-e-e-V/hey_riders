@@ -1,4 +1,4 @@
-.main-section {
+.car-section {
   display: flex;
   height: 600px;
   background-color: var(--yellow);
@@ -6,27 +6,37 @@
   padding: 20px 80px;
 }
 /* section 1 */
-.main-section .section-1 {
+.car-section .section-1 {
   display: flex;
   flex: 1;
   flex-direction: column;
 }
-.main-section .section-1 > * {
+.car-section .section-1 > * {
   margin: 20px 0;
 }
-.main-section .section-1 .title {
-  font-size: 50px;
+.car-section .section-1 .title {
+  font-size: 70px;
+  font-family: 'monaco';
+  color: #000;
+  animation: fadeIn 3s forwards;
 }
 
-.main-section .section-1 .signup-button {
+.car-section .section-1 .content {
+  font-size: 20px;
+  font-family: 'monaco';
+  color: #3b3b3b;
+  animation: fadeIn 4s forwards;
+}
+
+.car-section .section-1 .signup-button {
   cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
   position: relative;
-  width: 75px;
-  height: 30px;
+  width: 90px;
+  height: 37px;
   border-radius: 13px;
   background: var(--yellow);
   color: var(--white);
@@ -36,7 +46,7 @@
   font-weight: 700;
 }
 
-.main-section .section-1 .signup-button:after {
+.car-section .section-1 .signup-button:after {
   content: "";
   position: absolute;
   bottom: 0;
@@ -48,7 +58,7 @@
   z-index: -2;
 }
 
-.main-section .section-1 .signup-button:before {
+.car-section .section-1 .signup-button:before {
   content: "";
   position: absolute;
   bottom: 0;
@@ -60,22 +70,26 @@
   border-radius: 10rem;
   z-index: -1;
 }
-.main-section .section-1 .signup-button:hover {
+.car-section .section-1 .signup-button:hover {
   color: var(--white);
 }
-.main-section .section-1 .signup-button:hover:before {
+.car-section .section-1 .signup-button:hover:before {
   width: 100%;
 }
 
-/* .main-section .section-1 .signup-button:hover {
+/* .car-section .section-1 .signup-button:hover {
   background: var(--yellow);
   color: var(--white);
 } */
 
 /* section 2 */
-.main-section .image-section {
+.car-section .image-section {
   flex: 2;
 }
-.main-section .image-section img {
+.car-section .image-section img {
   width: 100%;
+}
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
