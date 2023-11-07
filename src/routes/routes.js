@@ -11,7 +11,6 @@ import Signup from "../screens/Signup";
 import Contact from "../screens/Contact";
 import About from "../screens/About";
 import Schedule from "../screens/Schedule";
-import ScheduleDetails from "../screens/ScheduleDetails";
 import OurServices from "../screens/Ourservices";
 import AdminBookings from "../screens/Admin/Bookings";
 import AdminCities from "../screens/Admin/Cities";
@@ -21,6 +20,10 @@ import AddCity from "../screens/Admin/AddCity";
 import AddLocation from "../screens/Admin/AddLocation";
 import AddPrice from "../screens/Admin/AddPrice";
 import Header from "../components/Header";
+import MyBookings from "../screens/MyBookings";
+import Booking from "../screens/Admin/Booking";
+import AdminDrivers from "../screens/Admin/Drivers";
+import AddDriver from "../screens/Admin/AddDriver";
 
 function Router() {
   const { authDetails, setauthDetails } = useContext(AuthContext);
@@ -48,6 +51,9 @@ function Router() {
           {authDetails.type === "admin" && (
             <>
               <Route exact path="/admin/bookings" element={<AdminBookings />} />
+              <Route exact path="/admin/bookings/:id" element={<Booking />} />
+              <Route exact path="/admin/drivers" element={<AdminDrivers />} />
+              <Route exact path="/admin/drivers/add" element={<AddDriver />} />
               <Route exact path="/admin/cities" element={<AdminCities />} />
               <Route exact path="/admin/cities/add" element={<AddCity />} />
               <Route
@@ -70,6 +76,7 @@ function Router() {
             path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
             element={<Schedule />}
           />
+          <Route exact path="/my-bookings" element={<MyBookings />} />
           <Route exact path="/ourservices" element={<OurServices />} />
           <Route exact path="/ourservices" element={<OurServices />} />
           <Route exact path="/about" element={<About />} />
@@ -79,9 +86,6 @@ function Router() {
         </Routes>
       ) : (
         <Routes>
-          {/* admin */}
-          <Route exact path="/admin/login" element={<Login />} />
-
           {/* user */}
           <Route exact path="/login" element={<Login />} />
           <Route exact path="/signup" element={<Signup />} />

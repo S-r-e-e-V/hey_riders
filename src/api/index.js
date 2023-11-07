@@ -175,4 +175,20 @@ const postData = async (path, data, isheader = true) => {
   }
 };
 
-export { getData, putData, postData, logout };
+// POST method API function
+const deleteData = async (path, data, isheader = true) => {
+  let header = REQUEST_HEADER(getAccessToken());
+
+  let response = null;
+  isheader
+    ? (response = await instance.delete(path, header).catch(handleError))
+    : (response = await instance.delete(path).catch(handleError));
+
+  if (response && response.data && response.status === 200) {
+    return response.data;
+  } else {
+    return null;
+  }
+};
+
+export { getData, putData, postData, logout, deleteData };
