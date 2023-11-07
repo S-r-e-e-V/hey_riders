@@ -35,6 +35,12 @@ export default function AdminHeader() {
           </span>
           <span>Bookings</span>
         </div>
+        <div className="title" onClick={() => navigate("/admin/drivers")}>
+          <span>
+            <BsCarFront size={13} />
+          </span>
+          <span>Drivers</span>
+        </div>
         <div className="title" onClick={() => navigate("/admin/cities")}>
           <span>
             <BsGear size={13} />

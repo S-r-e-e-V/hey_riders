@@ -86,3 +86,12 @@
   line-height: 18px;
   color: var(--black);
 }
+.admin .Pending {
+  color: var(--black);
+}
+.admin .Confirmed {
+  color: var(--green);
+}
+.admin .Cancelled {
+  color: var(--red);
+}

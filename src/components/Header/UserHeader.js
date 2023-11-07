@@ -32,22 +32,13 @@ export default function UserHeader() {
         <img onClick={() => navigate("/")} src={Logo} className="logo" />
         {/* </div> */}
 
-        {authDetails.isAuthenticated && authDetails.userType === "user" && (
-          <>
-            <div className="title" onClick={() => navigate("/schedule")}>
-              <span>
-                <AiOutlineSchedule size={13} />
-              </span>
-              <span>SCHEDULE</span>
-            </div>
-
-            <div className="title">
-              <span>
-                <BsFileBarGraph size={13} />
-              </span>
-              <span>TIMELINE</span>
-            </div>
-          </>
+        {authDetails.isAuthenticated && authDetails.type === "user" && (
+          <div className="title" onClick={() => navigate("/my-bookings")}>
+            <span>
+              <AiOutlineSchedule size={13} />
+            </span>
+            <span>My Bookings</span>
+          </div>
         )}
         <div className="title" onClick={() => navigate("/about")}>
           <span>
