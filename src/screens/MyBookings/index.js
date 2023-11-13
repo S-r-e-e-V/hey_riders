@@ -4,16 +4,18 @@ import "./MyBookings.css";
 import moment from "moment";
 
 //api
-import { getData } from "../../api";
+import { deleteData, getData } from "../../api";
 
 // utils
 import { Capitalize } from "../../utils/StringFormat";
 
 // components
 import Spinner from "../../components/Spinner";
+import Alert from "../../utils/Alert";
 
 const MyBookings = () => {
   const [loading, setloading] = useState(false);
+  const [pageRefresh, setpageRefresh] = useState(false);
   const [bookings, setbookings] = useState([]);
 
   const getBookings = async () => {
@@ -24,7 +26,25 @@ const MyBookings = () => {
   };
   useEffect(() => {
     getBookings();
-  }, []);
+  }, [pageRefresh]);
+
+  const cancelBooking = async (id) => {
+    const response = await deleteData(`/booking/cancel/user/${id}`);
+    if (response) {
+      Alert(
+        "Cancelled",
+        "Booking cancelled",
+        () => {},
+        false,
+        () => {},
+        () => {
+          setpageRefresh(!pageRefresh);
+        },
+        true,
+        "Ok"
+      );
+    }
+  };
 
   return (
     <>
@@ -68,12 +88,26 @@ const MyBookings = () => {
               </div>
               {booking.status === "Confirmed" && (
                 <div className="driver-info">
-                  <div className="name">Driver name: {booking.driver.name}</div>
+                  <div className="name">
+                    Driver name: {booking.driver?.name}
+                  </div>
                   <div className="ph">
-                    Phone number: {booking.driver.phoneNumber}
+                    Phone number: {booking.driver?.phoneNumber}
                   </div>
                 </div>
               )}
+              {moment(new Date()).isBefore(booking.ScheduledToTime) &&
+                (booking.status === "Confirmed" ||
+                  booking.status === "Pending") && (
+                  <button
+                    onClick={() => cancelBooking(booking._id)}
+                    type="button"
+                    className="cancel"
+                    disabled={loading.button}
+                  >
+                    {loading.button ? <Spinner type={"button"} /> : "Cancel"}
+                  </button>
+                )}
             </div>
           ))}
         </div>

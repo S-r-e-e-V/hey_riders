@@ -4,13 +4,17 @@ import "./Drivers.css";
 
 import Spinner from "../../../components/Spinner";
 
+import { AiFillDelete } from "react-icons/ai";
+
 // api
-import { getData } from "../../../api";
+import { deleteData, getData } from "../../../api";
 import { useNavigate } from "react-router-dom";
+import Alert from "../../../utils/Alert";
 
 const AdminDrivers = () => {
   const navigate = useNavigate();
   const [loading, setloading] = useState(false);
+  const [pageRefresh, setpageRefresh] = useState(false);
   const [drivers, setdrivers] = useState([]);
 
   const getdrivers = async () => {
@@ -21,7 +25,27 @@ const AdminDrivers = () => {
   };
   useEffect(() => {
     getdrivers();
-  }, []);
+  }, [pageRefresh]);
+
+  const onCancel = async (id) => {
+    setloading(true);
+    const response = await deleteData(`/driver/delete/${id}`);
+    setloading(false);
+    if (response) {
+      Alert(
+        "Successfull",
+        "Message deleted successfully",
+        () => {},
+        false,
+        () => {},
+        () => {
+          setpageRefresh(!pageRefresh);
+        },
+        true,
+        "Ok"
+      );
+    }
+  };
   return (
     <>
       {loading ? (
@@ -35,8 +59,9 @@ const AdminDrivers = () => {
             <div className="list-content">
               <div className="name">{driver.name}</div>
               <div className="phone-number">{driver.phoneNumber}</div>
-
-              {/* <div className="cancel">Cancel</div> */}
+              <div className="cancel" onClick={() => onCancel(driver._id)}>
+                <AiFillDelete />
+              </div>
             </div>
           ))}
         </div>
