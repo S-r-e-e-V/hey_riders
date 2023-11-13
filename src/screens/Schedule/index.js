@@ -367,45 +367,50 @@ export default function Schedule(props) {
           />
           <div className="schedule-content">
             <div className="rides">
-              {selectedRides.map((ride, index) => (
-                <div
-                  className={`ride ${
-                    selectedRide.id === ride.id ? "selected" : ""
-                  }`}
-                  onClick={() =>
-                    setselectedRide({
-                      ...selectedRide,
-                      id: ride.id,
-                      time: ride.fromTime,
-                    })
-                  }
-                >
-                  <div className="from">
-                    <div className="time">
-                      {moment(ride.fromTime).format("LT")}
-                    </div>
-                    <div className="location">{ride.from}</div>
-                  </div>
-                  <div className="travel-time">
-                    <img src={CarIcon} />
-                    <span>
-                      {/* {moment(
+              {selectedRides.map(
+                (ride, index) =>
+                  moment(new Date()).isBefore(
+                    combineDateAndTime(scheduleInfo.date, ride.fromTime)
+                  ) && (
+                    <div
+                      className={`ride ${
+                        selectedRide.id === ride.id ? "selected" : ""
+                      }`}
+                      onClick={() =>
+                        setselectedRide({
+                          ...selectedRide,
+                          id: ride.id,
+                          time: ride.fromTime,
+                        })
+                      }
+                    >
+                      <div className="from">
+                        <div className="time">
+                          {moment(ride.fromTime).format("LT")}
+                        </div>
+                        <div className="location">{ride.from}</div>
+                      </div>
+                      <div className="travel-time">
+                        <img src={CarIcon} />
+                        <span>
+                          {/* {moment(
                         moment(ride.toTime).diff(moment(ride.fromTime))
                       ).format("hh:mm")} */}
-                      04:00
-                    </span>
-                  </div>
-                  <div className="to">
-                    <div className="time">
-                      {moment(ride.toTime).format("LT")}
+                          04:00
+                        </span>
+                      </div>
+                      <div className="to">
+                        <div className="time">
+                          {moment(ride.toTime).format("LT")}
+                        </div>
+                        <div className="location">{ride.to}</div>
+                      </div>
+                      <div className="price">
+                        ${selectedRide.price + selectedRide.luggage}
+                      </div>
                     </div>
-                    <div className="location">{ride.to}</div>
-                  </div>
-                  <div className="price">
-                    ${selectedRide.price + selectedRide.luggage}
-                  </div>
-                </div>
-              ))}
+                  )
+              )}
             </div>
             <div className="ride-details">
               <div className="pickup">

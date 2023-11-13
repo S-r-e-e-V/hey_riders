@@ -176,7 +176,7 @@ const postData = async (path, data, isheader = true) => {
 };
 
 // POST method API function
-const deleteData = async (path, data, isheader = true) => {
+const deleteData = async (path, isheader = true) => {
   let header = REQUEST_HEADER(getAccessToken());
 
   let response = null;

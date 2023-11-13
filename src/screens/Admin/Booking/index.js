@@ -150,7 +150,8 @@ const Booking = () => {
               </div>
               <div className="price">{`$${booking.price}`}</div>
             </div>
-            {booking.status !== "Cancelled" && (
+            {(booking.status === "Confirmed" ||
+              booking.status === "Pending") && (
               <div className="allocate-driver">
                 <div className="title">Allocate Driver </div>
                 <Selector

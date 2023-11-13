@@ -5,13 +5,16 @@ import "./AdminPrice.css";
 import { useNavigate } from "react-router-dom";
 
 import Spinner from "../../../components/Spinner";
+import { AiFillDelete } from "react-icons/ai";
 
 // api
-import { getData } from "../../../api";
+import { deleteData, getData } from "../../../api";
+import Alert from "../../../utils/Alert";
 
 const AdminPrice = () => {
   const navigate = useNavigate();
   const [loading, setloading] = useState(false);
+  const [pageRefresh, setpageRefresh] = useState(false);
   const [price, setprice] = useState([]);
 
   const getprice = async () => {
@@ -22,22 +25,44 @@ const AdminPrice = () => {
   };
   useEffect(() => {
     getprice();
-  }, []);
+  }, [pageRefresh]);
 
+  const onCancel = async (id) => {
+    setloading(true);
+    const response = await deleteData(`/price/delete/${id}`);
+    setloading(false);
+    if (response) {
+      Alert(
+        "Successfull",
+        "Message deleted successfully",
+        () => {},
+        false,
+        () => {},
+        () => {
+          setpageRefresh(!pageRefresh);
+        },
+        true,
+        "Ok"
+      );
+    }
+  };
   return (
     <>
       {loading ? (
         <Spinner />
       ) : (
         <div className="admin location">
-          {/* <div className="add" onClick={() => navigate("/admin/price/add")}>
+          <div className="add" onClick={() => navigate("/admin/price/add")}>
             Add+
-          </div> */}
+          </div>
           {price.map((item) => (
             <div className="list-content">
               <div className="from">{item.from.city}</div>
               <div className="to">{item.to.city}</div>
               <div className="price">${item.price}</div>
+              <div className="cancel" onClick={() => onCancel(item._id)}>
+                <AiFillDelete />
+              </div>
             </div>
           ))}
         </div>

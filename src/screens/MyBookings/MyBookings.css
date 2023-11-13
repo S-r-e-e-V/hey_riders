@@ -51,6 +51,8 @@
   font-weight: 700;
   color: var(--blue);
 }
+
+/* status */
 .my-bookings .status .Pending {
   color: var(--black);
 }
@@ -59,4 +61,23 @@
 }
 .my-bookings .status .Cancelled {
   color: var(--red);
+}
+
+.my-bookings .booking-card button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+  height: 30px;
+  padding: 0 20px;
+  max-width: 190px;
+  margin-top: 20px;
+
+  background: linear-gradient(89.1deg, var(--yellow), var(--yellow));
+  box-shadow: 5px 5px 10px -2px var(--black);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.my-bookings .booking-card .cancel {
+  background: var(--red);
 }
