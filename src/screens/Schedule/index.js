@@ -119,7 +119,7 @@ export default function Schedule(props) {
     prices: [],
   });
   const [selectedRides, setselectedRides] = useState(
-    scheduleInfo.from === "Windsor" ? ridesFromWindsor : ridesFromToronto
+    routeParams.from === "Windsor" ? ridesFromWindsor : ridesFromToronto
   );
   const [selectedRide, setselectedRide] = useState({
     id: 1,
