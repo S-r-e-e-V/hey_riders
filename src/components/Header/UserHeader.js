@@ -14,7 +14,7 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 // images
-import Logo from "../../assets/heyrides_logo.png";
+import Logo from "../../assets/heyrides_logo_copy.png";
 
 // context
 import { AuthContext } from "../../context/AuthContext";
@@ -52,12 +52,12 @@ export default function UserHeader() {
           </span>
           <span>OUR SERVICES</span>
         </div>
-        <div className="title" onClick={() => navigate("/ourvehicles")}>
+        {/* <div className="title" onClick={() => navigate("/ourvehicles")}>
           <span>
             <BsCarFront size={13} />
           </span>
           <span>OUR VEHICLES</span>
-        </div>
+        </div> */}
         <div className="title">
           <span>
             <BsTelephone size={13} />
