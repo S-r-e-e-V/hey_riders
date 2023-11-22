@@ -24,6 +24,10 @@ import MyBookings from "../screens/MyBookings";
 import Booking from "../screens/Admin/Booking";
 import AdminDrivers from "../screens/Admin/Drivers";
 import AddDriver from "../screens/Admin/AddDriver";
+import EditDriver from "../screens/Admin/EditDriver";
+import EditCity from "../screens/Admin/EditCity";
+import EditLocation from "../screens/Admin/EditLocation";
+import EditPrice from "../screens/Admin/EditPrice";
 
 function Router() {
   const { authDetails, setauthDetails } = useContext(AuthContext);
@@ -54,8 +58,18 @@ function Router() {
               <Route exact path="/admin/bookings/:id" element={<Booking />} />
               <Route exact path="/admin/drivers" element={<AdminDrivers />} />
               <Route exact path="/admin/drivers/add" element={<AddDriver />} />
+              <Route
+                exact
+                path="/admin/drivers/edit/:id"
+                element={<EditDriver />}
+              />
               <Route exact path="/admin/cities" element={<AdminCities />} />
               <Route exact path="/admin/cities/add" element={<AddCity />} />
+              <Route
+                exact
+                path="/admin/cities/edit/:id"
+                element={<EditCity />}
+              />
               <Route
                 exact
                 path="/admin/locations"
@@ -66,8 +80,18 @@ function Router() {
                 path="/admin/locations/add"
                 element={<AddLocation />}
               />
+              <Route
+                exact
+                path="/admin/locations/edit/:id"
+                element={<EditLocation />}
+              />
               <Route exact path="/admin/price" element={<AdminPrice />} />
               <Route exact path="/admin/price/add" element={<AddPrice />} />
+              <Route
+                exact
+                path="/admin/price/edit/:id"
+                element={<EditPrice />}
+              />
             </>
           )}
 

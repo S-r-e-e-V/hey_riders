@@ -49,22 +49,24 @@ const AdminBookings = () => {
         <Spinner />
       ) : (
         <div className="admin bookings">
-          <DatePicker
-            className="date-picker"
-            selected={date.startDate}
-            onChange={(dates) => {
-              const [start, end] = dates;
-              setdate({
-                startDate: start,
-                endDate: end,
-              });
-            }}
-            startDate={date.startDate}
-            endDate={date.endDate}
-            minDate={new Date()}
-            selectsRange
-            customInput={<CustomDatepicker />}
-          />
+          <div className="datepicker">
+            <DatePicker
+              className="date-picker"
+              selected={date.startDate}
+              onChange={(dates) => {
+                const [start, end] = dates;
+                setdate({
+                  startDate: start,
+                  endDate: end,
+                });
+              }}
+              startDate={date.startDate}
+              endDate={date.endDate}
+              minDate={new Date()}
+              selectsRange
+              customInput={<CustomDatepicker />}
+            />
+          </div>
           {bookings.map((booking) => (
             <div
               className="list-content"

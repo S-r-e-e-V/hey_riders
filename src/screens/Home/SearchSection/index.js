@@ -53,12 +53,14 @@ export default function SearchSection() {
   const getCities = async () => {
     setloading(true);
     const response = await getData("/city/cities", false);
-    let cities = response.map((city) => ({
-      id: city._id,
-      item: city.city,
-    }));
+    if (response) {
+      let cities = response.map((city) => ({
+        id: city._id,
+        item: city.city,
+      }));
+      setlocations(cities);
+    }
     setloading(false);
-    setlocations(cities);
   };
   useEffect(() => {
     getCities();

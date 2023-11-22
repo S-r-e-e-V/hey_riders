@@ -5,6 +5,7 @@ import "./Drivers.css";
 import Spinner from "../../../components/Spinner";
 
 import { AiFillDelete } from "react-icons/ai";
+import { MdEdit } from "react-icons/md";
 
 // api
 import { deleteData, getData } from "../../../api";
@@ -59,8 +60,16 @@ const AdminDrivers = () => {
             <div className="list-content">
               <div className="name">{driver.name}</div>
               <div className="phone-number">{driver.phoneNumber}</div>
-              <div className="cancel" onClick={() => onCancel(driver._id)}>
-                <AiFillDelete />
+              <div className="action-buttons">
+                <div
+                  className="edit"
+                  onClick={() => navigate(`/admin/drivers/edit/${driver._id}`)}
+                >
+                  <MdEdit />
+                </div>
+                <div className="cancel" onClick={() => onCancel(driver._id)}>
+                  <AiFillDelete />
+                </div>
               </div>
             </div>
           ))}

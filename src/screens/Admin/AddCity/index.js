@@ -80,7 +80,7 @@ const AddCity = () => {
               (e.KeyCode === 13 || e.which === 13) && handleSubmit()
             }
           />
-          <span className="error">{error.city}</span>
+          <span className="error-text">{error.city}</span>
         </div>
         <div className="input-container">
           <input
@@ -96,7 +96,7 @@ const AddCity = () => {
               (e.KeyCode === 13 || e.which === 13) && handleSubmit()
             }
           />
-          <span className="error">{error.province}</span>
+          <span className="error-text">{error.province}</span>
         </div>
         <div className="input-container">
           <input

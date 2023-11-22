@@ -86,6 +86,12 @@
   line-height: 18px;
   color: var(--black);
 }
+.admin .action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
 .admin .Pending {
   color: var(--black);
 }

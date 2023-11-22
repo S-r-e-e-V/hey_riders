@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 import Spinner from "../../../components/Spinner";
 import { AiFillDelete } from "react-icons/ai";
+import { MdEdit } from "react-icons/md";
 
 // api
 import { deleteData, getData, postData } from "../../../api";
@@ -60,9 +61,18 @@ const AdminLocations = () => {
             <div className="list-content">
               <div className="name">{location.location}</div>
               <div className="city">{location.city?.city}</div>
-              {/* <div className="price">City</div> */}
-              <div className="cancel" onClick={() => onCancel(location._id)}>
-                <AiFillDelete />
+              <div className="action-buttons">
+                <div
+                  className="edit"
+                  onClick={() =>
+                    navigate(`/admin/locations/edit/${location._id}`)
+                  }
+                >
+                  <MdEdit />
+                </div>
+                <div className="cancel" onClick={() => onCancel(location._id)}>
+                  <AiFillDelete />
+                </div>
               </div>
             </div>
           ))}
