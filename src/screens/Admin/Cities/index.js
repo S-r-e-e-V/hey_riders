@@ -4,6 +4,7 @@ import "./AdminCities.css";
 
 import Spinner from "../../../components/Spinner";
 import { AiFillDelete } from "react-icons/ai";
+import { MdEdit } from "react-icons/md";
 
 // api
 import { deleteData, getData } from "../../../api";
@@ -59,8 +60,16 @@ const AdminCities = () => {
               <div className="name">{city.city}</div>
               <div className="province">{city.province}</div>
               <div className="country">{city.country}</div>
-              <div className="cancel" onClick={() => onCancel(city._id)}>
-                <AiFillDelete />
+              <div className="action-buttons">
+                <div
+                  className="edit"
+                  onClick={() => navigate(`/admin/cities/edit/${city._id}`)}
+                >
+                  <MdEdit />
+                </div>
+                <div className="cancel" onClick={() => onCancel(city._id)}>
+                  <AiFillDelete />
+                </div>
               </div>
             </div>
           ))}

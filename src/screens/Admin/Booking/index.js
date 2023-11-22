@@ -134,6 +134,9 @@ const Booking = () => {
               </div>
             </div>
             <div className="booked-on">
+              Booked by: <span>{booking.user_id.name}</span>
+            </div>
+            <div className="booked-on">
               Booked on:{" "}
               <span>
                 {moment(booking.createdAt).format("DD/MM/YYYY [at] hh:mm A")}

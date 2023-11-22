@@ -1,8 +1,9 @@
 function MandatoryFieldCheck(input) {
   let error = "";
-  if (input && input.trim().length === 0) {
+  let temp = input.toString();
+  if (temp && temp.trim().length === 0) {
     error = "Cannot be whitespace alone";
-  } else if (!input) {
+  } else if (!temp) {
     error = "Cannot be empty";
   }
   return error;

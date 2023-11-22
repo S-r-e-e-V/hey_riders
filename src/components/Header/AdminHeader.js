@@ -13,7 +13,7 @@ import { AiOutlineSchedule } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 // images
-import Logo from "../../assets/heyrides_logo.png";
+import Logo from "../../assets/heyride_copy.png";
 
 // context
 import { AuthContext } from "../../context/AuthContext";
