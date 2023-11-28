@@ -1,14 +1,10 @@
 import React, { useContext } from "react";
 
 // icons
-import {
-  BsExclamationCircle,
-  BsGear,
-  BsCarFront,
-  BsTelephone,
-  BsFileBarGraph,
-} from "react-icons/bs";
+import { BsCarFront } from "react-icons/bs";
 import { AiOutlineSchedule } from "react-icons/ai";
+import { FaCity, FaLocationDot } from "react-icons/fa6";
+import { MdPriceCheck } from "react-icons/md";
 
 import { useNavigate } from "react-router-dom";
 
@@ -43,19 +39,19 @@ export default function AdminHeader() {
         </div>
         <div className="title" onClick={() => navigate("/admin/cities")}>
           <span>
-            <BsGear size={13} />
+            <FaCity size={13} />
           </span>
           <span>Cities</span>
         </div>
         <div className="title" onClick={() => navigate("/admin/locations")}>
           <span>
-            <BsExclamationCircle size={13} />
+            <FaLocationDot size={13} />
           </span>
           <span>Locations</span>
         </div>
         <div className="title" onClick={() => navigate("/admin/price")}>
           <span>
-            <BsCarFront size={13} />
+            <MdPriceCheck size={13} />
           </span>
           <span>Price</span>
         </div>
