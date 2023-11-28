@@ -108,6 +108,7 @@ export default function Schedule(props) {
     adults: false,
     pickup: false,
     dropoff: false,
+    customLocation: false,
   });
 
   // const [locations, setlocations] = useState([]);
@@ -132,7 +133,31 @@ export default function Schedule(props) {
   const [pointLocation, setpointLocation] = useState({
     pickup: "",
     dropoff: "",
+    customLocation: "",
   });
+
+  const getCityName = (id) => {
+    return cities.filter((item) => item.id == id).length > 0
+      ? cities.filter((item) => item.id == id)[0]
+      : "";
+  };
+
+  const getLocationName = (type, id) => {
+    switch (type) {
+      case "pickup":
+        return locations.pickup.filter((item) => item.id == id).length > 0
+          ? locations.pickup.filter((item) => item.id == id)[0]
+          : "";
+      case "dropoff":
+        return locations.dropoff.filter((item) => item.id == id).length > 0
+          ? locations.dropoff.filter((item) => item.id == id)[0]
+          : "";
+      default:
+        return locations.pickup.filter((item) => item.id == id).length > 0
+          ? locations.pickup.filter((item) => item.id == id)[0]
+          : "";
+    }
+  };
 
   //get  api calls
   const getCities = async () => {
@@ -191,7 +216,12 @@ export default function Schedule(props) {
     ]);
     setlocations({ pickup, dropoff, prices });
     setcities(cities);
-    setpointLocation({ pickup: pickup[0].id, dropoff: dropoff[0].id });
+    setpointLocation({
+      pickup: pickup[0].id,
+      dropoff: dropoff[0].id,
+      type: "",
+      customLocation: "",
+    });
     setloading(false);
   };
 
@@ -212,7 +242,11 @@ export default function Schedule(props) {
       pricePromise,
     ]);
     setlocations({ pickup, dropoff, prices });
-    setpointLocation({ pickup: pickup[0].id, dropoff: dropoff[0].id });
+    setpointLocation({
+      pickup: pickup[0].id,
+      dropoff: dropoff[0].id,
+      customLocation: "",
+    });
     setselectedRides(
       scheduleInfo.from === "653dbfa79c1fb301f4375e13"
         ? ridesFromWindsor
@@ -278,10 +312,18 @@ export default function Schedule(props) {
         from: {
           location_id: pointLocation.pickup,
           city_id: scheduleInfo.from,
+          customLocation:
+            pointLocation.pickup === "6564e158f3d3c3b55fe5854b"
+              ? pointLocation.customLocation
+              : "",
         },
         to: {
           location_id: pointLocation.dropoff,
           city_id: scheduleInfo.to,
+          customLocation:
+            pointLocation.dropoff === "6564e158f3d3c3b55fe5854b"
+              ? pointLocation.customLocation
+              : "",
         },
         price: selectedRide.price + selectedRide.luggage,
         ScheduledToTime: combineDateAndTime(
@@ -345,12 +387,24 @@ export default function Schedule(props) {
     if (pointLocation.dropoff === "")
       errorDict = { ...errorDict, dropoff: true };
     else errorDict = { ...errorDict, dropoff: false };
+    if (
+      (pointLocation.pickup === "6564e158f3d3c3b55fe5854b" ||
+        pointLocation.dropoff === "6564e158f3d3c3b55fe5854b") &&
+      pointLocation.customLocation === ""
+    )
+      errorDict = { ...errorDict, customLocation: true };
+    else errorDict = { ...errorDict, customLocation: false };
     seterror({ ...error, ...errorDict });
-    if (!errorDict.pickup && !errorDict.dropoff && !errorDict.adults)
+    if (
+      !errorDict.pickup &&
+      !errorDict.dropoff &&
+      !errorDict.adults &&
+      !errorDict.customLocation
+    )
       return true;
     else return false;
   };
-
+  console.log(pointLocation);
   return (
     <>
       {loading ? (
@@ -390,7 +444,9 @@ export default function Schedule(props) {
                         <div className="time">
                           {moment(ride.fromTime).format("LT")}
                         </div>
-                        <div className="location">{ride.from}</div>
+                        <div className="location">
+                          {getCityName(scheduleInfo.from).item}
+                        </div>
                       </div>
                       <div className="travel-time">
                         <img src={CarIcon} />
@@ -398,14 +454,16 @@ export default function Schedule(props) {
                           {/* {moment(
                         moment(ride.toTime).diff(moment(ride.fromTime))
                       ).format("hh:mm")} */}
-                          04:00
+                          {/* 04:00 */}
                         </span>
                       </div>
                       <div className="to">
                         <div className="time">
                           {moment(ride.toTime).format("LT")}
                         </div>
-                        <div className="location">{ride.to}</div>
+                        <div className="location">
+                          {getCityName(scheduleInfo.to).item}
+                        </div>
                       </div>
                       <div className="price">
                         ${selectedRide.price + selectedRide.luggage}
@@ -438,9 +496,7 @@ export default function Schedule(props) {
                   title={"Going to"}
                   items={locations.dropoff}
                   initialSelection={[
-                    locations.dropoff.length > 0
-                      ? locations.dropoff[locations.dropoff.length - 1]
-                      : {},
+                    locations.dropoff.length > 0 ? locations.dropoff[0] : {},
                   ]}
                   selectedItem={(e) =>
                     setpointLocation({
@@ -451,6 +507,39 @@ export default function Schedule(props) {
                   isError={error.dropoff}
                 />
               </div>
+              {(pointLocation.pickup === "6564e158f3d3c3b55fe5854b" ||
+                pointLocation.dropoff === "6564e158f3d3c3b55fe5854b") && (
+                <div
+                  className={`custom-location ${
+                    error.customLocation ? "error" : ""
+                  }`}
+                >
+                  <input
+                    value={pointLocation.customLocation}
+                    placeholder="Enter the location"
+                    onChange={(e) =>
+                      setpointLocation({
+                        ...pointLocation,
+                        customLocation: e.target.value,
+                      })
+                    }
+                  />
+                </div>
+              )}
+              {/* {pointLocation.dropoff === "6564e158f3d3c3b55fe5854b" && (
+                <div className="custom-location">
+                  <input
+                    placeholder="Enter the dropoff location"
+                    onChange={(e) =>
+                      setpointLocation({
+                        ...pointLocation,
+                        type: "dropoff",
+                        customLocation: e.target.value.trim(),
+                      })
+                    }
+                  />
+                </div>
+              )} */}
               <button className="confirm-booking" onClick={() => onConfirm()}>
                 Confirm
               </button>

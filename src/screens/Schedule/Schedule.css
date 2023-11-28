@@ -86,6 +86,7 @@
   justify-content: space-between;
   max-height: 275px;
   flex: 1;
+  gap: 15px;
   padding: 20px;
   border-radius: 6px;
   background: linear-gradient(89.1deg, var(--white), var(--white));
@@ -93,6 +94,23 @@
 }
 .schedule-page .ride-details .selector {
   width: unset;
+}
+.schedule-page .ride-details .custom-location input {
+  outline: none;
+  border: none;
+  padding: 0 10px;
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+
+  border: 1px solid var(--yellow);
+  background: var(--white);
+  /* box-shadow: 5px 5px 10px -2px var(--black); */
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+.schedule-page .ride-details .custom-location.error input {
+  border: 1px solid var(--red);
 }
 .schedule-page .ride-details .confirm-booking {
   outline: none;

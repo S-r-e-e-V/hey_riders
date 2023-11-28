@@ -26,3 +26,21 @@
 .react-datepicker__year-text--in-range {
   background-color: var(--yellow) !important;
 }
+
+/* bookings */
+
+.admin.bookings .list-content {
+  flex-direction: column;
+  font-weight: 500;
+  color: var(--gray);
+}
+.admin.bookings .list-content > div {
+  display: flex;
+  justify-content: space-between;
+}
+.admin.bookings .list-content .price > span {
+  color: var(--red);
+}
+.admin.bookings .list-content .driver > span {
+  color: var(--blue);
+}

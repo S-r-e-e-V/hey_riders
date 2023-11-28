@@ -145,10 +145,16 @@ const Booking = () => {
             <div className="content">
               <div className="booking-location">
                 <span>
-                  Pickup: {`${Capitalize(booking.from.location_id.location)}`}
+                  Pickup:{" "}
+                  {booking.from.location_id._id === "6564e158f3d3c3b55fe5854b"
+                    ? Capitalize(booking.from.customLocation)
+                    : Capitalize(booking.from.location_id.location)}
                 </span>
                 <span>
-                  Dropoff: {`${Capitalize(booking.to.location_id.location)}`}
+                  Dropoff:{" "}
+                  {booking.to.location_id._id === "6564e158f3d3c3b55fe5854b"
+                    ? Capitalize(booking.to.customLocation)
+                    : Capitalize(booking.to.location_id.location)}
                 </span>
               </div>
               <div className="price">{`$${booking.price}`}</div>
