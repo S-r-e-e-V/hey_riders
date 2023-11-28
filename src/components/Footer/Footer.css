@@ -8,6 +8,9 @@
   padding: 20px;
   bottom: 0;
 }
+.footer .footer-links {
+  text-align: center;
+}
 .footer a {
   color: #fff;
   text-decoration: none;

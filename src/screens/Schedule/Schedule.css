@@ -7,7 +7,7 @@
 .schedule-page .search-area {
   align-self: center;
   padding: 20px;
-  gap: 30;
+  margin: 20px;
 }
 .schedule-page .search-area .location {
   gap: 30;
@@ -125,4 +125,20 @@
 }
 .schedule-page .ride-details .confirm-booking:hover {
   background: var(--white);
+}
+
+@media screen and (max-width: 1000px) {
+  .schedule-page .schedule-content {
+    flex-direction: column;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .schedule-page .schedule-content .rides .ride .time,
+  .schedule-page .schedule-content .price {
+    font-size: 20px;
+  }
+  .schedule-page .schedule-content .travel-time img {
+    width: 30px;
+  }
 }

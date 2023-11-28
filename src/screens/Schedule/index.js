@@ -404,7 +404,6 @@ export default function Schedule(props) {
       return true;
     else return false;
   };
-  console.log(pointLocation);
   return (
     <>
       {loading ? (
