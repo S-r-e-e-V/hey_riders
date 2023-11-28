@@ -16,14 +16,14 @@
 }
 .car-section .section-1 .title {
   font-size: 70px;
-  font-family: 'monaco';
+  font-family: "monaco";
   color: #000;
   animation: fadeIn 3s forwards;
 }
 
 .car-section .section-1 .content {
   font-size: 20px;
-  font-family: 'monaco';
+  font-family: "monaco";
   color: #3b3b3b;
   animation: fadeIn 4s forwards;
 }
@@ -90,6 +90,34 @@
   width: 100%;
 }
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .car-section .section-1 .title {
+    font-size: 40px;
+  }
+}
+@media screen and (max-width: 720px) {
+  .car-section {
+    padding: 20px 40px;
+  }
+}
+@media screen and (max-width: 550px) {
+  .car-section {
+    flex-direction: column;
+  }
+  .car-section .image-section {
+    flex: 1;
+  }
+}
+@media screen and (max-width: 450px) {
+  .car-section .section-1 .title {
+    font-size: 30px;
+  }
 }

@@ -105,83 +105,87 @@ export default function SearchArea({
           />
         </div>
       </div>
-      <div className={`date`}>
-        <div className="title">Date</div>
-        <DatePicker
-          selected={scheduleInfo.date}
-          onChange={(date) => setscheduleInfo({ ...scheduleInfo, date: date })}
-          minDate={new Date()}
-          //   showTimeSelect
-          //   includeTimes={timeFromWindsor}
-          dateFormat="MMMM d, yyyy"
-          disabledKeyboardNavigation
-        />
-      </div>
-      <div
-        className={`passengers ${error.adults ? "error" : ""}`}
-        ref={ref}
-        onClick={() => setopen(true)}
-      >
-        <div className="passengers-header">
-          <div className="title">Passengers</div>
-          <div className="content">{scheduleInfo.adults} passengers</div>
+      <div className="parameters">
+        <div className={`date`}>
+          <div className="title">Date</div>
+          <DatePicker
+            selected={scheduleInfo.date}
+            onChange={(date) =>
+              setscheduleInfo({ ...scheduleInfo, date: date })
+            }
+            minDate={new Date()}
+            //   showTimeSelect
+            //   includeTimes={timeFromWindsor}
+            dateFormat="MMMM d, yyyy"
+            disabledKeyboardNavigation
+          />
         </div>
-        {open && (
-          <div className="popup-contents">
-            <div className="popup-content">
-              <span>Adult</span>
-              <div className="controller">
-                <AiOutlineMinusCircle
-                  onClick={() =>
-                    scheduleInfo.adults > 1
-                      ? setscheduleInfo({
-                          ...scheduleInfo,
-                          adults: scheduleInfo.adults - 1,
-                        })
-                      : 0
-                  }
-                />
-                <span>{scheduleInfo.adults}</span>
-                <AiFillPlusCircle
-                  onClick={() =>
-                    scheduleInfo.adults > 6
-                      ? 0
-                      : setscheduleInfo({
-                          ...scheduleInfo,
-                          adults: scheduleInfo.adults + 1,
-                        })
-                  }
-                />
-              </div>
-            </div>
-            <div className="popup-content">
-              <span>Luggage</span>
-              <div className="controller">
-                <AiOutlineMinusCircle
-                  onClick={() =>
-                    scheduleInfo.luggage > 0
-                      ? setscheduleInfo({
-                          ...scheduleInfo,
-                          luggage: scheduleInfo.luggage - 1,
-                        })
-                      : 0
-                  }
-                />
-                <span>{scheduleInfo.luggage}</span>
-                <AiFillPlusCircle
-                  onClick={() =>
-                    scheduleInfo.luggage > 2
-                      ? 0
-                      : setscheduleInfo({
-                          ...scheduleInfo,
-                          luggage: scheduleInfo.luggage + 1,
-                        })
-                  }
-                />
-              </div>
-            </div>
+        <div
+          className={`passengers ${error.adults ? "error" : ""}`}
+          ref={ref}
+          onClick={() => setopen(true)}
+        >
+          <div className="passengers-header">
+            <div className="title">Passengers</div>
+            <div className="content">{scheduleInfo.adults} passengers</div>
           </div>
-        )}
+          {open && (
+            <div className="popup-contents">
+              <div className="popup-content">
+                <span>Adult</span>
+                <div className="controller">
+                  <AiOutlineMinusCircle
+                    onClick={() =>
+                      scheduleInfo.adults > 1
+                        ? setscheduleInfo({
+                            ...scheduleInfo,
+                            adults: scheduleInfo.adults - 1,
+                          })
+                        : 0
+                    }
+                  />
+                  <span>{scheduleInfo.adults}</span>
+                  <AiFillPlusCircle
+                    onClick={() =>
+                      scheduleInfo.adults > 6
+                        ? 0
+                        : setscheduleInfo({
+                            ...scheduleInfo,
+                            adults: scheduleInfo.adults + 1,
+                          })
+                    }
+                  />
+                </div>
+              </div>
+              <div className="popup-content">
+                <span>Luggage</span>
+                <div className="controller">
+                  <AiOutlineMinusCircle
+                    onClick={() =>
+                      scheduleInfo.luggage > 0
+                        ? setscheduleInfo({
+                            ...scheduleInfo,
+                            luggage: scheduleInfo.luggage - 1,
+                          })
+                        : 0
+                    }
+                  />
+                  <span>{scheduleInfo.luggage}</span>
+                  <AiFillPlusCircle
+                    onClick={() =>
+                      scheduleInfo.luggage > 2
+                        ? 0
+                        : setscheduleInfo({
+                            ...scheduleInfo,
+                            luggage: scheduleInfo.luggage + 1,
+                          })
+                    }
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

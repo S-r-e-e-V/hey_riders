@@ -27,7 +27,7 @@ const AdminBookings = () => {
     setloading(true);
     const response = await postData("/booking/bookings", {
       startTime: date.startDate,
-      endTime: date.endTime,
+      endTime: date.endDate,
     });
     setloading(false);
     if (response) setbookings(response);
@@ -72,24 +72,41 @@ const AdminBookings = () => {
               className="list-content"
               onClick={() => navigator(`/admin/bookings/${booking._id}`)}
             >
-              <div className="name">Name: {booking.user_id.name}</div>
-              <div className="price">Price: ${booking.price}</div>
-              <div className={`status`}>
-                Status:{" "}
-                <span className={`${booking.status}`}>{booking.status}</span>
+              <div>
+                <div className="name">Name: {booking.user_id.name}</div>
+                <div className={`status`}>
+                  Status:{" "}
+                  <span className={`${booking.status}`}>{booking.status}</span>
+                </div>
+              </div>
+              <div>
+                <div className="date">
+                  Scheduled for:{" "}
+                  {moment(booking.ScheduledToTime).format(
+                    "DD/MM/YYYY  hh:mm A"
+                  )}
+                </div>
+                <div className="price">
+                  Price: <span>${booking.price}</span>
+                </div>
               </div>
               <div className="from">
-                Pickup: {booking.from.location_id.location}
+                Pickup:{" "}
+                {booking.from.location_id._id === "6564e158f3d3c3b55fe5854b"
+                  ? booking.from.customLocation
+                  : booking.from.location_id.location}
               </div>
               <div className="to">
-                Dropoff: {booking.to.location_id.location}
+                Dropoff:{" "}
+                {booking.to.location_id._id === "6564e158f3d3c3b55fe5854b"
+                  ? booking.to.customLocation
+                  : booking.to.location_id.location}
               </div>
-              <div className="date">
-                Date:{" "}
-                {moment(booking.ScheduledToTime).format("DD/MM/YYYY  hh:mm A")}
-              </div>
+
               {booking.driver && (
-                <div className="driver">Driver: {booking.driver.name}</div>
+                <span className="driver">
+                  Driver: <span> {booking.driver.name}</span>
+                </span>
               )}
             </div>
           ))}

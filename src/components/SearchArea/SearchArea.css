@@ -10,7 +10,10 @@
   display: flex;
   gap: 10px;
 }
-
+.search-area .parameters {
+  display: flex;
+  gap: 10px;
+}
 /* date */
 .search-area .date {
   position: relative;
@@ -42,6 +45,7 @@
   position: relative;
   border: 1px solid var(--yellow);
   border-radius: 7px;
+  box-sizing: border-box;
   padding: 10px;
   font-size: 18px;
   width: 190px;
@@ -90,4 +94,16 @@
 }
 .search-area .passengers .popup-contents .popup-content .controller svg {
   cursor: pointer;
+}
+
+@media screen and (max-width: 1000px) {
+  .search-area {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 550px) {
+  .search-area .location,
+  .search-area .parameters {
+    flex-direction: column;
+  }
 }

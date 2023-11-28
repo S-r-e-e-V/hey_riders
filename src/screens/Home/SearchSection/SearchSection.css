@@ -91,3 +91,14 @@
   background: linear-gradient(89.1deg, var(--white), var(--white));
   box-shadow: 5px 5px 10px -2px var(--black);
 }
+
+@media screen and (max-width: 550px) {
+  .search-section .search-container {
+    margin-top: 10px !important;
+  }
+}
+@media screen and (max-width: 450px) {
+  .search-section .search-container {
+    padding: 35px;
+  }
+}
