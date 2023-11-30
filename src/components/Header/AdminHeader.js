@@ -21,9 +21,7 @@ export default function AdminHeader() {
   return (
     <div className="header">
       <div className="titles">
-        {/* <div className="logo-section"> */}
         <img src={Logo} className="logo" />
-        {/* </div> */}
 
         <div className="title" onClick={() => navigate("/admin/bookings")}>
           <span>

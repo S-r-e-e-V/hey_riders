@@ -1,5 +1,5 @@
 .login-page {
-  margin-top: 5%;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -120,4 +120,10 @@
 }
 .login-page .signup-section:hover {
   background: var(--white_03);
+}
+
+@media screen and (max-width: 450px) {
+  .login-page .login-container .input {
+    width: 300px;
+  }
 }

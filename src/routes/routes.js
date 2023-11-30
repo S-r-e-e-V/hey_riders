@@ -49,82 +49,92 @@ function Router() {
   return (
     <BrowserRouter>
       <Header />
-      {authDetails.isAuthenticated ? (
-        <Routes>
-          {/* admin */}
-          {authDetails.type === "admin" && (
-            <>
-              <Route exact path="/admin/bookings" element={<AdminBookings />} />
-              <Route exact path="/admin/bookings/:id" element={<Booking />} />
-              <Route exact path="/admin/drivers" element={<AdminDrivers />} />
-              <Route exact path="/admin/drivers/add" element={<AddDriver />} />
-              <Route
-                exact
-                path="/admin/drivers/edit/:id"
-                element={<EditDriver />}
-              />
-              <Route exact path="/admin/cities" element={<AdminCities />} />
-              <Route exact path="/admin/cities/add" element={<AddCity />} />
-              <Route
-                exact
-                path="/admin/cities/edit/:id"
-                element={<EditCity />}
-              />
-              <Route
-                exact
-                path="/admin/locations"
-                element={<AdminLocations />}
-              />
-              <Route
-                exact
-                path="/admin/locations/add"
-                element={<AddLocation />}
-              />
-              <Route
-                exact
-                path="/admin/locations/edit/:id"
-                element={<EditLocation />}
-              />
-              <Route exact path="/admin/price" element={<AdminPrice />} />
-              <Route exact path="/admin/price/add" element={<AddPrice />} />
-              <Route
-                exact
-                path="/admin/price/edit/:id"
-                element={<EditPrice />}
-              />
-            </>
-          )}
+      <div className="main">
+        {authDetails.isAuthenticated ? (
+          <Routes>
+            {/* admin */}
+            {authDetails.type === "admin" && (
+              <>
+                <Route
+                  exact
+                  path="/admin/bookings"
+                  element={<AdminBookings />}
+                />
+                <Route exact path="/admin/bookings/:id" element={<Booking />} />
+                <Route exact path="/admin/drivers" element={<AdminDrivers />} />
+                <Route
+                  exact
+                  path="/admin/drivers/add"
+                  element={<AddDriver />}
+                />
+                <Route
+                  exact
+                  path="/admin/drivers/edit/:id"
+                  element={<EditDriver />}
+                />
+                <Route exact path="/admin/cities" element={<AdminCities />} />
+                <Route exact path="/admin/cities/add" element={<AddCity />} />
+                <Route
+                  exact
+                  path="/admin/cities/edit/:id"
+                  element={<EditCity />}
+                />
+                <Route
+                  exact
+                  path="/admin/locations"
+                  element={<AdminLocations />}
+                />
+                <Route
+                  exact
+                  path="/admin/locations/add"
+                  element={<AddLocation />}
+                />
+                <Route
+                  exact
+                  path="/admin/locations/edit/:id"
+                  element={<EditLocation />}
+                />
+                <Route exact path="/admin/price" element={<AdminPrice />} />
+                <Route exact path="/admin/price/add" element={<AddPrice />} />
+                <Route
+                  exact
+                  path="/admin/price/edit/:id"
+                  element={<EditPrice />}
+                />
+              </>
+            )}
 
-          <Route
-            exact
-            path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
-            element={<Schedule />}
-          />
-          <Route exact path="/my-bookings" element={<MyBookings />} />
-          <Route exact path="/ourservices" element={<OurServices />} />
-          <Route exact path="/ourservices" element={<OurServices />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/contact" element={<Contact />} />
-          <Route exact path="/" element={<Home />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      ) : (
-        <Routes>
-          {/* user */}
-          <Route exact path="/login" element={<Login />} />
-          <Route exact path="/signup" element={<Signup />} />
-          <Route
-            exact
-            path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
-            element={<Schedule />}
-          />
-          <Route exact path="/ourservices" element={<OurServices />} />
-          <Route exact path="/about" element={<About />} />
-          <Route exact path="/contact" element={<Contact />} />
-          <Route exact path="/" element={<Home />} />
-          <Route path="*" element={<Home />} />
-        </Routes>
-      )}
+            <Route
+              exact
+              path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
+              element={<Schedule />}
+            />
+            <Route exact path="/my-bookings" element={<MyBookings />} />
+            <Route exact path="/ourservices" element={<OurServices />} />
+            <Route exact path="/ourservices" element={<OurServices />} />
+            <Route exact path="/about" element={<About />} />
+            <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="/" element={<Home />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        ) : (
+          <Routes>
+            {/* user */}
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route
+              exact
+              path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"
+              element={<Schedule />}
+            />
+            <Route exact path="/ourservices" element={<OurServices />} />
+            <Route exact path="/about" element={<About />} />
+            <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="/" element={<Home />} />
+            <Route path="*" element={<Home />} />
+          </Routes>
+        )}
+      </div>
     </BrowserRouter>
   );
 }
