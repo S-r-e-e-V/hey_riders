@@ -1,21 +1,26 @@
 import React, { useContext } from "react";
+import "./index.css";
 
-// import { useLocation } from "react-router-dom";
 import AdminHeader from "./AdminHeader";
 import UserHeader from "./UserHeader";
 import { AuthContext } from "../../context/AuthContext";
+import UserSideNav from "./UserSideNav";
+import AdminSideNav from "./AdminSideNav";
 
 const Header = () => {
-  // const location = useLocation();
   const { authDetails } = useContext(AuthContext);
 
-  // return location.pathname.split("/")[1] === "admin" ? (
-  //   <AdminHeader />
-  // ) : (
-  //   <UserHeader />
-  // );
-
-  return authDetails.type === "admin" ? <AdminHeader /> : <UserHeader />;
+  return authDetails.type === "admin" ? (
+    <>
+      <AdminSideNav />
+      <AdminHeader />
+    </>
+  ) : (
+    <>
+      <UserSideNav />
+      <UserHeader />
+    </>
+  );
 };
 
 export default Header;

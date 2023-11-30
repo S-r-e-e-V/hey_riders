@@ -1,0 +1,15 @@
+.main {
+  margin-top: 123px;
+}
+
+@media screen and (max-width: 720px) {
+  .sidenav {
+    display: block;
+  }
+  .header {
+    display: none !important;
+  }
+  .main {
+    margin-top: unset;
+  }
+}

@@ -1,40 +1,73 @@
-.header {
+.sidenav .handburg-icon {
+  display: block;
   position: fixed;
+  left: 20px;
+  top: 20px;
+  z-index: 100;
+  cursor: pointer;
+}
+.dim-background {
+  display: none;
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  z-index: 450;
   width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 50;
-  box-sizing: border-box;
+  height: 100%;
+  background: rgb(0, 0, 0, 0.5);
+}
+.dim-background.hide {
+  display: none;
+}
+.dim-background.active {
+  display: block;
+}
+.sidenav .sidenav-div {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 30px 20px;
+  gap: 20px;
+
+  position: fixed;
+  top: 0;
+  width: 270px;
+  box-sizing: border-box;
+  z-index: 999;
+  background-color: #ffffff;
+  padding: 20px 45px 20px 20px;
+  height: calc(var(--vh, 1vh) * 100);
+  left: -300px;
+  transition: left 200ms linear;
+  overflow-y: scroll;
+
   background-color: var(--black);
   color: var(--white);
+}
+.sidenav .sidenav-div.active {
+  left: 0px;
+}
 
-  -webkit-box-shadow: 0px 2px 14px 1px #000000;
-  box-shadow: 0px 2px 14px 1px #000000;
-}
-.header .titles {
+.sidenav .titles {
   display: flex;
-  justify-content: space-between;
-  width: 75%;
+  flex-direction: column;
+
+  gap: 20px;
 }
-.header .titles .logo {
+.sidenav .titles .logo {
   cursor: pointer;
   width: 141px;
   height: 68px;
 }
-.header .titles .title {
+.sidenav .titles .title {
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 }
-.header .titles .title > span {
+.sidenav .titles .title > span {
   padding-right: 5px;
 }
-.header .auth-button {
+.sidenav .auth-button {
   width: 130px;
   height: 40px;
   color: var(--white);
@@ -53,7 +86,7 @@
   border: none;
   z-index: 1;
 }
-.header .auth-button:after {
+.sidenav .auth-button:after {
   position: absolute;
   content: "";
   width: 0;
@@ -67,19 +100,19 @@
     7px 7px 20px 0px rgba(0, 0, 0, 0.1), 4px 4px 5px 0px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
-.header .auth-button:hover {
+.sidenav .auth-button:hover {
   color: var(--black);
 }
-.header .auth-button:hover:after {
+.sidenav .auth-button:hover:after {
   left: 0;
   width: 100%;
 }
-.header .auth-button:active {
+.sidenav .auth-button:active {
   top: 2px;
 }
-.header .auth-button.logout:hover span {
+.sidenav .auth-button.logout:hover span {
   display: none;
 }
-.header .auth-button.logout:hover:before {
+.sidenav .auth-button.logout:hover:before {
   content: "Logout";
 }

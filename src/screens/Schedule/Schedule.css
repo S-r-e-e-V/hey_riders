@@ -1,23 +1,21 @@
 .schedule-page {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  padding: 20px 20px 0 20px;
 }
 /* search area */
 .schedule-page .search-area {
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
   align-self: center;
   padding: 20px;
-  margin: 20px;
 }
 .schedule-page .search-area .location {
   gap: 30;
 }
-.schedule-page .search-area .location .selector {
-  width: 250px;
-}
-.schedule-page .search-area .date input {
-  width: 250px;
-}
+.schedule-page .search-area .location .selector,
+.schedule-page .search-area .date input,
 .schedule-page .search-area .passengers {
   width: 250px;
 }
@@ -26,7 +24,7 @@
 .schedule-page .schedule-content {
   display: flex;
   gap: 10px;
-  margin: 20px 20px 0 20px;
+  margin-top: 20px;
 }
 
 /* rides */
@@ -125,6 +123,20 @@
 }
 .schedule-page .ride-details .confirm-booking:hover {
   background: var(--white);
+}
+@media screen and (max-width: 1200px) {
+  .schedule-page .search-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .schedule-page .search-area .location .selector,
+  .schedule-page .search-area .date input,
+  .schedule-page .search-area .passengers {
+    width: 190px;
+  }
 }
 
 @media screen and (max-width: 1000px) {
