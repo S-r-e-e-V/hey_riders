@@ -1,10 +1,12 @@
 .main {
   margin-top: 123px;
 }
-
+.sidenav {
+  display: none;
+}
 @media screen and (max-width: 720px) {
   .sidenav {
-    display: block;
+    display: flex;
   }
   .header {
     display: none !important;

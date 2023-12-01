@@ -12,8 +12,8 @@
   background-color: var(--black);
   color: var(--white);
 
-  -webkit-box-shadow: 0px 2px 14px 1px #000000;
-  box-shadow: 0px 2px 14px 1px #000000;
+  -webkit-box-shadow: 0px 2px 14px 1px var(--black);
+  box-shadow: 0px 2px 14px 1px var(--black);
 }
 .header .titles {
   display: flex;

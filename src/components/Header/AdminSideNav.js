@@ -61,7 +61,7 @@ export default function AdminSideNav() {
   return (
     <div className="sidenav">
       <div className="handburg-icon">
-        <TiThMenuOutline onClick={openMenu} size={30} />
+        <TiThMenuOutline onClick={openMenu} size={20} />
       </div>
       <div className={`dim-background ${isOpen ? "active" : "hide"}`}></div>
       <div className={`sidenav-div ${isOpen ? "active" : ""}`} ref={node}>
