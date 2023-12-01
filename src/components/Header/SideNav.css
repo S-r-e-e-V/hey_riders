@@ -1,10 +1,19 @@
 .sidenav .handburg-icon {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: fixed;
+  width: 35px;
+  height: 31px;
   left: 20px;
   top: 20px;
   z-index: 100;
   cursor: pointer;
+  background-color: var(--white);
+  border-radius: 50%;
+
+  -webkit-box-shadow: 0px 2px 14px 1px var(--black);
+  box-shadow: 0px 2px 14px 1px var(--black);
 }
 .dim-background {
   display: none;
