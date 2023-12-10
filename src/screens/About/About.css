@@ -35,7 +35,6 @@
   }
   
   .about-page .about-image {
-    margin-left: 40px;
     animation: fadeIn 1s;
   }
   
@@ -56,5 +55,68 @@
     }
   }
 
+  @media only screen and (max-width: 1060px) {
+    .about-page .about-content,
+    .about-page h2{
+      font-size: 40px;
+    }
+    .about-page .about-description {
+      font-size: 15px;/* Adjust margins for smaller screens */
+    }
   
+    .about-page .about-image img {
+      max-width: 80%; /* Adjust image width for smaller screens */
+    }
+  }
+
+  @media only screen and (max-width: 780px) {
+    .about-page .about-content,
+    .about-page h2{
+      font-size: 30px;
+    }
+    .about-page .about-description {
+      font-size: 12px;/* Adjust margins for smaller screens */
+    }
   
+    .about-page .about-image img {
+      max-width: 80%; /* Adjust image width for smaller screens */
+    }
+  }
+  
+  @media only screen and (max-width: 510px) {
+    .about-page .about-content,
+    .about-page h2{
+      font-size: 20px;
+    }
+    .about-page .about-description {
+      font-size: 10px;/* Adjust margins for smaller screens */
+    }
+  
+    .about-page .about-image img {
+       /* Adjust image width for smaller screens */
+    }
+  }
+  /*@media screen and (max-width: 500px){
+    .background .title{
+      font-size: 30px;
+    }
+    .background .content h2 {
+      font-size: 20px;
+    }
+    .background .services-container{
+      font-size: 15px;
+    }
+  }
+
+   @media screen and (max-width: 380px){
+    .background .title{
+      font-size: 20px;
+    }
+    .background .content h2 {
+      font-size: 15px;
+    }
+    .background .services-container {
+      font-size: 10px;
+    }
+  }
+  */

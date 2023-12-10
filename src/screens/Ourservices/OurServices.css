@@ -4,17 +4,19 @@
     background-position: center;
     height: 100vh;
     display: flex;
-    padding-left: 350px;
+    
     align-items: center;
+    justify-content: center;
   }
   .background .title{
     color: rgb(212, 201, 201);
     font-size: 60px;
-    margin-left: 50px;
+    text-align: center;
+    
   }
   .service{
     color: var(--white);
-    padding-left: 50px;
+    
   }
   .background .content {
     background-color: rgba(255, 255, 255, 0.5); /* Transparent white background */
@@ -45,3 +47,36 @@
     font-size: 18px;
   }
   
+  @media screen and (max-width: 720px){
+    .background .title{
+      font-size: 40px;
+    }
+    .background .services-container {
+      flex-direction: column;
+      gap: 10px;
+  }
+  }
+
+  @media screen and (max-width: 500px){
+    .background .title{
+      font-size: 30px;
+    }
+    .background .content h2 {
+      font-size: 20px;
+    }
+    .background .services-container{
+      font-size: 15px;
+    }
+  }
+
+   @media screen and (max-width: 380px){
+    .background .title{
+      font-size: 20px;
+    }
+    .background .content h2 {
+      font-size: 15px;
+    }
+    .background .services-container {
+      font-size: 10px;
+    }
+  }
