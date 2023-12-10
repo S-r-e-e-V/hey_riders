@@ -78,3 +78,13 @@
 .admin-booking .booking-card .allocate-driver button:hover {
   background: var(--white);
 }
+@media screen and (max-width: 720px) {
+  .admin-booking .booking-card .content,
+  .admin-booking .booking-card .booking-header {
+    flex-direction: column;
+  }
+  .admin-booking .booking-card .content > div,
+  .admin-booking .booking-card .booking-header > div {
+    padding: 5px 0;
+  }
+}

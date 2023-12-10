@@ -1,7 +1,7 @@
 .admin {
   display: flex;
   flex-direction: column;
-  margin: 20px;
+  padding: 20px;
 }
 .admin .list-content {
   cursor: pointer;

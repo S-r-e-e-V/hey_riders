@@ -4,14 +4,14 @@
   padding: 50px;
   border: 1px solid #e5ca50;
   border-radius: 5px;
-  background-color:#f5cb5c ;
+  background-color: #f5cb5c;
 }
 .contact-page {
-  background-image: url('https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80');
+  background-image: url("https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80");
   background-size: cover;
   padding: 10px;
 }
-.contact-page .title{
+.contact-page .title {
   color: #747474;
 }
 .contact-page .form-group {
@@ -38,4 +38,10 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
+}
+@media screen and (max-width: 500px) {
+  .contact-page .form-container {
+    margin: 10px;
+    height: 80vh;
+  }
 }

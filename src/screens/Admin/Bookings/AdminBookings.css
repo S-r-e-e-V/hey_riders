@@ -44,3 +44,10 @@
 .admin.bookings .list-content .driver > span {
   color: var(--blue);
 }
+
+@media screen and (max-width: 720px) {
+  .admin.bookings .list-content > div {
+    flex-direction: column;
+    padding: 5px 0;
+  }
+}

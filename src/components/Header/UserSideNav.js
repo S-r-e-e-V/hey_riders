@@ -58,6 +58,11 @@ export default function UserSideNav() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
+
+  const redirect = (path) => {
+    navigate(path);
+    closeMenu();
+  };
   return (
     <div className="sidenav">
       <div className="handburg-icon">
@@ -67,30 +72,30 @@ export default function UserSideNav() {
       <div className={`sidenav-div ${isOpen ? "active" : ""}`} ref={node}>
         <div className="titles">
           {/* <div className="logo-section"> */}
-          <img onClick={() => navigate("/")} src={Logo} className="logo" />
+          <img onClick={() => redirect("/")} src={Logo} className="logo" />
           {/* </div> */}
 
           {authDetails.isAuthenticated && authDetails.type === "user" && (
-            <div className="title" onClick={() => navigate("/my-bookings")}>
+            <div className="title" onClick={() => redirect("/my-bookings")}>
               <span>
                 <AiOutlineSchedule size={13} />
               </span>
               <span>My Bookings</span>
             </div>
           )}
-          <div className="title" onClick={() => navigate("/about")}>
+          <div className="title" onClick={() => redirect("/about")}>
             <span>
               <BsExclamationCircle size={13} />
             </span>
             <span>ABOUT</span>
           </div>
-          <div className="title" onClick={() => navigate("/ourservices")}>
+          <div className="title" onClick={() => redirect("/ourservices")}>
             <span>
               <BsGear size={13} />
             </span>
             <span>OUR SERVICES</span>
           </div>
-          {/* <div className="title" onClick={() => navigate("/ourvehicles")}>
+          {/* <div className="title" onClick={() => redirect("/ourvehicles")}>
           <span>
             <BsCarFront size={13} />
           </span>
@@ -100,7 +105,7 @@ export default function UserSideNav() {
             <span>
               <BsTelephone size={13} />
             </span>
-            <span onClick={() => navigate("/contact")}>CONTACT</span>
+            <span onClick={() => redirect("/contact")}>CONTACT</span>
           </div>
         </div>
         {authDetails.isAuthenticated ? (
@@ -118,7 +123,7 @@ export default function UserSideNav() {
             <span>{authDetails.name.split(" ")[0].trim()}</span>
           </button>
         ) : (
-          <button className="auth-button" onClick={() => navigate("/login")}>
+          <button className="auth-button" onClick={() => redirect("/login")}>
             Login
           </button>
         )}

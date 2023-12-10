@@ -58,6 +58,11 @@ export default function AdminSideNav() {
     let vh = window.innerHeight * 0.01;
     document.documentElement.style.setProperty("--vh", `${vh}px`);
   };
+
+  const redirect = (path) => {
+    navigate(path);
+    closeMenu();
+  };
   return (
     <div className="sidenav">
       <div className="handburg-icon">
@@ -68,31 +73,31 @@ export default function AdminSideNav() {
         <div className="titles">
           <img src={Logo} className="logo" />
 
-          <div className="title" onClick={() => navigate("/admin/bookings")}>
+          <div className="title" onClick={() => redirect("/admin/bookings")}>
             <span>
               <AiOutlineSchedule size={13} />
             </span>
             <span>Bookings</span>
           </div>
-          <div className="title" onClick={() => navigate("/admin/drivers")}>
+          <div className="title" onClick={() => redirect("/admin/drivers")}>
             <span>
               <BsCarFront size={13} />
             </span>
             <span>Drivers</span>
           </div>
-          <div className="title" onClick={() => navigate("/admin/cities")}>
+          <div className="title" onClick={() => redirect("/admin/cities")}>
             <span>
               <FaCity size={13} />
             </span>
             <span>Cities</span>
           </div>
-          <div className="title" onClick={() => navigate("/admin/locations")}>
+          <div className="title" onClick={() => redirect("/admin/locations")}>
             <span>
               <FaLocationDot size={13} />
             </span>
             <span>Locations</span>
           </div>
-          <div className="title" onClick={() => navigate("/admin/price")}>
+          <div className="title" onClick={() => redirect("/admin/price")}>
             <span>
               <MdPriceCheck size={13} />
             </span>
@@ -112,7 +117,7 @@ export default function AdminSideNav() {
         ) : (
           <button
             className="auth-button"
-            onClick={() => navigate("/admin/login")}
+            onClick={() => redirect("/admin/login")}
           >
             Login
           </button>
