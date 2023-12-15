@@ -64,7 +64,7 @@ export default function SearchSection() {
   };
   useEffect(() => {
     getCities();
-  }, []);
+  }, [scheduleInfo.from, scheduleInfo.to]);
 
   return (
     <>
@@ -92,6 +92,12 @@ export default function SearchSection() {
 
             {rideSelected ? (
               <SearchArea
+                locationsFrom={locations.filter(
+                  (item) => item.id == scheduleInfo.from
+                )}
+                locationsTo={locations.filter(
+                  (item) => item.id == scheduleInfo.to
+                )}
                 locations={locations}
                 scheduleInfo={scheduleInfo}
                 setscheduleInfo={setscheduleInfo}

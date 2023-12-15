@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { AiOutlineMinusCircle, AiFillPlusCircle } from "react-icons/ai";
 
 import Selector from "../Selector";
+import { TorontoAirportId, TorontoId } from "../../constant/Config";
 
 export default function SearchArea({
   locationsFrom = [],
@@ -21,17 +22,22 @@ export default function SearchArea({
   const [locationList, setlocationList] = useState({
     from:
       locationsFrom.length > 0
-        ? locations.filter(
-            (item) =>
-              item.id !== locationsFrom[0].id && item.id !== locationsTo[0].id
-          )
+        ? // ? locations.filter(
+          //     (item) =>
+          //       item.id !== locationsFrom[0].id &&
+          //       item.id !== locationsTo[0].id &&
+          //       (item.id === TorontoId ||
+          //         locationsFrom[0].id === TorontoAirportId)
+          //   )
+          filterLocation("From", locationsFrom, locationsTo)
         : locations,
     to:
       locationsTo.length > 0
-        ? locations.filter(
-            (item) =>
-              item.id !== locationsTo[0].id && item.id !== locationsFrom[0].id
-          )
+        ? // ? locations.filter(
+          //     (item) =>
+          //       item.id !== locationsTo[0].id && item.id !== locationsFrom[0].id
+          //   )
+          filterLocation("To", locationsFrom, locationsTo)
         : locations,
   });
   const handleClickOutside = (event) => {
@@ -39,7 +45,56 @@ export default function SearchArea({
       setopen(false);
     }
   };
-
+  function filterLocation(type, locationsFrom, locationsTo, locationId) {
+    switch (type) {
+      case "From":
+        return locations
+          .map((item) => {
+            if (locationId && item.id === locationId) return null;
+            if (item.id === locationsFrom[0].id) return null;
+            if (locationsTo.length > 0 && item.id === locationsTo[0].id)
+              return null;
+            if (
+              locationsTo.length > 0 &&
+              item.id === TorontoId &&
+              locationsTo[0].id === TorontoAirportId
+            )
+              return null;
+            if (
+              locationsTo.length > 0 &&
+              item.id === TorontoAirportId &&
+              locationsTo[0].id === TorontoId
+            )
+              return null;
+            else return item;
+          })
+          .filter((item) => item !== null);
+      case "To":
+        return locations
+          .map((item) => {
+            if (locationId && item.id === locationId) return null;
+            if (
+              (locationsFrom.length > 0 && item.id === locationsFrom[0].id) ||
+              item.id === locationsTo[0].id
+            )
+              return null;
+            if (
+              locationsFrom.length > 0 &&
+              item.id === TorontoId &&
+              locationsFrom[0].id === TorontoAirportId
+            )
+              return null;
+            if (
+              locationsFrom.length > 0 &&
+              item.id === TorontoAirportId &&
+              locationsFrom[0].id === TorontoId
+            )
+              return null;
+            else return item;
+          })
+          .filter((item) => item !== null);
+    }
+  }
   useEffect(() => {
     document.addEventListener("click", handleClickOutside, true);
     return () => {
@@ -51,14 +106,26 @@ export default function SearchArea({
     switch (type) {
       case "from":
         setlocationList({
-          ...locationList,
           to: locations.filter((item) => item.id !== locationId),
+          // ...locationList,
+          // to: filterLocation(
+          //   "To",
+          //   locationList.from,
+          //   locationList.to,
+          //   locationId
+          // ),
         });
         break;
       case "to":
         setlocationList({
-          ...locationList,
           from: locations.filter((item) => item.id !== locationId),
+          // ...locationList,
+          // from: filterLocation(
+          //   "From",
+          //   locationList.from,
+          //   locationList.to,
+          //   locationId
+          // ),
         });
         break;
       default:
@@ -68,7 +135,7 @@ export default function SearchArea({
         });
     }
   };
-
+  console.log(locationList);
   return (
     <div className="search-area">
       <div className="location">
