@@ -28,6 +28,8 @@ import EditDriver from "../screens/Admin/EditDriver";
 import EditCity from "../screens/Admin/EditCity";
 import EditLocation from "../screens/Admin/EditLocation";
 import EditPrice from "../screens/Admin/EditPrice";
+import ForgotPassword from "../screens/ForgotPassword";
+import ResetPassword from "../screens/ResetPassword";
 
 function Router() {
   const { authDetails, setauthDetails } = useContext(AuthContext);
@@ -122,6 +124,12 @@ function Router() {
             {/* user */}
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/forget-password" element={<ForgotPassword />} />
+            <Route
+              exact
+              path="/reset-password/:id/:token"
+              element={<ResetPassword />}
+            />
             <Route
               exact
               path="/scheduled/from/:from/to/:to/date/:date/adults/:adults/luggage/:luggage"

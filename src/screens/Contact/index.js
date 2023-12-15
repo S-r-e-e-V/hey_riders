@@ -2,6 +2,8 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import "./Contact.css";
+import { postData } from "../../api";
+import Alert from "../../utils/Alert";
 
 const ContactForm = () => {
   const initialValues = {
@@ -16,9 +18,21 @@ const ContactForm = () => {
     message: Yup.string().required("Message is required"),
   });
 
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     // Add your form submission logic here
-
+    const response = await postData(`/contactus`, values, false);
+    if (response) {
+      Alert(
+        response.message,
+        "",
+        () => {},
+        false,
+        () => {},
+        () => {},
+        true,
+        "Ok"
+      );
+    }
     setSubmitting(false);
     resetForm();
   };

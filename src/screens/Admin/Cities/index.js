@@ -10,6 +10,11 @@ import { MdEdit } from "react-icons/md";
 import { deleteData, getData } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../../utils/Alert";
+import {
+  TorontoId,
+  WindsorId,
+  TorontoAirportId,
+} from "../../../constant/Config";
 
 const AdminCities = () => {
   const navigate = useNavigate();
@@ -61,15 +66,23 @@ const AdminCities = () => {
               <div className="province">{city.province}</div>
               <div className="country">{city.country}</div>
               <div className="action-buttons">
-                <div
-                  className="edit"
-                  onClick={() => navigate(`/admin/cities/edit/${city._id}`)}
-                >
-                  <MdEdit />
-                </div>
-                <div className="cancel" onClick={() => onCancel(city._id)}>
-                  <AiFillDelete />
-                </div>
+                {city._id !== WindsorId &&
+                  city._id !== TorontoId &&
+                  city._id !== TorontoAirportId && (
+                    <div
+                      className="edit"
+                      onClick={() => navigate(`/admin/cities/edit/${city._id}`)}
+                    >
+                      <MdEdit />
+                    </div>
+                  )}
+                {city._id !== WindsorId &&
+                  city._id !== TorontoId &&
+                  city._id !== TorontoAirportId && (
+                    <div className="cancel" onClick={() => onCancel(city._id)}>
+                      <AiFillDelete />
+                    </div>
+                  )}
               </div>
             </div>
           ))}

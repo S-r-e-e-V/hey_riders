@@ -12,6 +12,7 @@ import { getData, postData } from "../../api";
 import Spinner from "../../components/Spinner";
 import { AuthContext } from "../../context/AuthContext";
 import Alert from "../../utils/Alert";
+import { WindsorId } from "../../constant/Config";
 
 const ridesFromWindsor = [
   {
@@ -45,8 +46,8 @@ const ridesFromWindsor = [
     id: 4,
     from: "Windsor",
     to: "Toronto",
-    fromTime: new Date().setHours(17, 0, 0, 0),
-    toTime: new Date().setHours(21, 0, 0, 0),
+    fromTime: new Date().setHours(18, 0, 0, 0),
+    toTime: new Date().setHours(22, 0, 0, 0),
     time: new Date(),
     price: 45,
   },
@@ -83,8 +84,8 @@ const ridesFromToronto = [
     id: 4,
     from: "Toronto",
     to: "Windsor",
-    fromTime: new Date().setHours(21, 0, 0, 0),
-    toTime: new Date().setHours(1, 0, 0, 0),
+    fromTime: new Date().setHours(22, 0, 0, 0),
+    toTime: new Date().setHours(2, 0, 0, 0),
     time: new Date(),
     price: 45,
   },
@@ -120,9 +121,7 @@ export default function Schedule(props) {
     prices: [],
   });
   const [selectedRides, setselectedRides] = useState(
-    routeParams.from === "653dbfa79c1fb301f4375e13"
-      ? ridesFromWindsor
-      : ridesFromToronto
+    routeParams.from === WindsorId ? ridesFromWindsor : ridesFromToronto
   );
   const [selectedRide, setselectedRide] = useState({
     id: 1,
@@ -248,9 +247,7 @@ export default function Schedule(props) {
       customLocation: "",
     });
     setselectedRides(
-      scheduleInfo.from === "653dbfa79c1fb301f4375e13"
-        ? ridesFromWindsor
-        : ridesFromToronto
+      scheduleInfo.from === WindsorId ? ridesFromWindsor : ridesFromToronto
     );
     setloading(false);
   };
