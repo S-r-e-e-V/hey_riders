@@ -121,7 +121,7 @@ export default function Signup() {
             onChange={(e) =>
               setcredentials({
                 ...credentials,
-                email: e.target.value.trim(),
+                email: e.target.value.toLowerCase().trim(),
               })
             }
             onKeyUp={(e) =>
