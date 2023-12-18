@@ -79,6 +79,10 @@ const ContactForm = () => {
           )}
         </Formik>
       </div>
+      <div className="contact-us-footer">
+        <a href="mailto:heyrides06@gmail.com">Email: heyrides06@gmail.com</a>
+        <a href="tel:+12269617380">Phonenumber: +1 (226)961 - 7380</a>
+      </div>
     </div>
   );
 };
