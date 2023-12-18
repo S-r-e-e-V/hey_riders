@@ -33,6 +33,8 @@
   background-color: #d8d8d8;
   border: 1px solid var(--yellow);
   border-radius: 5px;
+  max-height: 300px;
+  overflow-y: scroll;
 
   width: 100%;
   position: absolute;
