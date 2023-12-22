@@ -11,6 +11,7 @@ import { MdEdit } from "react-icons/md";
 // api
 import { deleteData, getData, postData } from "../../../api";
 import Alert from "../../../utils/Alert";
+import NoContent from "../../../components/NoContent";
 
 const AdminLocations = () => {
   const navigate = useNavigate();
@@ -57,25 +58,32 @@ const AdminLocations = () => {
           <div className="add" onClick={() => navigate("/admin/locations/add")}>
             Add+
           </div>
-          {locations.map((location) => (
-            <div className="list-content">
-              <div className="name">{location.location}</div>
-              <div className="city">{location.city?.city}</div>
-              <div className="action-buttons">
-                <div
-                  className="edit"
-                  onClick={() =>
-                    navigate(`/admin/locations/edit/${location._id}`)
-                  }
-                >
-                  <MdEdit />
-                </div>
-                <div className="cancel" onClick={() => onCancel(location._id)}>
-                  <AiFillDelete />
+          {locations.length > 0 ? (
+            locations.map((location) => (
+              <div className="list-content">
+                <div className="name">{location.location}</div>
+                <div className="city">{location.city?.city}</div>
+                <div className="action-buttons">
+                  <div
+                    className="edit"
+                    onClick={() =>
+                      navigate(`/admin/locations/edit/${location._id}`)
+                    }
+                  >
+                    <MdEdit />
+                  </div>
+                  <div
+                    className="cancel"
+                    onClick={() => onCancel(location._id)}
+                  >
+                    <AiFillDelete />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <NoContent content={"No Locations Available"} />
+          )}
         </div>
       )}
     </>

@@ -11,6 +11,7 @@ import { MdEdit } from "react-icons/md";
 import { deleteData, getData } from "../../../api";
 import { useNavigate } from "react-router-dom";
 import Alert from "../../../utils/Alert";
+import NoContent from "../../../components/NoContent";
 
 const AdminDrivers = () => {
   const navigate = useNavigate();
@@ -56,23 +57,29 @@ const AdminDrivers = () => {
           <div className="add" onClick={() => navigate("/admin/drivers/add")}>
             Add+
           </div>
-          {drivers.map((driver) => (
-            <div className="list-content">
-              <div className="name">{driver.name}</div>
-              <div className="phone-number">{driver.phoneNumber}</div>
-              <div className="action-buttons">
-                <div
-                  className="edit"
-                  onClick={() => navigate(`/admin/drivers/edit/${driver._id}`)}
-                >
-                  <MdEdit />
-                </div>
-                <div className="cancel" onClick={() => onCancel(driver._id)}>
-                  <AiFillDelete />
+          {drivers.length > 0 ? (
+            drivers.map((driver) => (
+              <div className="list-content">
+                <div className="name">{driver.name}</div>
+                <div className="phone-number">{driver.phoneNumber}</div>
+                <div className="action-buttons">
+                  <div
+                    className="edit"
+                    onClick={() =>
+                      navigate(`/admin/drivers/edit/${driver._id}`)
+                    }
+                  >
+                    <MdEdit />
+                  </div>
+                  <div className="cancel" onClick={() => onCancel(driver._id)}>
+                    <AiFillDelete />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <NoContent content={"No Drivers Available"} />
+          )}
         </div>
       )}
     </>

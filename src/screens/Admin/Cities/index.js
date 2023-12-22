@@ -15,6 +15,7 @@ import {
   WindsorId,
   TorontoAirportId,
 } from "../../../constant/Config";
+import NoContent from "../../../components/NoContent";
 
 const AdminCities = () => {
   const navigate = useNavigate();
@@ -60,32 +61,41 @@ const AdminCities = () => {
           <div className="add" onClick={() => navigate("/admin/cities/add")}>
             Add+
           </div>
-          {cities.map((city) => (
-            <div className="list-content">
-              <div className="name">{city.city}</div>
-              <div className="province">{city.province}</div>
-              <div className="country">{city.country}</div>
-              <div className="action-buttons">
-                {city._id !== WindsorId &&
-                  city._id !== TorontoId &&
-                  city._id !== TorontoAirportId && (
-                    <div
-                      className="edit"
-                      onClick={() => navigate(`/admin/cities/edit/${city._id}`)}
-                    >
-                      <MdEdit />
-                    </div>
-                  )}
-                {city._id !== WindsorId &&
-                  city._id !== TorontoId &&
-                  city._id !== TorontoAirportId && (
-                    <div className="cancel" onClick={() => onCancel(city._id)}>
-                      <AiFillDelete />
-                    </div>
-                  )}
+          {cities.length > 0 ? (
+            cities.map((city) => (
+              <div className="list-content">
+                <div className="name">{city.city}</div>
+                <div className="province">{city.province}</div>
+                <div className="country">{city.country}</div>
+                <div className="action-buttons">
+                  {city._id !== WindsorId &&
+                    city._id !== TorontoId &&
+                    city._id !== TorontoAirportId && (
+                      <div
+                        className="edit"
+                        onClick={() =>
+                          navigate(`/admin/cities/edit/${city._id}`)
+                        }
+                      >
+                        <MdEdit />
+                      </div>
+                    )}
+                  {city._id !== WindsorId &&
+                    city._id !== TorontoId &&
+                    city._id !== TorontoAirportId && (
+                      <div
+                        className="cancel"
+                        onClick={() => onCancel(city._id)}
+                      >
+                        <AiFillDelete />
+                      </div>
+                    )}
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <NoContent content={"No Cities Available"} />
+          )}
         </div>
       )}
     </>

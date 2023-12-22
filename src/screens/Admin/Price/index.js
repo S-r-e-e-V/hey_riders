@@ -11,6 +11,7 @@ import { MdEdit } from "react-icons/md";
 // api
 import { deleteData, getData } from "../../../api";
 import Alert from "../../../utils/Alert";
+import NoContent from "../../../components/NoContent";
 
 const AdminPrice = () => {
   const navigate = useNavigate();
@@ -56,24 +57,28 @@ const AdminPrice = () => {
           <div className="add" onClick={() => navigate("/admin/price/add")}>
             Add+
           </div>
-          {price.map((item) => (
-            <div className="list-content">
-              <div className="from">{item.from.city}</div>
-              <div className="to">{item.to.city}</div>
-              <div className="price">${item.price}</div>
-              <div className="action-buttons">
-                <div
-                  className="edit"
-                  onClick={() => navigate(`/admin/price/edit/${item._id}`)}
-                >
-                  <MdEdit />
-                </div>
-                <div className="cancel" onClick={() => onCancel(item._id)}>
-                  <AiFillDelete />
+          {price.length > 0 ? (
+            price.map((item) => (
+              <div className="list-content">
+                <div className="from">{item.from.city}</div>
+                <div className="to">{item.to.city}</div>
+                <div className="price">${item.price}</div>
+                <div className="action-buttons">
+                  <div
+                    className="edit"
+                    onClick={() => navigate(`/admin/price/edit/${item._id}`)}
+                  >
+                    <MdEdit />
+                  </div>
+                  <div className="cancel" onClick={() => onCancel(item._id)}>
+                    <AiFillDelete />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <NoContent content={"No Bookings Available"} />
+          )}
         </div>
       )}
     </>

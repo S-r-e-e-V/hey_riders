@@ -14,6 +14,8 @@ import { AuthContext } from "../../context/AuthContext";
 import Alert from "../../utils/Alert";
 import { WindsorId } from "../../constant/Config";
 
+import NoContent from "../../components/NoContent";
+
 const ridesFromWindsor = [
   {
     id: 1,
@@ -401,6 +403,20 @@ export default function Schedule(props) {
       return true;
     else return false;
   };
+
+  const checkTime = () => {
+    let flag = true;
+    selectedRides.forEach((ride) => {
+      if (
+        moment(new Date()).isBefore(
+          combineDateAndTime(scheduleInfo.date, ride.fromTime)
+        )
+      ) {
+        flag = false;
+      }
+    });
+    return flag;
+  };
   return (
     <>
       {loading ? (
@@ -419,6 +435,7 @@ export default function Schedule(props) {
           />
           <div className="schedule-content">
             <div className="rides">
+              {checkTime() && <NoContent content={"No Rides Available"} />}
               {selectedRides.map(
                 (ride, index) =>
                   moment(new Date()).isBefore(

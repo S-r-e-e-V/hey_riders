@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import NoContent from "../../../components/NoContent";
+
 const AdminBookings = () => {
   const navigator = useNavigate();
   const [loading, setloading] = useState(false);
@@ -67,49 +69,55 @@ const AdminBookings = () => {
               customInput={<CustomDatepicker />}
             />
           </div>
-          {bookings.map((booking) => (
-            <div
-              className="list-content"
-              onClick={() => navigator(`/admin/bookings/${booking._id}`)}
-            >
-              <div>
-                <div className="name">Name: {booking.user_id.name}</div>
-                <div className={`status`}>
-                  Status:{" "}
-                  <span className={`${booking.status}`}>{booking.status}</span>
+          {bookings.length > 0 ? (
+            bookings.map((booking) => (
+              <div
+                className="list-content"
+                onClick={() => navigator(`/admin/bookings/${booking._id}`)}
+              >
+                <div>
+                  <div className="name">Name: {booking.user_id.name}</div>
+                  <div className={`status`}>
+                    Status:{" "}
+                    <span className={`${booking.status}`}>
+                      {booking.status}
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <div className="date">
-                  Scheduled for:{" "}
-                  {moment(booking.ScheduledToTime).format(
-                    "DD/MM/YYYY  hh:mm A"
-                  )}
+                <div>
+                  <div className="date">
+                    Scheduled for:{" "}
+                    {moment(booking.ScheduledToTime).format(
+                      "DD/MM/YYYY  hh:mm A"
+                    )}
+                  </div>
+                  <div className="price">
+                    Price: <span>${booking.price}</span>
+                  </div>
                 </div>
-                <div className="price">
-                  Price: <span>${booking.price}</span>
+                <div className="from">
+                  Pickup:{" "}
+                  {booking.from.location_id._id === "6564e158f3d3c3b55fe5854b"
+                    ? booking.from.customLocation
+                    : booking.from.location_id.location}
                 </div>
-              </div>
-              <div className="from">
-                Pickup:{" "}
-                {booking.from.location_id._id === "6564e158f3d3c3b55fe5854b"
-                  ? booking.from.customLocation
-                  : booking.from.location_id.location}
-              </div>
-              <div className="to">
-                Dropoff:{" "}
-                {booking.to.location_id._id === "6564e158f3d3c3b55fe5854b"
-                  ? booking.to.customLocation
-                  : booking.to.location_id.location}
-              </div>
+                <div className="to">
+                  Dropoff:{" "}
+                  {booking.to.location_id._id === "6564e158f3d3c3b55fe5854b"
+                    ? booking.to.customLocation
+                    : booking.to.location_id.location}
+                </div>
 
-              {booking.driver && (
-                <span className="driver">
-                  Driver: <span> {booking.driver.name}</span>
-                </span>
-              )}
-            </div>
-          ))}
+                {booking.driver && (
+                  <span className="driver">
+                    Driver: <span> {booking.driver.name}</span>
+                  </span>
+                )}
+              </div>
+            ))
+          ) : (
+            <NoContent content={"No Bookings Available"} />
+          )}
         </div>
       )}
     </>
