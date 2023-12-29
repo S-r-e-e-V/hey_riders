@@ -59,3 +59,10 @@
     height: 80vh;
   }
 }
+@media screen and (max-width: 550px) {
+  .contact-page .contact-us-footer {
+    text-align: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
