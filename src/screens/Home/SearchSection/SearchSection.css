@@ -6,6 +6,7 @@
 .search-section .background-image {
   width: 100%;
   height: 400px;
+  object-fit: cover;
   /* filter: blur(8px);
   -webkit-filter: blur(8px); */
 }
