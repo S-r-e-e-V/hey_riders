@@ -136,6 +136,11 @@ const Booking = () => {
             <div className="booked-on">
               Booked by: <span>{booking.user_id.name}</span>
             </div>
+            <div className="phone-number">
+              <a href={`tel:${booking.user_id.phone}`}>
+                Phone: {booking.user_id.phone}
+              </a>
+            </div>
             <div className="booked-on">
               Booked on:{" "}
               <span>

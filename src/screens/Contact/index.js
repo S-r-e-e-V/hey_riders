@@ -81,7 +81,7 @@ const ContactForm = () => {
       </div>
       <div className="contact-us-footer">
         <a href="mailto:heyrides06@gmail.com">Email: heyrides06@gmail.com</a>
-        <a href="tel:+12269617380">Phonenumber: +1 (226)961 - 7380</a>
+        <a href="tel:+12263487380">Phonenumber: +1 (226)348 - 7380</a>
       </div>
     </div>
   );

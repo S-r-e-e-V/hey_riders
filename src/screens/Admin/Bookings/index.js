@@ -85,15 +85,21 @@ const AdminBookings = () => {
                   </div>
                 </div>
                 <div>
-                  <div className="date">
+                  {/* <div className="date">
                     Scheduled for:{" "}
                     {moment(booking.ScheduledToTime).format(
                       "DD/MM/YYYY  hh:mm A"
-                    )}
-                  </div>
+                    )} */}
+                  <div>Phone: {booking.user_id.phone}</div>
                   <div className="price">
                     Price: <span>${booking.price}</span>
                   </div>
+                </div>
+                <div className="date">
+                  Scheduled for:{" "}
+                  {moment(booking.ScheduledToTime).format(
+                    "DD/MM/YYYY  hh:mm A"
+                  )}
                 </div>
                 <div className="from">
                   Pickup:{" "}
