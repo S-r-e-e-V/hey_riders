@@ -51,6 +51,9 @@
   font-weight: 700;
   color: var(--blue);
 }
+.my-bookings .booking-card .driver-info > a {
+  text-decoration: none;
+}
 
 /* status */
 .my-bookings .status .Pending {

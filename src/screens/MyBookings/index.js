@@ -99,9 +99,12 @@ const MyBookings = () => {
                     <div className="name">
                       Driver name: {booking.driver?.name}
                     </div>
-                    <div className="ph">
+                    <a
+                      className="ph"
+                      href={`tel:${booking.driver?.phoneNumber}`}
+                    >
                       Phone number: {booking.driver?.phoneNumber}
-                    </div>
+                    </a>
                   </div>
                 )}
                 {moment(new Date()).isBefore(booking.ScheduledToTime) &&
