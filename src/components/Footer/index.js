@@ -1,6 +1,6 @@
 import React from "react";
 import { SlSocialFacebook, SlSocialInstagram } from "react-icons/sl";
-import { IoCallOutline } from "react-icons/io5";
+import { IoCallOutline, IoLogoWhatsapp } from "react-icons/io5";
 import "./Footer.css";
 
 const Footer = () => {
@@ -22,6 +22,9 @@ const Footer = () => {
         </a>
         <a href="tel:+12263487380">
           <IoCallOutline />
+        </a>
+        <a target="_blank" href="https://wa.me/+12263487380">
+          <IoLogoWhatsapp />
         </a>
       </div>
     </footer>
