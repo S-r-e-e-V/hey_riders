@@ -24,9 +24,7 @@ const AboutPage = () => {
           </div>
         </p>
       </div>
-      <div className="about-image">
-        <img src={CarImage} alt="Car" />
-      </div>
+      
     </div>
   );
 };
