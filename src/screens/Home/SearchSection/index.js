@@ -81,13 +81,13 @@ export default function SearchSection() {
                 <BiSolidCar />
                 <span>Ride</span>
               </div>
-              <div
+              {/* <div
                 className={`ride-parcel ${!rideSelected ? "selected" : ""}`}
                 onClick={() => setrideSelected(false)}
               >
                 <AiFillGift />
                 <span>Parcel</span>
-              </div>
+              </div> */}
             </div>
 
             {rideSelected ? (
