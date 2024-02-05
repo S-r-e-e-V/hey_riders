@@ -1,8 +1,9 @@
 .admin.bookings .datepicker {
   display: flex;
   justify-content: flex-end;
+  gap: 10px;
 }
-.admin.bookings .react-datepicker-wrapper button {
+.admin.bookings button {
   cursor: pointer;
   outline: none;
   border: none;

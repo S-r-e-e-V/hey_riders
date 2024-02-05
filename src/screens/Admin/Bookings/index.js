@@ -17,6 +17,7 @@ const AdminBookings = () => {
   const navigator = useNavigate();
   const [loading, setloading] = useState(false);
   const [bookings, setbookings] = useState([]);
+  const [filterList, setfilterList] = useState([]);
 
   var today = new Date();
   var endDate = new Date(today.setMonth(today.getMonth() + 3));
@@ -25,18 +26,48 @@ const AdminBookings = () => {
     endDate: endDate,
   });
 
+  var initialTime = new Date();
+  initialTime.setHours(5, 0, 0, 0);
+  const [time, settime] = useState(initialTime);
+  const [isnotConfirmedFilter, setisnotConfirmedFilter] = useState({
+    isFilter: false,
+    text: "See bookings not confirmed",
+  });
+
   const getBookings = async () => {
     setloading(true);
     const response = await postData("/booking/bookings", {
       startTime: date.startDate,
       endTime: date.endDate,
+      isPending: isnotConfirmedFilter.isFilter,
     });
     setloading(false);
-    if (response) setbookings(response);
+    if (response) {
+      setbookings(response);
+      setfilterList(response);
+    }
   };
   useEffect(() => {
     getBookings();
-  }, [date]);
+  }, [date, isnotConfirmedFilter]);
+
+  const filterTime = () => {
+    let t = new Date(time);
+    let queryHour = t.getHours();
+    let queryMinutes = t.getMinutes();
+
+    setfilterList(
+      bookings.filter((item) => {
+        let date = new Date(item.ScheduledToTime);
+        let hour = date.getHours();
+        let min = date.getMinutes();
+        return queryHour == hour && queryMinutes == min;
+      })
+    );
+  };
+  useEffect(() => {
+    if (!isnotConfirmedFilter.isFilter) filterTime();
+  }, [time]);
 
   //  custom datepicker
   const CustomDatepicker = forwardRef(({ value, onClick }, ref) => (
@@ -52,9 +83,47 @@ const AdminBookings = () => {
       ) : (
         <div className="admin bookings">
           <div className="datepicker">
+            <button
+              className="button"
+              onClick={() =>
+                isnotConfirmedFilter.isFilter
+                  ? setisnotConfirmedFilter({
+                      isFilter: false,
+                      text: "See bookings not Confirmed",
+                    })
+                  : setisnotConfirmedFilter({
+                      isFilter: true,
+                      text: "Apply date and time filter",
+                    })
+              }
+            >
+              {isnotConfirmedFilter.text}
+            </button>
             <DatePicker
               className="date-picker"
-              selected={date.startDate}
+              selected={time}
+              onChange={(date) => {
+                settime(date);
+              }}
+              showTimeSelect
+              showTimeSelectOnly
+              includeTimes={[
+                new Date().setHours(5, 0, 0, 0),
+                new Date().setHours(10, 0, 0, 0),
+                new Date().setHours(15, 0, 0, 0),
+                new Date().setHours(18, 0, 0, 0),
+                new Date().setHours(9, 0, 0, 0),
+                new Date().setHours(19, 30, 0, 0),
+                new Date().setHours(22, 0, 0, 0),
+              ]}
+              timeCaption="Time"
+              timeIntervals={30}
+              dateFormat="h:mm aa"
+              customInput={<CustomDatepicker />}
+            />
+            <DatePicker
+              className="date-picker"
+              selected={time}
               onChange={(dates) => {
                 const [start, end] = dates;
                 setdate({
@@ -66,11 +135,12 @@ const AdminBookings = () => {
               endDate={date.endDate}
               minDate={new Date()}
               selectsRange
+              monthsShown={2}
               customInput={<CustomDatepicker />}
             />
           </div>
-          {bookings.length > 0 ? (
-            bookings.map((booking) => (
+          {filterList.length > 0 ? (
+            filterList.map((booking) => (
               <div
                 className="list-content"
                 onClick={() => navigator(`/admin/bookings/${booking._id}`)}
