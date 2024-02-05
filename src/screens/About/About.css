@@ -36,6 +36,13 @@
   padding: 10px;
 }
 
+.about-page .about-description div {
+  padding: 10px 0;
+}
+.about-page .about-description div span {
+  font-weight: 600;
+}
+
 .about-page .about-image {
   display: flex;
   align-items: center;
