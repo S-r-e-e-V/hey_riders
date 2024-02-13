@@ -1,0 +1,44 @@
+.policies {
+  max-width: 900px;
+  margin: auto;
+  margin-top: 170px;
+  margin-bottom: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.policies h2 {
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+}
+
+.policies p {
+  line-height: 1.6;
+  color: #555;
+}
+
+.policies ul {
+  padding-left: 20px;
+}
+
+.policies .policy {
+  margin-bottom: 30px;
+}
+
+@media screen and (max-width: 800px) {
+  .policies {
+    margin: 20px;
+  }
+}
+@media screen and (max-width: 576px) {
+  .policies {
+    padding: 10px;
+    margin-top: 30px;
+  }
+  h2 {
+    font-size: 20px;
+  }
+}

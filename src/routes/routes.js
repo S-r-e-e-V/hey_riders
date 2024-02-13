@@ -30,6 +30,7 @@ import EditLocation from "../screens/Admin/EditLocation";
 import EditPrice from "../screens/Admin/EditPrice";
 import ForgotPassword from "../screens/ForgotPassword";
 import ResetPassword from "../screens/ResetPassword";
+import Policies from "../screens/Policies";
 
 function Router() {
   const { authDetails, setauthDetails } = useContext(AuthContext);
@@ -113,7 +114,7 @@ function Router() {
             />
             <Route exact path="/my-bookings" element={<MyBookings />} />
             <Route exact path="/ourservices" element={<OurServices />} />
-            <Route exact path="/ourservices" element={<OurServices />} />
+            <Route exact path="/policies" element={<Policies />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/" element={<Home />} />
@@ -136,6 +137,7 @@ function Router() {
               element={<Schedule />}
             />
             <Route exact path="/ourservices" element={<OurServices />} />
+            <Route exact path="/policies" element={<Policies />} />
             <Route exact path="/about" element={<About />} />
             <Route exact path="/contact" element={<Contact />} />
             <Route exact path="/" element={<Home />} />
