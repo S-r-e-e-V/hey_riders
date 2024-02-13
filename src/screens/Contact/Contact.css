@@ -7,11 +7,14 @@
   background-color: #f5cb5c;
 }
 .contact-page {
+  height: calc(100vh - 144px);
+  justify-content: space-between;
   display: flex;
   flex-direction: column;
   background-image: url("https://images.unsplash.com/photo-1516796181074-bf453fbfa3e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2940&q=80");
   background-size: cover;
   padding: 10px;
+  box-sizing: border-box;
 }
 .contact-page .title {
   color: #747474;
@@ -53,10 +56,13 @@
   text-decoration: none;
   color: var(--white);
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
+  .contact-page {
+    height: 100vh;
+  }
   .contact-page .form-container {
     margin: 10px;
-    height: 80vh;
+    /* height: 80vh; */
   }
 }
 @media screen and (max-width: 550px) {
