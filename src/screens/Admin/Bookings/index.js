@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from "react";
+import React, { useState, useEffect, forwardRef, useRef } from "react";
 import "../Admin.css";
 import "./AdminBookings.css";
 
@@ -12,11 +12,14 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import NoContent from "../../../components/NoContent";
+import Selector from "../../../components/Selector";
 
 const AdminBookings = () => {
   const navigator = useNavigate();
   const [loading, setloading] = useState(false);
   const [bookings, setbookings] = useState([]);
+  const [cities, setcities] = useState([]);
+  const [locationDetails, setlocationDetails] = useState(null);
   const [filterList, setfilterList] = useState([]);
 
   var today = new Date();
@@ -27,52 +30,101 @@ const AdminBookings = () => {
   });
 
   var initialTime = new Date();
-  initialTime.setHours(5, 0, 0, 0);
-  const [time, settime] = useState(initialTime);
+  initialTime.setHours(0, 0, 0, 0);
+  const [time, settime] = useState("");
   const [isnotConfirmedFilter, setisnotConfirmedFilter] = useState({
     isFilter: false,
-    text: "See bookings not confirmed",
+    text: "See bookings yet to Confirm",
   });
 
   const getBookings = async () => {
-    setloading(true);
-    const response = await postData("/booking/bookings", {
+    const bookings = await postData("/booking/bookings", {
       startTime: date.startDate,
       endTime: date.endDate,
       isPending: isnotConfirmedFilter.isFilter,
     });
-    setloading(false);
-    if (response) {
-      setbookings(response);
-      setfilterList(response);
+    if (bookings) {
+      return bookings;
     }
   };
-  useEffect(() => {
-    getBookings();
-  }, [date, isnotConfirmedFilter]);
+  const getCities = async () => {
+    const response = await getData("/city/cities", false);
+    if (response) {
+      let city = response.map((item) => ({ id: item._id, item: item.city }));
+      return city;
+    }
+  };
 
-  const filterTime = () => {
+  const filterBookings = () => {
     let t = new Date(time);
     let queryHour = t.getHours();
     let queryMinutes = t.getMinutes();
 
-    setfilterList(
-      bookings.filter((item) => {
-        let date = new Date(item.ScheduledToTime);
+    let filterData = [];
+    if (locationDetails == null && time === "") {
+      filterData = bookings;
+    } else {
+      bookings.forEach((element) => {
+        let date = new Date(element.ScheduledToTime);
         let hour = date.getHours();
         let min = date.getMinutes();
-        return queryHour == hour && queryMinutes == min;
-      })
-    );
+        if (!locationDetails) {
+          if (queryHour == hour && queryMinutes == min) {
+            filterData.push(element);
+          }
+        } else if (time === "") {
+          if (locationDetails === element.from.city_id._id) {
+            filterData.push(element);
+          }
+        } else {
+          if (
+            queryHour == hour &&
+            queryMinutes == min &&
+            locationDetails === element.from.city_id._id
+          ) {
+            filterData.push(element);
+          }
+        }
+      });
+    }
+    setfilterList(filterData);
+  };
+  const handleClearFilter = () => {
+    setdate({
+      startDate: new Date(),
+      endDate: endDate,
+    });
+    settime("");
+    setlocationDetails(null);
+  };
+  const apiCall = async () => {
+    setloading(true);
+    const citiesPromise = getCities();
+    const bookingsPromise = getBookings();
+
+    const [city, bookings] = await Promise.all([
+      citiesPromise,
+      bookingsPromise,
+    ]);
+    setcities(city);
+    setbookings(bookings);
+    setfilterList(bookings);
+    settime("");
+    setlocationDetails(null);
+    setloading(false);
   };
   useEffect(() => {
-    if (!isnotConfirmedFilter.isFilter) filterTime();
-  }, [time]);
+    apiCall();
+  }, [date, isnotConfirmedFilter]);
+
+  useEffect(() => {
+    if (!isnotConfirmedFilter.isFilter) filterBookings();
+  }, [time, locationDetails]);
 
   //  custom datepicker
   const CustomDatepicker = forwardRef(({ value, onClick }, ref) => (
     <button className="example-custom-input" onClick={onClick} ref={ref}>
-      {value}
+      {value ? value : "Select time"}
     </button>
   ));
 
@@ -89,7 +141,7 @@ const AdminBookings = () => {
                 isnotConfirmedFilter.isFilter
                   ? setisnotConfirmedFilter({
                       isFilter: false,
-                      text: "See bookings not Confirmed",
+                      text: "See bookings yet to Confirm",
                     })
                   : setisnotConfirmedFilter({
                       isFilter: true,
@@ -99,9 +151,19 @@ const AdminBookings = () => {
             >
               {isnotConfirmedFilter.text}
             </button>
+            <Selector
+              // mainTitle={"Origin"}
+              title={"Traveling To"}
+              items={cities}
+              // initialSelection={locationsFrom}
+              selectedItem={(e) => {
+                setlocationDetails(e.length > 0 ? e[0].id : "");
+              }}
+            />
             <DatePicker
               className="date-picker"
               selected={time}
+              placeholderText="Select Time"
               onChange={(date) => {
                 settime(date);
               }}
@@ -138,6 +200,9 @@ const AdminBookings = () => {
               monthsShown={2}
               customInput={<CustomDatepicker />}
             />
+            <button className="clear" onClick={() => handleClearFilter()}>
+              Clear Filters
+            </button>
           </div>
           {filterList.length > 0 ? (
             filterList.map((booking) => (
