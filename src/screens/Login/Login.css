@@ -1,12 +1,31 @@
 .login-page {
-  background-image: url("https://images.unsplash.com/photo-1532440662719-69cb56b3fe3d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  /* background-image: url("https://images.unsplash.com/photo-1532440662719-69cb56b3fe3d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"); */
   padding-top: 20px;
   height: calc(100vh - 143px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  background: radial-gradient(circle at 20% 50%, #333333, transparent),
+    radial-gradient(circle at 80% 50%, #fab722, transparent),
+    radial-gradient(circle at 50% 50%, #333333, #333333),
+    radial-gradient(circle at 50% 50%, #fab722, #fab722);
+  background-size: 300% 300%;
+  animation: gradient 12s ease infinite;
 }
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%, 0% 50%, 50% 50%, 50% 50%;
+  }
+  50% {
+    background-position: 100% 50%, 100% 50%, 50% 50%, 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%, 0% 50%, 50% 50%, 50% 50%;
+  }
+}
+
 .login-page .title {
   font-size: 24px;
   font-weight: 700;
