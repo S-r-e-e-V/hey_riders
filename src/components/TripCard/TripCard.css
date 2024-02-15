@@ -1,0 +1,58 @@
+.trip {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  padding: 10px;
+
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+
+  width: 300px;
+  height: 250px;
+  -webkit-box-shadow: 0px 2px 14px 1px var(--black);
+  box-shadow: 0px 2px 14px 1px var(--black);
+
+  transition: 0.2s all ease-in-out;
+}
+.trip:hover {
+  transform: scale(1.01);
+}
+.trip img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  filter: brightness(0.5);
+}
+.trip .trip-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 18px;
+  height: 100%;
+  z-index: 10;
+}
+.trip .trip-contents .trip-heading {
+  font-size: 30px;
+  font-weight: 600;
+}
+.trip .trip-contents .trip-locations {
+  display: flex;
+  gap: 10px;
+  padding-bottom: 30px;
+}
+.trip .trip-contents .trip-location {
+  display: flex;
+  align-items: center;
+}
+.trip .trip-contents .trip-location span {
+  padding-left: 10px;
+}
+@media screen and (max-width: 400px) {
+  .trip {
+    max-width: 225px;
+    max-height: 175px;
+  }
+}

@@ -12,6 +12,7 @@ function OurServices() {
             <ServiceBox title="Our dedicated support team is available 24/7 to assist you with any inquiries, ensuring a reliable and seamless rideshare experience" />
             <ServiceBox title="Convenient rideshare options from Toronto to Windsor with departure times at 09:00 am, 03:00 pm, 07:30 pm, and 10:00 pm" />
             <ServiceBox title="Convenient rideshare options from Windsor to Toronto with departure times at 05:00 am, 10:00 am, 03:00 pm, and 06:00 pm" />
+            <ServiceBox title="New! Parcel delivery services. Pricing: Envelope - $10, Shoe box - $15, Cabin bag - $20, Check-in bag - $35. " />
           </div>
         </div>
       </div>
