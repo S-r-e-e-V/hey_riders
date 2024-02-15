@@ -134,7 +134,7 @@ const AdminBookings = () => {
         <Spinner />
       ) : (
         <div className="admin bookings">
-          <div className="datepicker">
+          <div className="filter">
             <button
               className="button"
               onClick={() =>
