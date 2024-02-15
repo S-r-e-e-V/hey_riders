@@ -3,6 +3,8 @@
   padding: 20px;
   gap: 10px;
   justify-content: space-around;
+  background-image: url("../../../assets/thong-vo.jpg");
+  background-size: contain;
 }
 @media screen and (max-width: 720px) {
   .trip-card-section {
