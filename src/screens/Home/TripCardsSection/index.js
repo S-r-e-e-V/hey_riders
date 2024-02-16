@@ -15,7 +15,7 @@ export default function TripCardsSection() {
     {
       location: "Windsor",
       image: windsorImg,
-      locations: ["London", "Toront"],
+      locations: ["London", "Toronto"],
       price: 45,
     },
   ];
