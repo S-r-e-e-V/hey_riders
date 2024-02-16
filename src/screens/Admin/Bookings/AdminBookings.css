@@ -4,10 +4,12 @@
   flex-wrap: wrap;
   gap: 10px;
 }
-.admin.bookings button {
-  cursor: pointer;
+.admin.bookings .example-custom-input {
   min-width: 100px;
   min-height: 100%;
+}
+.admin.bookings button {
+  cursor: pointer;
 
   outline: none;
   border: none;
