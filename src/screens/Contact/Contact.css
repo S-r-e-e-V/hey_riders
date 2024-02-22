@@ -17,7 +17,7 @@
   box-sizing: border-box;
 }
 .contact-page .title {
-  color: #747474;
+  color: var(--black);
 }
 .contact-page .form-group {
   margin-bottom: 20px;
@@ -54,7 +54,7 @@
 }
 .contact-page .contact-us-footer a {
   text-decoration: none;
-  color: var(--white);
+  color: var(--black);
 }
 @media screen and (max-width: 800px) {
   .contact-page {
