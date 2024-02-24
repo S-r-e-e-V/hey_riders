@@ -5,14 +5,6 @@
   align-items: center;
   background-image: url("../../../assets/car3.jpg");
   padding: 20px 80px;
-
-  background: radial-gradient(circle at 20% 50%, #333333, transparent),
-  radial-gradient(circle at 80% 50%, #fab722, transparent),
-  radial-gradient(circle at 50% 50%, #333333, #333333),
-  radial-gradient(circle at 50% 50%, #fab722, #fab722);
-  background-size: 300% 300%;
-  animation: gradient 12s ease infinite; 
-
 }
 .third-session .content {
   flex: 1;
