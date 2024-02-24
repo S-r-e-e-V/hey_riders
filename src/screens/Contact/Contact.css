@@ -7,7 +7,7 @@
   background-color: #f5cb5c;
 }
 .contact-page {
-  height: calc(100vh - 144px);
+  height: calc(100vh - 122px);
   justify-content: space-between;
   display: flex;
   flex-direction: column;
