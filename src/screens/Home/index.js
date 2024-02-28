@@ -6,13 +6,15 @@ import ThirdSection from "./ThirdSection";
 import Footer from "../..//components/Footer/index";
 import FinalSection from "./FinalSection/index";
 import TripCardsSection from "./TripCardsSection";
+import MapSection from "./MapSection";
 
 export default function Home() {
   return (
     <div className="home-page">
       <SearchSection />
       <MainSection />
-      <TripCardsSection />
+      <MapSection />
+      {/* <TripCardsSection /> */}
       <ThirdSection />
       {/* <FinalSection/> */}
       <Footer />
