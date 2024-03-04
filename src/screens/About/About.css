@@ -3,9 +3,10 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-image: url("https://images.unsplash.com/photo-1495050489622-a17b23172ed6?q=80&w=2815&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-  background-size: cover;
+  background-image: url("../../assets/ab.png");
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center top ; /* Adjusted property */
   gap: 20px;
 }
 

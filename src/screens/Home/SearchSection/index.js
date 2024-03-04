@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BiSolidCar } from "react-icons/bi";
 import { AiFillGift } from "react-icons/ai";
 
-import TaxiImage from "../../../assets/car9.jpeg";
+import TaxiImage from "../../../assets/Main.png";
 
 import SearchArea from "../../../components/SearchArea";
 import { getData } from "../../../api";

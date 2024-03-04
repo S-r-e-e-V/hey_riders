@@ -19,6 +19,14 @@
   overflow: hidden;
   border-radius: 20px;
 }
+.map-section .map-design{
+  flex: 2;
+}
+
+.map-section .map-design img{ 
+  width: 100%;
+  object-fit: cover;
+}
 @media screen and (max-width: 1100px) {
   .map-section .map-area {
     height: 300px;
@@ -29,7 +37,7 @@
   .map-section {
     flex-direction: column;
   }
-  .map-section .trips {
+  .map-section .map-design {
     flex-direction: row;
   }
   .map-section .map-area {
@@ -38,7 +46,7 @@
   }
 }
 @media screen and (max-width: 550px) {
-  .map-section .trips {
+  .map-section .map-design {
     display: none;
   }
 }

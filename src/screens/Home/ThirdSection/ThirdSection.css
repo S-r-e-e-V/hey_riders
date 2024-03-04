@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("../../../assets/car3.jpg");
+  background-image: url("../../../assets/of.jpg");
   padding: 20px 80px;
 }
 .third-session .content {
@@ -12,7 +12,7 @@
 .third-session .content .title {
   font-size: 50px;
   font-family: "monaco";
-  color: rgb(215, 207, 207);
+  color: black;
 
   animation: fadeIn 3s forwards;
 }
@@ -27,7 +27,7 @@
 }
 .third-session .features .rows .box {
   font-size: 26px;
-  color: rgb(202, 190, 190);
+  color: black;
   padding: 10px;
   width: 150px;
   height: 100px;
@@ -36,8 +36,8 @@
   border-radius: 10px;
   background: linear-gradient(
     89.1deg,
-    rgba(255, 191, 0, 0.5),
-    rgba(255, 191, 0, 0.5)
+    rgba(249, 183, 31, 0.588),
+    rgb(255, 191, 0)
   );
   box-shadow: 5px 5px 10px -2px var(--black);
 }
