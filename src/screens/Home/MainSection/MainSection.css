@@ -1,6 +1,6 @@
 .car-section {
   display: flex;
-  height: 600px;
+  /* height: 600px; */
   background-color: var(--white);
   align-items: center;
   padding: 20px 80px;

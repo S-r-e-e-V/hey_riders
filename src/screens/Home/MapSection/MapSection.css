@@ -19,11 +19,11 @@
   overflow: hidden;
   border-radius: 20px;
 }
-.map-section .map-design{
+.map-section .map-design {
   flex: 2;
 }
 
-.map-section .map-design img{ 
+.map-section .map-design img {
   width: 100%;
   object-fit: cover;
 }
@@ -43,11 +43,6 @@
   .map-section .map-area {
     width: 90%;
     margin-top: 20px;
-  }
-}
-@media screen and (max-width: 550px) {
-  .map-section .map-design {
-    display: none;
   }
 }
 @media screen and (max-width: 500px) {
