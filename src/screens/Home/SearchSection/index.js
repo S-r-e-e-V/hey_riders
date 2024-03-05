@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { BiSolidCar } from "react-icons/bi";
 import { AiFillGift } from "react-icons/ai";
 
-import TaxiImage from "../../../assets/car9.jpeg";
+import TaxiImage from "../../../assets/Mainp.png";
 
 import SearchArea from "../../../components/SearchArea";
 import { getData } from "../../../api";
@@ -110,6 +110,9 @@ export default function SearchSection() {
             <button className="search-button" onClick={onSearch}>
               Search
             </button>
+            <span className="hover-text">
+              Best Ride Share Service in Canada
+            </span>
           </div>
           <img className="background-image" src={TaxiImage} />
         </div>

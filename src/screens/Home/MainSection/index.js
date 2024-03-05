@@ -1,6 +1,6 @@
 import React from "react";
 import "./MainSection.css";
-import CarImage from "../../../assets/car8.png";
+import CarImage from "../../../assets/kk copy.png";
 import { useNavigate } from "react-router-dom";
 import Logo from "../../../assets/heyride_copy.png"
 

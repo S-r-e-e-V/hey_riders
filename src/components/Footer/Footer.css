@@ -3,16 +3,18 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: black;
-  color: #fff;
+  background-color: var(--lightYellow);
+  color: var(--black);
   padding: 20px;
   bottom: 0;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
 }
 .footer .footer-links {
   text-align: center;
 }
 .footer a {
-  color: #fff;
+  color: var(--black);
   text-decoration: none;
   padding: 0 10px;
 }
