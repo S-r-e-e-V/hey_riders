@@ -15,6 +15,23 @@
   -webkit-box-shadow: 0px 2px 14px 1px var(--black);
   box-shadow: 0px 2px 14px 1px var(--black);
 }
+.sidenav .call-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 35px;
+  height: 31px;
+  right: 20px;
+  bottom: 20px;
+  z-index: 100;
+  cursor: pointer;
+  background-color: var(--white);
+  border-radius: 50%;
+
+  -webkit-box-shadow: 0px 2px 14px 1px var(--black);
+  box-shadow: 0px 2px 14px 1px var(--black);
+}
 .dim-background {
   display: none;
   position: fixed;
@@ -42,15 +59,14 @@
   width: 270px;
   box-sizing: border-box;
   z-index: 999;
-  background-color: #ffffff;
+  background-color: var(--white);
   padding: 20px 45px 20px 20px;
   height: calc(var(--vh, 1vh) * 100);
   left: -300px;
   transition: left 200ms linear;
   overflow-y: scroll;
-
-  background-color: var(--black);
-  color: var(--white);
+  color: var(--black);
+  border-top-right-radius: 20px;
 }
 .sidenav .sidenav-div.active {
   left: 0px;
