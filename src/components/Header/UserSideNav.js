@@ -4,8 +4,7 @@ import "./SideNav.css";
 // icons
 import { BsExclamationCircle, BsGear, BsTelephone } from "react-icons/bs";
 import { AiOutlineSchedule } from "react-icons/ai";
-import { FaCity, FaLocationDot } from "react-icons/fa6";
-import { MdPriceCheck } from "react-icons/md";
+import { IoCallOutline } from "react-icons/io5";
 import { TiThMenuOutline } from "react-icons/ti";
 
 import { useNavigate } from "react-router-dom";
@@ -67,6 +66,11 @@ export default function UserSideNav() {
     <div className="sidenav">
       <div className="handburg-icon">
         <TiThMenuOutline onClick={openMenu} size={20} />
+      </div>
+      <div className="call-icon">
+        <a href="tel:+12263487380">
+          <IoCallOutline />
+        </a>
       </div>
       <div className={`dim-background ${isOpen ? "active" : "hide"}`}></div>
       <div className={`sidenav-div ${isOpen ? "active" : ""}`} ref={node}>
