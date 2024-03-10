@@ -4,7 +4,6 @@
   align-items: center;
   flex-direction: column;
   background-color: var(--lightYellow);
-  color: var(--black);
   padding: 20px;
   bottom: 0;
   border-top-left-radius: 20px;
@@ -14,13 +13,13 @@
   text-align: center;
 }
 .footer a {
-  color: var(--black);
+  color: var(--gray);
   text-decoration: none;
   padding: 0 10px;
 }
 
 .footer a:hover {
-  color: var(--lightYellow);
+  color: var(--black);
 }
 
 .social-icons {
@@ -32,5 +31,5 @@
 }
 
 .social-icons a:hover {
-  color: var(--lightYellow);
+  color: var(--black);
 }
