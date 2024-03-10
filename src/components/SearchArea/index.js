@@ -22,22 +22,11 @@ export default function SearchArea({
   const [locationList, setlocationList] = useState({
     from:
       locationsFrom.length > 0
-        ? // ? locations.filter(
-          //     (item) =>
-          //       item.id !== locationsFrom[0].id &&
-          //       item.id !== locationsTo[0].id &&
-          //       (item.id === TorontoId ||
-          //         locationsFrom[0].id === TorontoAirportId)
-          //   )
-          filterLocation("From", locationsFrom, locationsTo)
+        ? filterLocation("From", locationsFrom, locationsTo)
         : locations,
     to:
       locationsTo.length > 0
-        ? // ? locations.filter(
-          //     (item) =>
-          //       item.id !== locationsTo[0].id && item.id !== locationsFrom[0].id
-          //   )
-          filterLocation("To", locationsFrom, locationsTo)
+        ? filterLocation("To", locationsFrom, locationsTo)
         : locations,
   });
   const handleClickOutside = (event) => {
@@ -45,6 +34,7 @@ export default function SearchArea({
       setopen(false);
     }
   };
+  console.log(locationsFrom, locationsTo, locationList, scheduleInfo);
   function filterLocation(type, locationsFrom, locationsTo, locationId) {
     switch (type) {
       case "From":
@@ -103,29 +93,43 @@ export default function SearchArea({
   }, []);
 
   const locationHandler = (type, locationId) => {
+    let flag = locationId === TorontoAirportId || locationId === TorontoId;
+    console.log(flag);
     switch (type) {
       case "from":
         setlocationList({
-          to: locations.filter((item) => item.id !== locationId),
-          // ...locationList,
-          // to: filterLocation(
-          //   "To",
-          //   locationList.from,
-          //   locationList.to,
-          //   locationId
-          // ),
+          from: locations.filter(
+            (item) =>
+              item.id != scheduleInfo.to &&
+              (locationId === TorontoAirportId || locationId === TorontoId
+                ? item.id != TorontoAirportId && item.id != TorontoId
+                : true)
+          ),
+          to: locations.filter(
+            (item) =>
+              item.id != locationId &&
+              (locationId === TorontoAirportId || locationId === TorontoId
+                ? item.id != TorontoAirportId && item.id != TorontoId
+                : true)
+          ),
         });
         break;
       case "to":
         setlocationList({
-          from: locations.filter((item) => item.id !== locationId),
-          // ...locationList,
-          // from: filterLocation(
-          //   "From",
-          //   locationList.from,
-          //   locationList.to,
-          //   locationId
-          // ),
+          from: locations.filter(
+            (item) =>
+              item.id != locationId &&
+              (locationId === TorontoAirportId || locationId === TorontoId
+                ? item.id != TorontoAirportId && item.id != TorontoId
+                : true)
+          ),
+          to: locations.filter(
+            (item) =>
+              item.id != scheduleInfo.from &&
+              (locationId === TorontoAirportId || locationId === TorontoId
+                ? item.id != TorontoAirportId && item.id != TorontoId
+                : true)
+          ),
         });
         break;
       default:

@@ -114,8 +114,6 @@ export default function Schedule(props) {
     customLocation: false,
   });
 
-  // const [locations, setlocations] = useState([]);
-  // const [cities, setcities] = useState([]);
   const [cities, setcities] = useState([]);
   const [locations, setlocations] = useState({
     pickup: [],
