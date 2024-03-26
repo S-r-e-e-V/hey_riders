@@ -101,3 +101,18 @@
 .admin .Cancelled {
   color: var(--red);
 }
+@media screen and (max-width: 800px) {
+  .admin {
+    padding-top: 40px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .admin .login-container .input {
+    width: 250px;
+    /* height: 40px; */
+  }
+  .admin .login-container .selector {
+    width: 250px;
+    /* height: 40px; */
+  }
+}
