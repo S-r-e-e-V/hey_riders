@@ -47,11 +47,11 @@ export default function AdminHeader() {
           </span>
           <span>Locations</span>
         </div>
-        <div className="title" onClick={() => navigate("/admin/price")}>
+        <div className="title" onClick={() => navigate("/admin/ride")}>
           <span>
             <MdPriceCheck size={13} />
           </span>
-          <span>Price</span>
+          <span>Ride</span>
         </div>
       </div>
       {authDetails.isAuthenticated ? (

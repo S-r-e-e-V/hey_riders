@@ -1,0 +1,53 @@
+.add-price-page {
+  display: flex;
+}
+
+.add-price-page .title {
+  align-self: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+.add-price-page .selector {
+  width: 400px;
+}
+.add-price-page .ride-stops {
+  border-top: 2px solid var(--red);
+  margin-top: 20px;
+  padding: 10px 0;
+}
+.add-price-page .login-container .input-container label {
+  padding-bottom: 5px;
+}
+.add-price-page .ride-stops input {
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  padding: 10px 10px 0px 10px;
+  width: 400px;
+  height: 50px;
+  font-size: 18px;
+  border: 1px solid var(--yellow);
+  border-radius: 7px;
+  /* background: linear-gradient(89.1deg, var(--lightYellow), var(--yellow));
+  box-shadow: 5px 5px 10px -2px var(--black); */
+}
+.add-price-page .ride-stops button {
+  background: unset;
+  box-shadow: unset;
+}
+.add-price-page .remove-stop {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+.add-price-page .add-stops {
+  margin: 20px 0;
+}
+
+/* date picker */
+
+@media screen and (max-width: 500px) {
+  .add-price-page .react-datepicker-wrapper input {
+    max-width: 250px;
+  }
+}

@@ -93,12 +93,15 @@
 }
 
 .admin .Pending {
-  color: var(--black);
+  font-weight: 600;
+  color: var(--blue);
 }
 .admin .Confirmed {
+  font-weight: 600;
   color: var(--green);
 }
 .admin .Cancelled {
+  font-weight: 600;
   color: var(--red);
 }
 @media screen and (max-width: 800px) {

@@ -13,25 +13,23 @@ import "react-datepicker/dist/react-datepicker.css";
 
 import NoContent from "../../../components/NoContent";
 import Selector from "../../../components/Selector";
+import { WithInPickUpArea } from "../../../constant/Config";
 
 const AdminBookings = () => {
   const navigator = useNavigate();
   const [loading, setloading] = useState(false);
   const [bookings, setbookings] = useState([]);
-  const [cities, setcities] = useState([]);
-  const [locationDetails, setlocationDetails] = useState(null);
+  const [rides, setrides] = useState([]);
+  const [rideDetails, setrideDetails] = useState(null);
   const [filterList, setfilterList] = useState([]);
 
   var today = new Date();
   var endDate = new Date(today.setMonth(today.getMonth() + 3));
   const [date, setdate] = useState({
-    startDate: new Date(),
+    startDate: new Date().setHours(0, 0, 0, 0),
     endDate: endDate,
   });
 
-  var initialTime = new Date();
-  initialTime.setHours(0, 0, 0, 0);
-  const [time, settime] = useState("");
   const [isnotConfirmedFilter, setisnotConfirmedFilter] = useState({
     isFilter: false,
     text: "See bookings yet to Confirm",
@@ -47,70 +45,49 @@ const AdminBookings = () => {
       return bookings;
     }
   };
-  const getCities = async () => {
-    const response = await getData("/city/cities", false);
+
+  const getRides = async () => {
+    const response = await getData("/ride/rides", false);
     if (response) {
-      let city = response.map((item) => ({ id: item._id, item: item.city }));
-      return city;
+      let rides = response.map((item) => ({
+        id: item._id,
+        item: item.rideName,
+      }));
+      return rides;
     }
   };
 
+  // filter bookings
   const filterBookings = () => {
-    let t = new Date(time);
-    let queryHour = t.getHours();
-    let queryMinutes = t.getMinutes();
-
-    let filterData = [];
-    if (locationDetails == null && time === "") {
-      filterData = bookings;
-    } else {
-      bookings.forEach((element) => {
-        let date = new Date(element.ScheduledToTime);
-        let hour = date.getHours();
-        let min = date.getMinutes();
-        if (!locationDetails) {
-          if (queryHour == hour && queryMinutes == min) {
-            filterData.push(element);
-          }
-        } else if (time === "") {
-          if (locationDetails === element.from.city_id._id) {
-            filterData.push(element);
-          }
-        } else {
-          if (
-            queryHour == hour &&
-            queryMinutes == min &&
-            locationDetails === element.from.city_id._id
-          ) {
-            filterData.push(element);
-          }
-        }
-      });
-    }
-    setfilterList(filterData);
+    let res = bookings.filter((booking) => rideDetails === booking.ride_id._id);
+    setfilterList(res);
   };
+
+  // clear filter
   const handleClearFilter = () => {
     setdate({
       startDate: new Date(),
       endDate: endDate,
     });
-    settime("");
-    setlocationDetails(null);
+
+    setrideDetails(null);
   };
+
+  // api calls
   const apiCall = async () => {
     setloading(true);
-    const citiesPromise = getCities();
+    const ridesPromise = getRides();
     const bookingsPromise = getBookings();
 
-    const [city, bookings] = await Promise.all([
-      citiesPromise,
+    const [rides, bookings] = await Promise.all([
+      ridesPromise,
       bookingsPromise,
     ]);
-    setcities(city);
+    setrides(rides);
     setbookings(bookings);
     setfilterList(bookings);
-    settime("");
-    setlocationDetails(null);
+
+    setrideDetails(null);
     setloading(false);
   };
   useEffect(() => {
@@ -119,7 +96,7 @@ const AdminBookings = () => {
 
   useEffect(() => {
     if (!isnotConfirmedFilter.isFilter) filterBookings();
-  }, [time, locationDetails]);
+  }, [rideDetails]);
 
   //  custom datepicker
   const CustomDatepicker = forwardRef(({ value, onClick }, ref) => (
@@ -153,14 +130,14 @@ const AdminBookings = () => {
             </button>
             <Selector
               // mainTitle={"Origin"}
-              title={"Traveling To"}
-              items={cities}
+              title={"Select ride"}
+              items={rides}
               // initialSelection={locationsFrom}
               selectedItem={(e) => {
-                setlocationDetails(e.length > 0 ? e[0].id : "");
+                setrideDetails(e.length > 0 ? e[0].id : "");
               }}
             />
-            <DatePicker
+            {/* <DatePicker
               className="date-picker"
               selected={time}
               placeholderText="Select Time"
@@ -169,23 +146,14 @@ const AdminBookings = () => {
               }}
               showTimeSelect
               showTimeSelectOnly
-              includeTimes={[
-                new Date().setHours(5, 0, 0, 0),
-                new Date().setHours(10, 0, 0, 0),
-                new Date().setHours(15, 0, 0, 0),
-                new Date().setHours(18, 0, 0, 0),
-                new Date().setHours(9, 0, 0, 0),
-                new Date().setHours(19, 30, 0, 0),
-                new Date().setHours(22, 0, 0, 0),
-              ]}
               timeCaption="Time"
-              timeIntervals={30}
+              timeIntervals={15}
               dateFormat="h:mm aa"
               customInput={<CustomDatepicker />}
-            />
+            /> */}
             <DatePicker
               className="date-picker"
-              selected={time}
+              // selected={time}
               onChange={(dates) => {
                 const [start, end] = dates;
                 setdate({
@@ -195,7 +163,6 @@ const AdminBookings = () => {
               }}
               startDate={date.startDate}
               endDate={date.endDate}
-              minDate={new Date()}
               selectsRange
               monthsShown={2}
               customInput={<CustomDatepicker />}
@@ -210,25 +177,26 @@ const AdminBookings = () => {
                 className="list-content"
                 onClick={() => navigator(`/admin/bookings/${booking._id}`)}
               >
-                <div>
-                  <div className="name">Name: {booking.user_id.name}</div>
-                  <div className={`status`}>
-                    Status:{" "}
-                    <span className={`${booking.status}`}>
-                      {booking.status}
-                    </span>
+                <div className="main-container">
+                  <div>
+                    <div className="name">Name: {booking.user_id.name}</div>
+                    <div>Phone: {booking.user_id.phone}</div>
+                  </div>
+                  <div>
+                    <div className={`status`}>
+                      Status:{" "}
+                      <span className={`${booking.status}`}>
+                        {booking.status}
+                      </span>
+                    </div>
+
+                    <div className="price">
+                      Price: <span>${booking.price}</span>
+                    </div>
                   </div>
                 </div>
-                <div>
-                  {/* <div className="date">
-                    Scheduled for:{" "}
-                    {moment(booking.ScheduledToTime).format(
-                      "DD/MM/YYYY  hh:mm A"
-                    )} */}
-                  <div>Phone: {booking.user_id.phone}</div>
-                  <div className="price">
-                    Price: <span>${booking.price}</span>
-                  </div>
+                <div className="ride-name">
+                  Ride Name: {booking.ride_id.rideName}
                 </div>
                 <div className="date">
                   Scheduled for:{" "}
@@ -238,15 +206,20 @@ const AdminBookings = () => {
                 </div>
                 <div className="from">
                   Pickup:{" "}
-                  {booking.from.location_id._id === "6564e158f3d3c3b55fe5854b"
+                  {booking.from.location_id._id === WithInPickUpArea
                     ? booking.from.customLocation
-                    : booking.from.location_id.location}
+                    : booking.from.location_id.location}{" "}
+                  <span className="city-name">{` (${booking.from.city_id.city})`}</span>
                 </div>
                 <div className="to">
                   Dropoff:{" "}
-                  {booking.to.location_id._id === "6564e158f3d3c3b55fe5854b"
+                  {booking.to.location_id._id === WithInPickUpArea
                     ? booking.to.customLocation
                     : booking.to.location_id.location}
+                  <span className="city-name">
+                    {" "}
+                    {` (${booking.to.city_id.city})`}
+                  </span>
                 </div>
 
                 {booking.driver && (

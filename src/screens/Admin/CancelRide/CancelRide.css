@@ -1,0 +1,50 @@
+.cancel-ride-page {
+  display: flex;
+}
+
+.cancel-ride-page .title {
+  align-self: center;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.cancel-ride-page .dates {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 20px 0;
+}
+.cancel-ride-page .dates input {
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  padding: 10px 10px 0px 10px;
+  width: 400px;
+  height: 50px;
+  font-size: 18px;
+  border: 1px solid var(--yellow);
+  border-radius: 7px;
+  /* background: linear-gradient(89.1deg, var(--lightYellow), var(--yellow));
+  box-shadow: 5px 5px 10px -2px var(--black); */
+}
+.cancel-ride-page .dates button {
+  background: unset;
+  box-shadow: unset;
+}
+
+.cancel-ride-page .add-date {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+/* date picker */
+
+@media screen and (max-width: 500px) {
+  .add-price-page .react-datepicker-wrapper input {
+    max-width: 250px;
+  }
+}

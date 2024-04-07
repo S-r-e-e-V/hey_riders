@@ -15,10 +15,8 @@ import OurServices from "../screens/Ourservices";
 import AdminBookings from "../screens/Admin/Bookings";
 import AdminCities from "../screens/Admin/Cities";
 import AdminLocations from "../screens/Admin/Locations";
-import AdminPrice from "../screens/Admin/Price";
 import AddCity from "../screens/Admin/AddCity";
 import AddLocation from "../screens/Admin/AddLocation";
-import AddPrice from "../screens/Admin/AddPrice";
 import Header from "../components/Header";
 import MyBookings from "../screens/MyBookings";
 import Booking from "../screens/Admin/Booking";
@@ -27,10 +25,13 @@ import AddDriver from "../screens/Admin/AddDriver";
 import EditDriver from "../screens/Admin/EditDriver";
 import EditCity from "../screens/Admin/EditCity";
 import EditLocation from "../screens/Admin/EditLocation";
-import EditPrice from "../screens/Admin/EditPrice";
 import ForgotPassword from "../screens/ForgotPassword";
 import ResetPassword from "../screens/ResetPassword";
 import Policies from "../screens/Policies";
+import AdminRide from "../screens/Admin/Ride";
+import AddRide from "../screens/Admin/AddRide";
+import EditRide from "../screens/Admin/EditRide";
+import CancelRide from "../screens/Admin/CancelRide";
 
 function Router() {
   const { authDetails, setauthDetails } = useContext(AuthContext);
@@ -97,12 +98,17 @@ function Router() {
                   path="/admin/locations/edit/:id"
                   element={<EditLocation />}
                 />
-                <Route exact path="/admin/price" element={<AdminPrice />} />
-                <Route exact path="/admin/price/add" element={<AddPrice />} />
+                <Route exact path="/admin/ride" element={<AdminRide />} />
+                <Route exact path="/admin/ride/add" element={<AddRide />} />
                 <Route
                   exact
-                  path="/admin/price/edit/:id"
-                  element={<EditPrice />}
+                  path="/admin/ride/edit/:id"
+                  element={<EditRide />}
+                />
+                <Route
+                  exact
+                  path="/admin/ride/cancel/:id"
+                  element={<CancelRide />}
                 />
               </>
             )}

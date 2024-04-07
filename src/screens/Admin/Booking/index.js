@@ -15,6 +15,7 @@ import Spinner from "../../../components/Spinner";
 import { useNavigate, useParams } from "react-router-dom";
 import Selector from "../../../components/Selector";
 import Alert from "../../../utils/Alert";
+import { WithInPickUpArea } from "../../../constant/Config";
 
 const Booking = () => {
   const routeParams = useParams();
@@ -134,7 +135,16 @@ const Booking = () => {
               </div>
             </div>
             <div className="booked-on">
+              Ride name: <span>{booking.ride_id.rideName}</span>
+            </div>
+            <div className="booked-on">
               Booked by: <span>{booking.user_id.name}</span>
+            </div>
+            <div className="booked-on">
+              Booked for: <span>{`${booking.adult} adults`}</span>
+            </div>
+            <div className="booked-on">
+              Luggages: <span>{booking.luggage}</span>
             </div>
             <div className="phone-number">
               <a href={`tel:${booking.user_id.phone}`}>
@@ -151,18 +161,20 @@ const Booking = () => {
               <div className="booking-location">
                 <span>
                   Pickup:{" "}
-                  {booking.from.location_id._id === "6564e158f3d3c3b55fe5854b"
+                  {booking.from.location_id._id === WithInPickUpArea
                     ? Capitalize(booking.from.customLocation)
                     : Capitalize(booking.from.location_id.location)}
+                  <span className="city-name">{` (${booking.from.city_id.city})`}</span>
                 </span>
                 <span>
                   Dropoff:{" "}
-                  {booking.to.location_id._id === "6564e158f3d3c3b55fe5854b"
+                  {booking.to.location_id._id === WithInPickUpArea
                     ? Capitalize(booking.to.customLocation)
                     : Capitalize(booking.to.location_id.location)}
+                  <span className="city-name">{` (${booking.to.city_id.city})`}</span>
                 </span>
               </div>
-              <div className="price">{`$${booking.price}`}</div>
+              <div className="price">Price: {`$${booking.price}`}</div>
             </div>
             {(booking.status === "Confirmed" ||
               booking.status === "Pending") && (

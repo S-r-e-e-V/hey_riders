@@ -77,6 +77,12 @@
   font-weight: 600;
   color: var(--red);
 }
+.schedule-page .schedule-content .bookings-left {
+  padding-top: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--red);
+}
 
 /* ride details */
 

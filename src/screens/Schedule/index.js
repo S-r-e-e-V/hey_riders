@@ -12,86 +12,11 @@ import { getData, postData } from "../../api";
 import Spinner from "../../components/Spinner";
 import { AuthContext } from "../../context/AuthContext";
 import Alert from "../../utils/Alert";
-import { WindsorId } from "../../constant/Config";
 
 import NoContent from "../../components/NoContent";
+import { CalculateTime, addTimeToDate } from "../../utils/TimeCalculations";
+import { WithInPickUpArea } from "../../constant/Config";
 
-const ridesFromWindsor = [
-  {
-    id: 1,
-    from: "Windsor",
-    to: "Toronto",
-    fromTime: new Date().setHours(5, 0, 0, 0),
-    toTime: new Date().setHours(9, 0, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-  {
-    id: 2,
-    from: "Windsor",
-    to: "Toronto",
-    fromTime: new Date().setHours(10, 0, 0, 0),
-    toTime: new Date().setHours(14, 0, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-  {
-    id: 3,
-    from: "Windsor",
-    to: "Toronto",
-    fromTime: new Date().setHours(15, 0, 0, 0),
-    toTime: new Date().setHours(19, 0, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-  {
-    id: 4,
-    from: "Windsor",
-    to: "Toronto",
-    fromTime: new Date().setHours(18, 0, 0, 0),
-    toTime: new Date().setHours(22, 0, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-];
-const ridesFromToronto = [
-  {
-    id: 1,
-    from: "Toronto",
-    to: "Windsor",
-    fromTime: new Date().setHours(9, 0, 0, 0),
-    toTime: new Date().setHours(13, 0, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-  {
-    id: 2,
-    from: "Toronto",
-    to: "Windsor",
-    fromTime: new Date().setHours(15, 0, 0, 0),
-    toTime: new Date().setHours(19, 0, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-  {
-    id: 3,
-    from: "Toronto",
-    to: "Windsor",
-    fromTime: new Date().setHours(19, 30, 0, 0),
-    toTime: new Date().setHours(23, 30, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-  {
-    id: 4,
-    from: "Toronto",
-    to: "Windsor",
-    fromTime: new Date().setHours(22, 0, 0, 0),
-    toTime: new Date().setHours(2, 0, 0, 0),
-    time: new Date(),
-    price: 45,
-  },
-];
 export default function Schedule(props) {
   const { authDetails } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -102,7 +27,6 @@ export default function Schedule(props) {
     date: new Date(parseInt(routeParams.date)),
     adults: parseInt(routeParams.adults),
     luggage: parseInt(routeParams.luggage),
-    price: 45,
   });
   const [loading, setloading] = useState(false);
   const [error, seterror] = useState({
@@ -118,16 +42,13 @@ export default function Schedule(props) {
   const [locations, setlocations] = useState({
     pickup: [],
     dropoff: [],
-    prices: [],
+    rides: [],
   });
-  const [selectedRides, setselectedRides] = useState(
-    routeParams.from === WindsorId ? ridesFromWindsor : ridesFromToronto
-  );
   const [selectedRide, setselectedRide] = useState({
-    id: 1,
-    time: selectedRides[0].fromTime,
+    id: 0,
+    time: "",
     price: 0,
-    luggage: 0,
+    bookingsLeft: 7,
   });
   const [pointLocation, setpointLocation] = useState({
     pickup: "",
@@ -139,23 +60,6 @@ export default function Schedule(props) {
     return cities.filter((item) => item.id == id).length > 0
       ? cities.filter((item) => item.id == id)[0]
       : "";
-  };
-
-  const getLocationName = (type, id) => {
-    switch (type) {
-      case "pickup":
-        return locations.pickup.filter((item) => item.id == id).length > 0
-          ? locations.pickup.filter((item) => item.id == id)[0]
-          : "";
-      case "dropoff":
-        return locations.dropoff.filter((item) => item.id == id).length > 0
-          ? locations.dropoff.filter((item) => item.id == id)[0]
-          : "";
-      default:
-        return locations.pickup.filter((item) => item.id == id).length > 0
-          ? locations.pickup.filter((item) => item.id == id)[0]
-          : "";
-    }
   };
 
   //get  api calls
@@ -194,10 +98,27 @@ export default function Schedule(props) {
     return dropoff;
   };
 
-  const getPrices = async () => {
-    const prices = await getData(`/price/prices`, false);
-    priceCalculation(prices);
-    return prices;
+  const getRides = async () => {
+    const response = await getData(
+      `/ride/stop/${scheduleInfo.from}/${scheduleInfo.to}`,
+      false
+    );
+    let rides = response.map((ride) => {
+      return {
+        ...ride,
+        totalPrice:
+          ride.stops.price * scheduleInfo.adults +
+          (scheduleInfo.luggage > 0
+            ? ride.luggage[0] + ride.luggage[1] * (scheduleInfo.luggage - 1)
+            : 0),
+        bookingsLeft: calculateSeatesLeft(
+          ride.rideCapacity,
+          ride.stops.pickupTime,
+          ride.validBookings
+        ),
+      };
+    });
+    return rides;
   };
 
   const apiCalls = async () => {
@@ -205,19 +126,20 @@ export default function Schedule(props) {
     const citiesPromise = getCities();
     const pickupPromise = getPickupLocation();
     const dropOffPromise = getDropoffLocation();
-    const pricePromise = getPrices();
+    const ridePromise = getRides();
 
-    const [cities, pickup, dropoff, prices] = await Promise.all([
+    const [cities, pickup, dropoff, rides] = await Promise.all([
       citiesPromise,
       pickupPromise,
       dropOffPromise,
-      pricePromise,
+      ridePromise,
     ]);
-    setlocations({ pickup, dropoff, prices });
+    setlocations({ pickup, dropoff, rides });
     setcities(cities);
+
     setpointLocation({
-      pickup: pickup[0].id,
-      dropoff: dropoff[0].id,
+      pickup: pickup[0] ? pickup[0].id : 0,
+      dropoff: dropoff[0] ? dropoff[0].id : 0,
       type: "",
       customLocation: "",
     });
@@ -227,30 +149,28 @@ export default function Schedule(props) {
   useEffect(() => {
     apiCalls();
   }, []);
-
   // const load locations
   const loadLocations = async () => {
     setloading(true);
     const pickupPromise = getPickupLocation();
     const dropOffPromise = getDropoffLocation();
-    const pricePromise = getPrices();
+    const ridePromise = getRides();
 
-    const [pickup, dropoff, prices] = await Promise.all([
+    const [pickup, dropoff, rides] = await Promise.all([
       pickupPromise,
       dropOffPromise,
-      pricePromise,
+      ridePromise,
     ]);
-    setlocations({ pickup, dropoff, prices });
+    setlocations({ pickup, dropoff, rides });
+
     setpointLocation({
-      pickup: pickup[0].id,
-      dropoff: dropoff[0].id,
+      pickup: pickup[0] ? pickup[0].id : 0,
+      dropoff: dropoff[0] ? dropoff[0].id : 0,
       customLocation: "",
     });
-    setselectedRides(
-      scheduleInfo.from === WindsorId ? ridesFromWindsor : ridesFromToronto
-    );
     setloading(false);
   };
+  console.log(locations);
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
@@ -259,33 +179,21 @@ export default function Schedule(props) {
     loadLocations();
   }, [scheduleInfo.from, scheduleInfo.to]);
 
-  const priceCalculation = (pricesList) => {
-    let prices = pricesList.map((price) => ({
-      locations: [price.from._id, price.to._id],
-      price: price.price,
-      luggage: price.luggage,
-    }));
-
-    prices.forEach((price) => {
-      if (
-        price.locations.includes(scheduleInfo.from) &&
-        price.locations.includes(scheduleInfo.to)
-      ) {
-        let luggageSum =
-          scheduleInfo.luggage > 0
-            ? price.luggage[0] + price.luggage[1] * (scheduleInfo.luggage - 1)
-            : 0;
-        setselectedRide({
-          ...selectedRide,
-          price: scheduleInfo.adults * price.price,
-          luggage: luggageSum,
-        });
-      }
+  const priceCalculation = () => {
+    let rides = locations.rides.map((ride) => {
+      return {
+        ...ride,
+        totalPrice:
+          ride.stops.price * scheduleInfo.adults +
+          (scheduleInfo.luggage > 0
+            ? ride.luggage[0] + ride.luggage[1] * (scheduleInfo.luggage - 1)
+            : 0),
+      };
     });
+    setlocations({ ...locations, rides: rides });
   };
   useEffect(() => {
-    console.log(locations.prices);
-    priceCalculation(locations.prices);
+    priceCalculation();
   }, [scheduleInfo.adults, scheduleInfo.luggage]);
 
   const combineDateAndTime = (date, time) => {
@@ -310,7 +218,7 @@ export default function Schedule(props) {
           location_id: pointLocation.pickup,
           city_id: scheduleInfo.from,
           customLocation:
-            pointLocation.pickup === "6564e158f3d3c3b55fe5854b"
+            pointLocation.pickup === WithInPickUpArea
               ? pointLocation.customLocation
               : "",
         },
@@ -318,15 +226,15 @@ export default function Schedule(props) {
           location_id: pointLocation.dropoff,
           city_id: scheduleInfo.to,
           customLocation:
-            pointLocation.dropoff === "6564e158f3d3c3b55fe5854b"
+            pointLocation.dropoff === WithInPickUpArea
               ? pointLocation.customLocation
               : "",
         },
-        price: selectedRide.price + selectedRide.luggage,
-        ScheduledToTime: combineDateAndTime(
-          scheduleInfo.date,
-          selectedRide.time
-        ),
+        ride_id: selectedRide.id,
+        price: selectedRide.price,
+        ScheduledToTime: selectedRide.time,
+        adult: scheduleInfo.adults,
+        luggage: scheduleInfo.luggage,
       };
       if (authDetails.isAuthenticated) {
         if (authDetails.type === "user") {
@@ -379,6 +287,9 @@ export default function Schedule(props) {
   };
   const validation = () => {
     let errorDict = {};
+    let seatsAvailable =
+      selectedRide.bookingsLeft >= scheduleInfo.adults ? true : false;
+    console.log(seatsAvailable);
     if (pointLocation.pickup === "") errorDict = { ...errorDict, pickup: true };
     else errorDict = { ...errorDict, pickup: false };
     if (pointLocation.dropoff === "")
@@ -391,23 +302,64 @@ export default function Schedule(props) {
     )
       errorDict = { ...errorDict, customLocation: true };
     else errorDict = { ...errorDict, customLocation: false };
+    if (selectedRide.id == 0)
+      Alert(
+        "Please select the ride",
+        "To confirm the booking you need to select a ride",
+        () => {},
+        false,
+        () => {},
+        () => {},
+        true,
+        "Ok"
+      );
+    if (!seatsAvailable)
+      Alert(
+        "Sorry, Seats not available",
+        "Required number of seats not available for this date",
+        () => {},
+        false,
+        () => {},
+        () => {},
+        true,
+        "Ok"
+      );
+
     seterror({ ...error, ...errorDict });
     if (
       !errorDict.pickup &&
       !errorDict.dropoff &&
       !errorDict.adults &&
-      !errorDict.customLocation
+      !errorDict.customLocation &&
+      selectedRide.id !== 0 &&
+      seatsAvailable
     )
       return true;
     else return false;
   };
-
+  const calculateSeatesLeft = (rideCapacity, pickupTime, bookings) => {
+    let date = combineDateAndTime(scheduleInfo.date, pickupTime);
+    // let count = bookings.filter((item) =>
+    //   moment(new Date(item.ScheduledToTime)).isSame(new Date(date))
+    // );
+    // let sum = 0;
+    // count.forEach((item) => (sum = item.adult));
+    let count = bookings.reduce((total, item) => {
+      if (moment(new Date(item.ScheduledToTime)).isSame(new Date(date))) {
+        return total + item.adult;
+      }
+      return total;
+    }, 0);
+    // console.log(date, count);
+    return rideCapacity - count;
+  };
   const checkTime = () => {
     let flag = true;
-    selectedRides.forEach((ride) => {
+    locations.rides.forEach((ride) => {
       if (
-        moment(new Date()).isBefore(
-          combineDateAndTime(scheduleInfo.date, ride.fromTime)
+        checkAvailableRides(
+          combineDateAndTime(scheduleInfo.date, ride.stops.pickupTime),
+          ride.rideCancelledDays ? ride.rideCancelledDays : []
         )
       ) {
         flag = false;
@@ -415,6 +367,40 @@ export default function Schedule(props) {
     });
     return flag;
   };
+  const checkAvailableRides = (date, cancelledDaysList) => {
+    const cancelledDays = cancelledDaysList.map((date) => {
+      return new Date(date).toISOString().split("T")[0];
+    });
+    cancelledDays.sort();
+
+    if (cancelledDays.length > 0)
+      return (
+        moment(date).isAfter(new Date()) &&
+        (moment(date).isBefore(cancelledDays[0]) ||
+          moment(date).isAfter(
+            cancelledDays[cancelledDays.length - 1] + "T23:59:59.999Z"
+          ))
+      );
+    else return moment(date).isAfter(new Date());
+  };
+
+  const updateTotalBookingsCalculation = () => {
+    let rides = locations.rides.map((ride) => {
+      return {
+        ...ride,
+        bookingsLeft: calculateSeatesLeft(
+          ride.rideCapacity,
+          ride.stops.pickupTime,
+          ride.validBookings
+        ),
+      };
+    });
+    setlocations({ ...locations, rides: rides });
+  };
+  useEffect(() => {
+    updateTotalBookingsCalculation();
+  }, [scheduleInfo.date]);
+
   return (
     <>
       {loading ? (
@@ -434,26 +420,34 @@ export default function Schedule(props) {
           <div className="schedule-content">
             <div className="rides">
               {checkTime() && <NoContent content={"No Rides Available"} />}
-              {selectedRides.map(
+              {locations.rides.map(
                 (ride, index) =>
-                  moment(new Date()).isBefore(
-                    combineDateAndTime(scheduleInfo.date, ride.fromTime)
+                  checkAvailableRides(
+                    combineDateAndTime(
+                      scheduleInfo.date,
+                      ride.stops.pickupTime
+                    ),
+                    ride.rideCancelledDays ? ride.rideCancelledDays : []
                   ) && (
                     <div
                       className={`ride ${
-                        selectedRide.id === ride.id ? "selected" : ""
+                        selectedRide.id === ride._id ? "selected" : ""
                       }`}
                       onClick={() =>
                         setselectedRide({
-                          ...selectedRide,
-                          id: ride.id,
-                          time: ride.fromTime,
+                          id: ride._id,
+                          time: combineDateAndTime(
+                            scheduleInfo.date,
+                            ride.stops.pickupTime
+                          ),
+                          price: ride.totalPrice,
+                          bookingsLeft: ride.bookingsLeft,
                         })
                       }
                     >
                       <div className="from">
                         <div className="time">
-                          {moment(ride.fromTime).format("LT")}
+                          {moment(ride.stops.pickupTime).format("LT")}
                         </div>
                         <div className="location">
                           {getCityName(scheduleInfo.from).item}
@@ -461,23 +455,24 @@ export default function Schedule(props) {
                       </div>
                       <div className="travel-time">
                         <img src={CarIcon} />
-                        <span>
-                          {/* {moment(
-                        moment(ride.toTime).diff(moment(ride.fromTime))
-                      ).format("hh:mm")} */}
-                          {/* 04:00 */}
-                        </span>
+                        <span>{CalculateTime(ride.stops.travelTime)}</span>
                       </div>
                       <div className="to">
                         <div className="time">
-                          {moment(ride.toTime).format("LT")}
+                          {moment(
+                            addTimeToDate(
+                              ride.stops.pickupTime,
+                              ride.stops.travelTime
+                            )
+                          ).format("LT")}
                         </div>
                         <div className="location">
                           {getCityName(scheduleInfo.to).item}
                         </div>
                       </div>
-                      <div className="price">
-                        ${selectedRide.price + selectedRide.luggage}
+                      <div>
+                        <div className="price">${ride.totalPrice}</div>
+                        <div className="bookings-left">{`(${ride.bookingsLeft} seats left)`}</div>
                       </div>
                     </div>
                   )
