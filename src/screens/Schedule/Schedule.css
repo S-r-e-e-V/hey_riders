@@ -47,6 +47,12 @@
   box-shadow: 5px 5px 10px -2px var(--black);
   transition: all 0.3s ease-in-out;
 }
+.schedule-page .schedule-content .rides .ride .ride-content {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
 .schedule-page .schedule-content .rides .ride.selected {
   background: linear-gradient(89.1deg, var(--yellow), var(--white));
 }
@@ -62,6 +68,10 @@
 }
 .schedule-page .schedule-content .rides .ride .location {
   font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
 }
 .schedule-page .schedule-content .travel-time {
   display: flex;
@@ -77,11 +87,15 @@
   font-weight: 600;
   color: var(--red);
 }
+.schedule-page .schedule-content .rides .ride .price-section span {
+  display: none;
+}
 .schedule-page .schedule-content .bookings-left {
   padding-top: 10px;
   font-size: 12px;
   font-weight: 600;
   color: var(--red);
+  white-space: nowrap;
 }
 
 /* ride details */
@@ -163,7 +177,34 @@
   .schedule-page .schedule-content .price {
     font-size: 20px;
   }
+  .schedule-page .schedule-content .rides .ride {
+    font-size: 12px;
+  }
   .schedule-page .schedule-content .travel-time img {
     width: 30px;
+  }
+  .schedule-page .schedule-content .rides .ride .location {
+    max-width: 85px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .schedule-page .schedule-content .rides .ride {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .schedule-page .schedule-content .rides .ride .ride-content {
+    justify-content: space-between;
+  }
+  .schedule-page .schedule-content .rides .ride .price-section {
+    display: flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 5px;
+  }
+  .schedule-page .schedule-content .rides .ride .price-section .price {
+    display: flex;
+  }
+  .schedule-page .schedule-content .rides .ride .price-section span {
+    display: block;
   }
 }

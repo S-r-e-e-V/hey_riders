@@ -445,33 +445,37 @@ export default function Schedule(props) {
                         })
                       }
                     >
-                      <div className="from">
-                        <div className="time">
-                          {moment(ride.stops.pickupTime).format("LT")}
+                      <div className="ride-content">
+                        <div className="from">
+                          <div className="time">
+                            {moment(ride.stops.pickupTime).format("LT")}
+                          </div>
+                          <div className="location">
+                            {getCityName(scheduleInfo.from).item}
+                          </div>
                         </div>
-                        <div className="location">
-                          {getCityName(scheduleInfo.from).item}
+                        <div className="travel-time">
+                          <img src={CarIcon} />
+                          <span>{CalculateTime(ride.stops.travelTime)}</span>
+                        </div>
+                        <div className="to">
+                          <div className="time">
+                            {moment(
+                              addTimeToDate(
+                                ride.stops.pickupTime,
+                                ride.stops.travelTime
+                              )
+                            ).format("LT")}
+                          </div>
+                          <div className="location">
+                            {getCityName(scheduleInfo.to).item}
+                          </div>
                         </div>
                       </div>
-                      <div className="travel-time">
-                        <img src={CarIcon} />
-                        <span>{CalculateTime(ride.stops.travelTime)}</span>
-                      </div>
-                      <div className="to">
-                        <div className="time">
-                          {moment(
-                            addTimeToDate(
-                              ride.stops.pickupTime,
-                              ride.stops.travelTime
-                            )
-                          ).format("LT")}
+                      <div className="price-section">
+                        <div className="price">
+                          <span>Price : </span> ${ride.totalPrice}
                         </div>
-                        <div className="location">
-                          {getCityName(scheduleInfo.to).item}
-                        </div>
-                      </div>
-                      <div>
-                        <div className="price">${ride.totalPrice}</div>
                         <div className="bookings-left">{`(${ride.bookingsLeft} seats left)`}</div>
                       </div>
                     </div>
