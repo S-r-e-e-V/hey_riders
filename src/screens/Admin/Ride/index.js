@@ -52,10 +52,12 @@ const AdminRide = () => {
   const findRideDetails = (ride) => {
     const res = ride.stops.filter(
       (stop) =>
-        stop.from._id === ride.rideFrom._id && stop.to._id === ride.rideTo._id
+        stop.from?._id === ride.rideFrom._id &&
+        stop.to?._id === ride.rideTo?._id
     );
     return res.length > 0 ? res[0] : 0;
   };
+  console.log(ride);
   return (
     <>
       {loading ? (

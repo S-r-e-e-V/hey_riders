@@ -326,7 +326,7 @@ const EditRide = () => {
                       title={"Select city"}
                       items={locationList.from}
                       initialSelection={[
-                        { id: ridestops.from._id, item: ridestops.from.city },
+                        { id: ridestops.from?._id, item: ridestops.from?.city },
                       ]}
                       selectedItem={(e) => {
                         {
@@ -351,7 +351,7 @@ const EditRide = () => {
                       title={"Select city"}
                       items={locationList.to}
                       initialSelection={[
-                        { id: ridestops.to._id, item: ridestops.to.city },
+                        { id: ridestops.to?._id, item: ridestops.to?.city },
                       ]}
                       selectedItem={(e) => {
                         const updatedStops = [...rideDetails.stops];
